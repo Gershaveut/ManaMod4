@@ -16,6 +16,6 @@ public class Items {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
-    public static final RegistryObject<Item> MANA = ITEMS.register("mana", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MANA = ITEMS.register("mana", () -> new TooltipItem(new Item.Properties()));
     public static final RegistryObject<Item> FLINT_AND_MANA = ITEMS.register("flint_and_mana", () -> new FlintAndSteelItem(new Item.Properties()));
 }

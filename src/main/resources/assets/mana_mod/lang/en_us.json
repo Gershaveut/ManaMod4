@@ -1,6 +1,8 @@
 {
+  "item.mana_mod.tooltip": "§7Hold §f §7for a detailed tooltip",
   "item.mana_mod.tooltip_1": "§7Hold §f",
   "item.mana_mod.tooltip_2": " §7for a detailed tooltip",
+  "item.mana_mod.usagetip": "§7Hold §f §7Hold §f",
   "item.mana_mod.usagetip_1": "§7Hold §f",
   "item.mana_mod.usagetip_2": " §7for a usage",
   "item.mana_mod.usagetip.error": "You cannot use the item in this situation",
@@ -73,6 +75,6 @@
   "config.mana_mod.category.key_binds": "Key binds",
   "config.mana_mod.category.gameplay.item_cooldown": "Cooldown items",
   "key.mana_mod.key_tooltip": "Tooltip items",
-  "config.mana_mod.category.key_binds.key_usagetip": "Usage items tooltip",
+  "key.mana_mod.key_usage_item": "Usage items tooltip",
   "key.categories.mana_mod": "Mana Mod"
 }
