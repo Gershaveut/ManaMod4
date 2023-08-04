@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "mana_mod:block/chiseled_mana_bricks"
+  }
+}

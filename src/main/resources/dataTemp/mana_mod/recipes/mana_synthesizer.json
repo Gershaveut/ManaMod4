@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "IAI",
+    "III"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:anvil"
+    },
+    "I": {
+      "item": "mana_mod:mana_ingot"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_synthesizer"
+  }
+}

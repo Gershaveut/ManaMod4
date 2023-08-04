@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II ",
+    "IS ",
+    " S "
+  ],
+  "key": {
+    "S": {
+      "item": "mana_mod:mana_stick"
+    },
+    "I": {
+      "item": "mana_mod:mana_ingot"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_axe"
+  }
+}

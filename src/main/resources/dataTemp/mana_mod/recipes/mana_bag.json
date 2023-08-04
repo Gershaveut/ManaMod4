@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M M",
+    "MPM",
+    "MMM"
+  ],
+  "key": {
+    "M": {
+      "item": "mana_mod:mana"
+    },
+    "P": {
+      "item": "mana_mod:mana_piece"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_bag",
+    "count": 1
+  }
+}

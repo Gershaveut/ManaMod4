@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GSG",
+    "GHG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "minecraft:string"
+    },
+    "H": {
+      "item": "mana_mod:mana_heat"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_amulet"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "mana_mod:mana_bricks"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_brick_slab",
+    "count": 6
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "mana_mod:item/mana_potion"
+  },
+  "overrides": [
+    { "predicate": { "damage": 0.3 }, "model": "mana_mod:item/mana_potion1" },
+    { "predicate": { "damage": 0.6 }, "model": "mana_mod:item/mana_potion2" }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "mana_mod:block/chiseled_mana_bricks" }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "mana_mod:mana_bricks"
+  },
+  "result": "mana_mod:chiseled_mana_bricks",
+  "count": 1
+}

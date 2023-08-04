@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M",
+    "C",
+    "M"
+  ],
+  "key": {
+    "M": {
+      "item": "mana_mod:mana"
+    },
+    "C": {
+      "item": "minecraft:coal_block"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_fuel",
+    "count": 1
+  }
+}

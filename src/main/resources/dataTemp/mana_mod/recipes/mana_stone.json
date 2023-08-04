@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "PIP",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "mana_mod:mana_piece"
+    },
+    "I": {
+      "item": "mana_mod:mana_ingot"
+    }
+  },
+  "result": {
+    "item": "mana_mod:mana_stone"
+  }
+}
