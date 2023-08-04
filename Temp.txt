@@ -1,0 +1,21 @@
+if (GLFW.GLFW_PRESS == GLFW.glfwGetKey(Minecraft.getInstance().getWindow(), ManaModConfig.keyTooltip.getCode()) && !reportTip) {
+            tooltip.add(1, tip);
+        } else {
+            if (!reportTip) {
+                tooltip.add(1, ManaMod.tooltip);
+                if (tooltip.size() == 2)
+                    tooltip.add(2, ManaMod.usagetip);
+            } else {
+                tooltip.add(1, reportText);
+            }
+        }
+        if (GLFW.GLFW_PRESS == GLFW.glfwGetKey(ManaModClient.client.getWindow().getHandle(), ManaModConfig.keyUsagetip.getCode()) && !itemCooldown && !(GLFW.GLFW_PRESS == GLFW.glfwGetKey(ManaModClient.client.getWindow().getHandle(), GLFW.GLFW_KEY_LEFT_SHIFT))) {
+            if (world.getPlayerByUuid(ManaModClient.client.player.getUuid()).isCreative() || world.getPlayerByUuid(ManaModClient.client.player.getUuid()).getInventory().contains(itemStack)) {
+                use(world, world.getPlayerByUuid(ManaModClient.client.player.getUuid()), Hand.MAIN_HAND);
+            } else {
+                reportText = new TranslatableText("item.mana_mod.usagetip.error");
+                reportTipTime = 60;
+                reportTip = true;
+            }
+        }
+        tooltip.add(ManaMod.unfinished);

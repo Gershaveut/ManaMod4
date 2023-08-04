@@ -64,7 +64,7 @@
   "item.mana_mod.mana_cake.tooltip": "The cake is restored if you click on it with a mana",
   "block.mana_mod.mana_synthesizer": "Mana Synthesizer",
   "block.mana_mod.mana_synthesizer.gui.fast_mode": "Fast mode",
-  "itemGroup.mana_mod.general": "Mana Mod",
+  "item_group.mana_mod.general": "Mana Mod",
   "effect.mana_mod.manafication": "Manafication",
   "effect.mana_mod.flight": "Flight",
   "entity.mana_mod.mana_brat": "Mana Brat",
@@ -72,6 +72,7 @@
   "config.mana_mod.category.gameplay": "Gameplay",
   "config.mana_mod.category.key_binds": "Key binds",
   "config.mana_mod.category.gameplay.item_cooldown": "Cooldown items",
-  "config.mana_mod.category.key_binds.key_tooltip": "Tooltip items",
-  "config.mana_mod.category.key_binds.key_usagetip": "Usage items tooltip"
+  "key.mana_mod.key_tooltip": "Tooltip items",
+  "config.mana_mod.category.key_binds.key_usagetip": "Usage items tooltip",
+  "key.categories.mana_mod": "Mana Mod"
 }
