@@ -20,5 +20,22 @@ public class CreativeModeTabs {
             .displayItems((parameters, output) -> {
                 output.accept(Items.MANA.get());
                 output.accept(Items.FLINT_AND_MANA.get());
+                output.accept(Items.MAGIC_LIGHTER.get());
+                output.accept(Items.MANA_BAG.get());
+                output.accept(Items.MANA_FRIED.get());
+                output.accept(Items.MANA_FUEL.get());
+                output.accept(Items.MANA_HEAT.get());
+                output.accept(Items.MANA_INGOT.get());
+                output.accept(Items.MANA_PIECE.get());
+                output.accept(Items.MANA_POTION.get());
+                output.accept(Items.MANA_SHARDS.get());
+                output.accept(Items.MANA_STAFF.get());
+                output.accept(Items.MANA_STICK.get());
+                output.accept(Items.MANA_STONE.get());
+                output.accept(Items.MANA_TALISMAN.get());
+                output.accept(Items.SUPER_STONE.get());
+                output.accept(Items.UNSTABLE_MANA_PIECE.get());
+                output.accept(Items.UNSTABLE_MANA_STICK.get());
+                output.accept(Items.UNSTABLE_MANA_TALISMAN.get());
             }).build());
 }
