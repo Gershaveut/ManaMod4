@@ -1,7 +1,9 @@
 package com.gershaveut.mana_mod.world.item;
 
 import com.gershaveut.mana_mod.ManaMod;
+import com.gershaveut.mana_mod.world.level.block.Blocks;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.FlintAndSteelItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -15,7 +17,6 @@ import static com.gershaveut.mana_mod.ManaMod.MODID;
 
 @Mod.EventBusSubscriber(modid = ManaMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Items {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
     public static final RegistryObject<Item> MANA = ITEMS.register("mana", () -> new Item(new Item.Properties()));
@@ -37,19 +38,39 @@ public class Items {
     public static final RegistryObject<Item> UNSTABLE_MANA_PIECE = ITEMS.register("unstable_mana_piece", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNSTABLE_MANA_STICK = ITEMS.register("unstable_mana_stick", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNSTABLE_MANA_TALISMAN = registerTooltipItem("unstable_mana_talisman", new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON), true, true, true);
+    public static final RegistryObject<Item> MANA_BLOCK = ITEMS.register("mana_block", () -> new BlockItem(Blocks.MANA_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<Item> MANA_BRICKS = ITEMS.register("mana_bricks", () -> new BlockItem(Blocks.MANA_BRICKS.get(), new Item.Properties()));
+    public static final RegistryObject<Item> CHISELED_MANA_BRICKS = ITEMS.register("chiseled_mana_bricks", () -> new BlockItem(Blocks.CHISELED_MANA_BRICKS.get(), new Item.Properties()));
+    public static final RegistryObject<Item> MANA_BRICK_WALL = ITEMS.register("mana_brick_wall", () -> new BlockItem(Blocks.MANA_BRICK_WALL.get(), new Item.Properties()));
+    public static final RegistryObject<Item> MANA_BRICK_SLAB = ITEMS.register("mana_brick_slab", () -> new BlockItem(Blocks.MANA_BRICK_SLAB.get(), new Item.Properties()));
 
     public static RegistryObject<Item> registerTooltipItem(String name, Item.Properties properties) {
-        return ITEMS.register(name, () -> new TooltipItem(properties, name));
+        return ITEMS.register(name, () -> new TooltipItem(properties, new Tooltip(name)));
     }
     public static RegistryObject<Item> registerTooltipItem(String name, Item.Properties properties, boolean descriptionItem) {
-        return ITEMS.register(name, () -> new TooltipItem(properties, name, descriptionItem));
+        return ITEMS.register(name, () -> new TooltipItem(properties, new Tooltip(name, descriptionItem)));
     }
 
     public static RegistryObject<Item> registerTooltipItem(String name, Item.Properties properties, boolean descriptionItem, boolean UsageItem) {
-        return ITEMS.register(name, () -> new TooltipItem(properties, name, descriptionItem, UsageItem));
+        return ITEMS.register(name, () -> new TooltipItem(properties, new Tooltip(name, descriptionItem, UsageItem)));
     }
 
     public static RegistryObject<Item> registerTooltipItem(String name, Item.Properties properties, boolean descriptionItem, boolean UsageItem, boolean WIP) {
-        return ITEMS.register(name, () -> new TooltipItem(properties, name, descriptionItem, UsageItem, WIP));
+        return ITEMS.register(name, () -> new TooltipItem(properties, new Tooltip(name, descriptionItem, UsageItem, WIP)));
+    }
+
+    public static RegistryObject<Item> registerTooltipBlockItem(String name, Block block, Item.Properties properties) {
+        return ITEMS.register(name, () -> new TooltipBlockItem(block, properties, new Tooltip(name)));
+    }
+    public static RegistryObject<Item> registerTooltipBlockItem(String name, Block block, Item.Properties properties, boolean descriptionItem) {
+        return ITEMS.register(name, () -> new TooltipBlockItem(block, properties, new Tooltip(name, descriptionItem)));
+    }
+
+    public static RegistryObject<Item> registerTooltipBlockItem(String name, Block block, Item.Properties properties, boolean descriptionItem, boolean UsageItem) {
+        return ITEMS.register(name, () -> new TooltipBlockItem(block, properties, new Tooltip(name, descriptionItem, UsageItem)));
+    }
+
+    public static RegistryObject<Item> registerTooltipBlockItem(String name, Block block, Item.Properties properties, boolean descriptionItem, boolean UsageItem, boolean WIP) {
+        return ITEMS.register(name, () -> new TooltipBlockItem(block, properties, new Tooltip(name, descriptionItem, UsageItem, WIP)));
     }
 }
