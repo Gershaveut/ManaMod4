@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "ManaMod.refmap.json",
   "mixins": [
+    "world.item.MixinItem"
   ],
   "client": [
   ],
