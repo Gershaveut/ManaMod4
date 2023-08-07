@@ -37,5 +37,14 @@ public class CreativeModeTabs {
                 output.accept(Items.UNSTABLE_MANA_PIECE.get());
                 output.accept(Items.UNSTABLE_MANA_STICK.get());
                 output.accept(Items.UNSTABLE_MANA_TALISMAN.get());
+                output.accept(Items.MANA_BLOCK.get());
+                output.accept(Items.MANA_BRICKS.get());
+                output.accept(Items.CHISELED_MANA_BRICKS.get());
+                output.accept(Items.MANA_BRICK_WALL.get());
+                output.accept(Items.MANA_BRICK_SLAB.get());
+                output.accept(Items.MANA_CAKE.get());
+                output.accept(Items.MANA_ORE.get());
+                output.accept(Items.MANA_SYNTHESIZER.get());
+                output.accept(Items.UNSTABLE_MANA_BLOCK.get());
             }).build());
 }
