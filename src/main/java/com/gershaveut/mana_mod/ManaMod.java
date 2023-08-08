@@ -29,8 +29,6 @@ import java.util.Locale;
 public class ManaMod {
     public static final String MODID = "mana_mod";
     private static final Logger LOGGER = LogUtils.getLogger();
-    public static final KeyMapping KEY_DESCRIPTION_ITEM = new KeyMapping("key.mana_mod.key_description_item", KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, "key.categories.mana_mod");
-    public static final KeyMapping KEY_USAGE_ITEM = new KeyMapping("key.mana_mod.key_usage_item", KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_CONTROL, "key.categories.mana_mod");
 
     public ManaMod() {
         Log(Level.INFO, "Initializing");
@@ -48,7 +46,7 @@ public class ManaMod {
     }
 
     public void initialize(FMLCommonSetupEvent event) {
-        MMPacketHandler.initialize();
+        MMPacketHandler.registerMessages();
     }
 
     public static ResourceLocation prefix(String name) {
@@ -61,6 +59,9 @@ public class ManaMod {
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
+        public static final KeyMapping KEY_DESCRIPTION_ITEM = new KeyMapping("key.mana_mod.key_description_item", KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_SHIFT, "key.categories.mana_mod");
+        public static final KeyMapping KEY_USAGE_ITEM = new KeyMapping("key.mana_mod.key_usage_item", KeyConflictContext.GUI, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_RIGHT_CONTROL, "key.categories.mana_mod");
+
         @SubscribeEvent
         public static void registerBindings(RegisterKeyMappingsEvent event) {
             event.register(KEY_DESCRIPTION_ITEM);
