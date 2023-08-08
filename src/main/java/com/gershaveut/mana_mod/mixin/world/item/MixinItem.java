@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -35,23 +34,19 @@ public abstract class MixinItem implements Tooltip {
     @Unique
     private boolean manaMod$isFeedbackNullRunning;
 
-    @Override
     public Tooltip manaMod$setTooltipProperties(TooltipProperties tooltipProperties) {
         this.manaMod$tooltipProperties = tooltipProperties;
         return this;
     }
 
-    @Override
     public TooltipProperties manaMod$getTooltipProperties() {
         return manaMod$tooltipProperties;
     }
 
-    @Override
     public void manaMod$setFeedback(Component component) {
         manaMod$feedback = component;
     }
 
-    @Override
     public Component manaMod$getFeedback() {
         return manaMod$feedback;
     }
@@ -61,7 +56,7 @@ public abstract class MixinItem implements Tooltip {
     @Shadow protected abstract String getOrCreateDescriptionId();
 
     @Inject(method = "appendHoverText", at = @At("HEAD"))
-    public void onAppendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag tooltipFlag, CallbackInfo callbackInfo) {
+    public void onAppendHoverText(ItemStack itemStack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag, CallbackInfo callbackInfo) {
         Component description = Component.translatable(getOrCreateDescriptionId() + ".description");
         Component descriptionView = Component.literal(Component.translatable("item.mana_mod.description_view").getString().replace("{key}", ManaMod.KEY_DESCRIPTION_ITEM.getKey().getDisplayName().getString()));
         Component usageView = Component.literal(Component.translatable("item.mana_mod.usage_view").getString().replace("{key}", ManaMod.KEY_USAGE_ITEM.getKey().getDisplayName().getString()));
