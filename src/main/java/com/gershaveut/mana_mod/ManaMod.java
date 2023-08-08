@@ -1,11 +1,13 @@
 package com.gershaveut.mana_mod;
 
-import com.gershaveut.mana_mod.world.item.CreativeModeTabs;
-import com.gershaveut.mana_mod.world.item.Items;
-import com.gershaveut.mana_mod.world.level.block.Blocks;
+import com.gershaveut.mana_mod.network.protocol.MMPacketHandler;
+import com.gershaveut.mana_mod.world.item.MMCreativeModeTabs;
+import com.gershaveut.mana_mod.world.item.MMItems;
+import com.gershaveut.mana_mod.world.level.block.MMBlocks;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
@@ -15,10 +17,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.event.Level;
+
+import java.util.Locale;
 
 @Mod(ManaMod.MODID)
 public class ManaMod {
@@ -32,11 +37,22 @@ public class ManaMod {
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        CreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
-        Blocks.BLOCKS.register(modEventBus);
-        Items.ITEMS.register(modEventBus);
+        MMCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
+        MMBlocks.BLOCKS.register(modEventBus);
+        MMItems.ITEMS.register(modEventBus);
+
+        modEventBus.addListener(this::initialize);
+
         MinecraftForge.EVENT_BUS.register(this);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.SPEC);
+    }
+
+    public void initialize(FMLCommonSetupEvent event) {
+        MMPacketHandler.initialize();
+    }
+
+    public static ResourceLocation prefix(String name) {
+        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
     }
 
     public static void Log(Level level, String message) {
