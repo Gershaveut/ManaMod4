@@ -14,7 +14,7 @@ public class MMPacketHandler {
             PROTOCOL_VERSION::equals
     );
 
-    public static void initialize() {
+    public static void registerMessages() {
         int id = 0;
         INSTANCE.registerMessage(id++, ManaFriedPacket.class, ManaFriedPacket::encode, ManaFriedPacket::new, ManaFriedPacket::handle);
     }

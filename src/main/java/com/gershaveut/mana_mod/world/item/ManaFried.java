@@ -9,8 +9,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.PacketDistributor;
 
-import java.util.function.Supplier;
-
 public class ManaFried extends Item {
     public ManaFried(Properties properties) {
         super(properties);
@@ -18,7 +16,8 @@ public class ManaFried extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-        MMPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with((Supplier<ServerPlayer>) livingEntity), new ManaFriedPacket());
+        if (livingEntity instanceof ServerPlayer player)
+            MMPacketHandler.INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), new ManaFriedPacket(livingEntity));
         return super.finishUsingItem(itemStack, level, livingEntity);
     }
 }

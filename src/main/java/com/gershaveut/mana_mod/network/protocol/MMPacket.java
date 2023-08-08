@@ -10,7 +10,4 @@ import java.util.function.Supplier;
 public interface MMPacket {
     default void encode(FriendlyByteBuf friendlyByteBuf) {
     }
-
-    static void handle(ManaFriedPacket message, Supplier<NetworkEvent.Context> ctx) {
-    }
 }
