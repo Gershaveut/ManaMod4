@@ -1,19 +1,14 @@
 package com.gershaveut.mana_mod.world.item;
 
-import com.gershaveut.mana_mod.ManaMod;
 import com.gershaveut.mana_mod.world.level.block.MMBlocks;
-import net.minecraft.world.flag.FeatureFlag;
-import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import static com.gershaveut.mana_mod.ManaMod.MODID;
 
-@Mod.EventBusSubscriber(modid = ManaMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MMItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
 
@@ -21,7 +16,7 @@ public class MMItems {
     public static final RegistryObject<Item> FLINT_AND_MANA = ITEMS.register("flint_and_mana", () -> new FlintAndSteelItem(new Item.Properties().durability(128)));
     public static final RegistryObject<Item> MAGIC_LIGHTER = ITEMS.register("magic_lighter", () -> (Item) ((Tooltip) new Item(new Item.Properties().stacksTo(1))).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem().UsageItem().WIP()));
     public static final RegistryObject<Item> MANA_BAG = ITEMS.register("mana_bag", () -> (Item) ((Tooltip) new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem().WIP()));
-    public static final RegistryObject<Item> MANA_FRIED = ITEMS.register("mana_fried", () -> (Item) ((Tooltip) new ManaFried(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(1.2F).build()))).manaMod$setTooltipProperties(new TooltipProperties().WIP()));
+    public static final RegistryObject<Item> MANA_FRIED = ITEMS.register("mana_fried", () -> (ManaFried) ((Tooltip) new ManaFried(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(1.2F).build()))).manaMod$setTooltipProperties(new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_FUEL = ITEMS.register("mana_fuel", () -> (Item) ((Tooltip) new FuelItem(new Item.Properties(), 32000)).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem()));
     public static final RegistryObject<Item> MANA_HEAT = ITEMS.register("mana_heat", () -> (Item) ((Tooltip) new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE))).manaMod$setTooltipProperties(new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_INGOT = ITEMS.register("mana_ingot", () -> new Item(new Item.Properties()));

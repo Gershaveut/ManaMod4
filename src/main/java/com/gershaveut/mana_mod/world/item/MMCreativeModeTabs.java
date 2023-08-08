@@ -9,7 +9,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import static com.gershaveut.mana_mod.ManaMod.MODID;
 
-@Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class MMCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 

@@ -2,9 +2,10 @@ package com.gershaveut.mana_mod.network.protocol;
 
 import com.gershaveut.mana_mod.ManaMod;
 import com.gershaveut.mana_mod.network.protocol.game.ManaFriedPacket;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+
+import java.util.Optional;
 
 public class MMPacketHandler {
     private static final String PROTOCOL_VERSION = "1";
