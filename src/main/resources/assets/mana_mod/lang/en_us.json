@@ -64,7 +64,7 @@
   "block.mana_mod.mana_synthesizer.gui.fast_mode": "Fast mode",
   "item_group.mana_mod.general": "Mana Mod",
   "effect.mana_mod.manafication": "Manafication",
-  "effect.mana_mod.flight": "Flight",
+  "effect.mana_mod.mana_flight": "Mana Flight",
   "entity.mana_mod.mana_brat": "Mana Brat",
   "config.mana_mod.title": "Mana Mod Settings",
   "config.mana_mod.category.gameplay": "Gameplay",
