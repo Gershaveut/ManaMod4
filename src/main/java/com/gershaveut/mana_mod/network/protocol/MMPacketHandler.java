@@ -5,10 +5,8 @@ import com.gershaveut.mana_mod.network.protocol.game.ManaFriedPacket;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-import java.util.Optional;
-
 public class MMPacketHandler {
-    private static final String PROTOCOL_VERSION = "1";
+    private static final String PROTOCOL_VERSION = "1.0";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(ManaMod.prefix("main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
@@ -17,6 +15,6 @@ public class MMPacketHandler {
 
     public static void registerMessages() {
         int id = 0;
-        INSTANCE.registerMessage(id++, ManaFriedPacket.class, ManaFriedPacket::encode, ManaFriedPacket::new, ManaFriedPacket::handle);
+        INSTANCE.registerMessage(id, ManaFriedPacket.class, ManaFriedPacket::encode, ManaFriedPacket::new, ManaFriedPacket::handle);
     }
 }

@@ -1,6 +1,5 @@
 package com.gershaveut.mana_mod.world.level.block;
 
-
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
