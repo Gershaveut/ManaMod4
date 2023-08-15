@@ -26,7 +26,7 @@ public class MMItems {
     public static final RegistryObject<Item> MANA_STAFF = ITEMS.register("mana_staff", () -> (Item) ((Tooltip) new Item(new Item.Properties().stacksTo(1))).manaMod$setTooltipProperties(new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_STICK = ITEMS.register("mana_stick", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MANA_STONE = ITEMS.register("mana_stone", () -> (ManaStone) ((Tooltip) new ManaStone(new Item.Properties().stacksTo(1))).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem().UsageItem().WIP()));
-    public static final RegistryObject<Item> MANA_TALISMAN = ITEMS.register("mana_talisman", () -> (Item) ((Tooltip) new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem().UsageItem().WIP()));
+    public static final RegistryObject<Item> MANA_TALISMAN = ITEMS.register("mana_talisman", () -> (ManaTalisman) ((Tooltip) new ManaTalisman(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON))).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem().UsageItem().WIP()));
     public static final RegistryObject<Item> SUPER_STONE = ITEMS.register("super_stone", () -> (Item) ((Tooltip) new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE))).manaMod$setTooltipProperties(new TooltipProperties().descriptionItem().UsageItem().WIP()));
     public static final RegistryObject<Item> UNSTABLE_MANA_PIECE = ITEMS.register("unstable_mana_piece", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNSTABLE_MANA_STICK = ITEMS.register("unstable_mana_stick", () -> new Item(new Item.Properties()));

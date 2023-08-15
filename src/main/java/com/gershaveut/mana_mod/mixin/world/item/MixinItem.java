@@ -94,7 +94,13 @@ public abstract class MixinItem implements Tooltip {
         
         if (keyUsageItemPressed && canUseItem) {
             if (player.isCreative() || player.getInventory().contains(itemStack)) {
-                use(level, player, player.getUsedItemHand());
+                try {
+                    use(level, player, player.getUsedItemHand());
+                } catch (Exception exception) {
+                    Component error = Component.literal(exception.getLocalizedMessage());
+                    manaMod$feedback = error;
+                    player.sendSystemMessage(error);
+                }
             } else {
                 manaMod$feedback = Component.translatable("item.mana_mod.feedback.error");
             }
