@@ -43,7 +43,7 @@
   "block.mana_mod.mana_synthesizer": "Синтезатор маны",
   "block.mana_mod.mana_synthesizer.gui.fast_mode": "Быстрый режим",
   "item_group.mana_mod.general": "Mana Mod",
-  "effect.mana_mod.manafication": "Манафикация",
+  "effect.mana_mod.manaification": "Манафикация",
   "effect.mana_mod.flight": "Полет",
   "item.mana_mod.usagetip.error": "Вы не можете использовать предмет в данной ситуации",
   "item.mana_mod.mana_ingot": "Слиток маны",

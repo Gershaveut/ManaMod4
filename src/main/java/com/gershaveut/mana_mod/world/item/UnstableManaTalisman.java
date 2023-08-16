@@ -2,7 +2,7 @@ package com.gershaveut.mana_mod.world.item;
 
 import com.gershaveut.mana_mod.MMConfig;
 import com.gershaveut.mana_mod.network.protocol.MMPacketHandler;
-import com.gershaveut.mana_mod.network.protocol.game.ManaTalismanPacket;
+import com.gershaveut.mana_mod.network.protocol.game.UnstableManaTalismanPacket;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -12,27 +12,19 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ManaTalisman extends Item {
-    public ManaTalisman(Item.Properties properties) {
+public class UnstableManaTalisman extends Item {
+    public UnstableManaTalisman(Properties properties) {
         super(properties);
     }
-    //TODO: Make quick use
+    
     @OnlyIn(Dist.CLIENT)
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ItemStack itemStack = this.getDefaultInstance();
-        
-        if (player.isShiftKeyDown()) {
-            MMPacketHandler.INSTANCE.sendToServer(new ManaTalismanPacket(ManaTalismanPacket.Weather.RAIN, itemStack));
-        } else if (InteractionHand.MAIN_HAND == interactionHand) {
-            MMPacketHandler.INSTANCE.sendToServer(new ManaTalismanPacket(ManaTalismanPacket.Weather.CLEAR, itemStack));
-        } else if (InteractionHand.OFF_HAND == interactionHand) {
-            MMPacketHandler.INSTANCE.sendToServer(new ManaTalismanPacket(ManaTalismanPacket.Weather.THUNDER, itemStack));
-        }
+        MMPacketHandler.INSTANCE.sendToServer(new UnstableManaTalismanPacket(this.getDefaultInstance()));
         
         if (MMConfig.itemCooldown)
             player.getCooldowns().addCooldown(this, 100);
-
+        
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
 }
