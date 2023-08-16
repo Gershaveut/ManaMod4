@@ -4,6 +4,7 @@ import com.gershaveut.mana_mod.ManaMod;
 import com.gershaveut.mana_mod.network.protocol.game.ManaFriedPacket;
 import com.gershaveut.mana_mod.network.protocol.game.ManaStonePacket;
 import com.gershaveut.mana_mod.network.protocol.game.ManaTalismanPacket;
+import com.gershaveut.mana_mod.network.protocol.game.UnstableManaTalismanPacket;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -17,6 +18,7 @@ public class MMPacketHandler {
 
     public static void registerMessages() {
         int id = 0;
+        INSTANCE.registerMessage(id++, UnstableManaTalismanPacket.class, UnstableManaTalismanPacket::encode, UnstableManaTalismanPacket::new, UnstableManaTalismanPacket::handle);
         INSTANCE.registerMessage(id++, ManaTalismanPacket.class, ManaTalismanPacket::encode, ManaTalismanPacket::new, ManaTalismanPacket::handle);
         INSTANCE.registerMessage(id++, ManaStonePacket.class, ManaStonePacket::encode, ManaStonePacket::new, ManaStonePacket::handle);
         INSTANCE.registerMessage(id, ManaFriedPacket.class, ManaFriedPacket::encode, ManaFriedPacket::new, ManaFriedPacket::handle);

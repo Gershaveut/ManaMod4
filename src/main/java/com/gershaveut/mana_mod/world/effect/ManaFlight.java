@@ -24,11 +24,23 @@ public class ManaFlight extends MobEffect {
     @Override
     public void removeAttributeModifiers(LivingEntity livingEntity, AttributeMap attributeMap, int amplifier) {
         if (livingEntity instanceof Player player) {
-            player.getAbilities().mayfly = false;
-            if (!player.isCreative())
+            if (!player.isCreative()) {
+                player.getAbilities().mayfly = false;
                 player.getAbilities().flying = false;
+            }
             player.getAbilities().setFlyingSpeed(0.05F);
             player.onUpdateAbilities();
         }
+    }
+    
+    @Override
+    public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+        if (livingEntity instanceof Player player)
+            player.getAbilities().mayfly = true;
+    }
+    
+    @Override
+    public boolean isDurationEffectTick(int duration, int amplifier) {
+        return true;
     }
 }
