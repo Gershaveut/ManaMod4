@@ -1,6 +1,5 @@
 package com.gershaveut.mana_mod.mixin.world.item;
 
-import com.gershaveut.mana_mod.client.MMClientEvents;
 import com.gershaveut.mana_mod.world.item.Tooltip;
 import com.gershaveut.mana_mod.world.item.TooltipProperties;
 import net.minecraft.client.Minecraft;
@@ -61,15 +60,15 @@ public abstract class MixinItem implements Tooltip {
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     public void onAppendHoverText(ItemStack itemStack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag, CallbackInfo callbackInfo) {
         Component description = Component.translatable(getOrCreateDescriptionId() + ".description");
-        Component descriptionView = Component.literal(Component.translatable("item.mana_mod.description_view").getString().replace("{key}", MMClientEvents.KEY_DESCRIPTION_ITEM.getKey().getDisplayName().getString()));
-        Component usageView = Component.literal(Component.translatable("item.mana_mod.usage_view").getString().replace("{key}", MMClientEvents.KEY_USAGE_ITEM.getKey().getDisplayName().getString()));
+        Component descriptionView = Component.literal(Component.translatable("item.mana_mod.description_view").getString().replace("{key}", "MMClientEvents.KEY_DESCRIPTION_ITEM.getKey().getDisplayName().getString()"));
+        Component usageView = Component.literal(Component.translatable("item.mana_mod.usage_view").getString().replace("{key}", "MMClientEvents.KEY_USAGE_ITEM.getKey().getDisplayName().getString()"));
         
         long window = Minecraft.getInstance().getWindow().getWindow();
-        boolean keyTooltipPressed = GLFW.GLFW_PRESS == GLFW.glfwGetKey(window, MMClientEvents.KEY_DESCRIPTION_ITEM.getKey().getValue());
-        boolean keyUsageItemPressed = GLFW.GLFW_PRESS == GLFW.glfwGetKey(window, MMClientEvents.KEY_USAGE_ITEM.getKey().getValue());
+        boolean keyTooltipPressed = GLFW.GLFW_PRESS == GLFW.glfwGetKey(window, "MMClientEvents.KEY_DESCRIPTION_ITEM.getKey().getValue()".hashCode());
+        boolean keyUsageItemPressed = GLFW.GLFW_PRESS == GLFW.glfwGetKey(window, "MMClientEvents.KEY_USAGE_ITEM.getKey().getValue()".hashCode());
         LocalPlayer player = Minecraft.getInstance().player;
         assert player != null;
-        boolean canUseItem = manaMod$tooltipProperties.UsageItem && !player.getCooldowns().isOnCooldown(itemStack.getItem()) && GLFW.GLFW_PRESS != GLFW.glfwGetKey(window, MMClientEvents.KEY_DESCRIPTION_ITEM.getKey().getValue());
+        boolean canUseItem = manaMod$tooltipProperties.UsageItem && !player.getCooldowns().isOnCooldown(itemStack.getItem()) && GLFW.GLFW_PRESS != GLFW.glfwGetKey(window, "MMClientEvents.KEY_DESCRIPTION_ITEM.getKey().getValue()".hashCode());
         
         if (keyTooltipPressed && manaMod$feedback == null && manaMod$tooltipProperties.descriptionItem) {
             tooltip.add(description);
