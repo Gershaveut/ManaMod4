@@ -9,7 +9,6 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -40,11 +39,10 @@ public class ManaMod {
         
         modEventBus.addListener(this::initialize);
         
-        MinecraftForge.EVENT_BUS.register(this);
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.SPEC);
     }
     
-    public void initialize(FMLCommonSetupEvent event) {
+    private void initialize(FMLCommonSetupEvent event) {
         MMPacketHandler.registerMessages();
         
         BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.POTION), Ingredient.of(MMItems.MANA_HEAT.get()), MMItems.MANA_POTION.get().getDefaultInstance()));
