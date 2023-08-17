@@ -3,6 +3,7 @@ package com.gershaveut.mana_mod.world.item;
 import com.gershaveut.mana_mod.world.level.block.MMBlocks;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -50,7 +51,10 @@ public class MMItems {
     public static final RegistryObject<Item> MANA_AMULET = ITEMS.register("mana_amulet", () -> registerItem(new ArmorItem(MMArmorMaterials.MANA_AMULET, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(Rarity.RARE)), new TooltipProperties().WIP()));
     
     public static Item registerItem(Item item, TooltipProperties tooltipProperties) {
-        return (Item) ((Tooltip) item).manaMod$setTooltipProperties(tooltipProperties);
+        if (FMLEnvironment.dist.isClient())
+            return (Item) ((Tooltip) item).manaMod$setTooltipProperties(tooltipProperties);
+        else
+            return item;
     }
     
     public static Item registerItem(Item item) {

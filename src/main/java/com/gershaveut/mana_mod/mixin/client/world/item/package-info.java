@@ -1,6 +1,6 @@
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-package com.gershaveut.mana_mod.mixin.world.item;
+package com.gershaveut.mana_mod.mixin.client.world.item;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
