@@ -4,10 +4,10 @@
   "package": "com.gershaveut.mana_mod.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mana_mod.refmap.json",
-  "mixins": [
-    "world.item.MixinItem"
+  "mixins": [],
+  "client": [
+    "client.world.item.MixinItem"
   ],
-  "client": [],
   "server": [],
   "injectors": {
     "defaultRequire": 1

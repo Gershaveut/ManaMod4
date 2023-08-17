@@ -1,6 +1,5 @@
 package com.gershaveut.mana_mod;
 
-import com.gershaveut.mana_mod.client.MMClientEvents;
 import com.gershaveut.mana_mod.network.protocol.MMPacketHandler;
 import com.gershaveut.mana_mod.world.effect.MMMobEffects;
 import com.gershaveut.mana_mod.world.item.MMCreativeModeTabs;
@@ -10,19 +9,14 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.RegisterEvent;
 import org.slf4j.Logger;
 import org.slf4j.event.Level;
 
@@ -44,12 +38,6 @@ public class ManaMod {
         MMMobEffects.MOB_EFFECTS.register(modEventBus);
         
         modEventBus.addListener(this::initialize);
-        //modEventBus.addListener(this::registerEvent);
-        //modEventBus.addListener(MMClientEvents::registerEvents);
-        //modEventBus.register(MMClientEvents.class);
-        
-        //MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(MMClientEvents.class);
         
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.SPEC);
     }
