@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.gershaveut.mana_mod.mixin",
+  "package": "com.gershaveut.manamod.mixin",
   "compatibilityLevel": "JAVA_8",
   "refmap": "mana_mod.refmap.json",
   "mixins": [],
