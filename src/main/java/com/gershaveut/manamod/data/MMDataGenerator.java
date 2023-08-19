@@ -1,5 +1,6 @@
 package com.gershaveut.manamod.data;
 
+import com.gershaveut.manamod.data.models.MMBlockModelProvider;
 import com.gershaveut.manamod.data.models.MMItemModelProvider;
 import com.gershaveut.manamod.data.recipes.packs.MMRecipeProvider;
 import com.gershaveut.manamod.data.worldgen.MMWorldGenProvider;
@@ -32,6 +33,7 @@ public class MMDataGenerator {
         addProvider(new MMRecipeProvider(packOutput));
         addProvider(new MMWorldGenProvider(packOutput, lookupProvider));
         addProvider(new MMItemModelProvider(packOutput, fileHelper));
+        addProvider(new MMBlockModelProvider(packOutput, fileHelper));
     }
     
     private static <T extends DataProvider> void addProvider(T provider) {
