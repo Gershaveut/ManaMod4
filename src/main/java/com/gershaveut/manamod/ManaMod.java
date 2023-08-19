@@ -1,5 +1,6 @@
 package com.gershaveut.manamod;
 
+import com.gershaveut.manamod.core.particles.MMParticleType;
 import com.gershaveut.manamod.network.protocol.MMPacketHandler;
 import com.gershaveut.manamod.world.effect.MMMobEffects;
 import com.gershaveut.manamod.world.item.MMCreativeModeTabs;
@@ -36,6 +37,7 @@ public class ManaMod {
         MMBlocks.BLOCKS.register(modEventBus);
         MMItems.ITEMS.register(modEventBus);
         MMMobEffects.MOB_EFFECTS.register(modEventBus);
+        MMParticleType.PARTICLE_TYPES.register(modEventBus);
         
         modEventBus.addListener(this::initialize);
         
