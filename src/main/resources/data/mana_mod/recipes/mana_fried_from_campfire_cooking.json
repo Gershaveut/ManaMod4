@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": {
-    "item": "mana_mod:mana"
-  },
-  "result": "mana_mod:mana_fried",
-  "experience": 0.5,
-  "cookingtime": 675
-}

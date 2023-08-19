@@ -1,0 +1,6 @@
+{
+  "parent": "mana_mod:item/mana_potion",
+  "textures": {
+    "layer0": "mana_mod:item/mana_potion_1"
+  }
+}
