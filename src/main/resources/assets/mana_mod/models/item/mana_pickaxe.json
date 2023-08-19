@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "mana_mod:item/mana_pickaxe"
-  }
-}

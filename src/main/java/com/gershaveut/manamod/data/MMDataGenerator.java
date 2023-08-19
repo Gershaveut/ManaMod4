@@ -1,11 +1,13 @@
 package com.gershaveut.manamod.data;
 
+import com.gershaveut.manamod.data.models.MMItemModelProvider;
 import com.gershaveut.manamod.data.recipes.packs.MMRecipeProvider;
 import com.gershaveut.manamod.data.worldgen.MMWorldGenProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -25,9 +27,11 @@ public class MMDataGenerator {
         includeServer = event.includeServer();
         PackOutput packOutput = event.getGenerator().getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+        ExistingFileHelper fileHelper = event.getExistingFileHelper();
         
         addProvider(new MMRecipeProvider(packOutput));
         addProvider(new MMWorldGenProvider(packOutput, lookupProvider));
+        addProvider(new MMItemModelProvider(packOutput, fileHelper));
     }
     
     private static <T extends DataProvider> void addProvider(T provider) {
