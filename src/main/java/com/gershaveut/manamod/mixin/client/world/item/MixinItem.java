@@ -1,6 +1,6 @@
 package com.gershaveut.manamod.mixin.client.world.item;
 
-import com.gershaveut.manamod.client.MMClientEvents;
+import com.gershaveut.manamod.client.KeyMappings;
 import com.gershaveut.manamod.world.item.Tooltip;
 import com.gershaveut.manamod.world.item.TooltipProperties;
 import net.minecraft.client.Minecraft;
@@ -50,6 +50,7 @@ public abstract class MixinItem implements Tooltip {
         return manaMod$feedback;
     }
     
+    @SuppressWarnings("UnusedReturnValue")
     @Shadow public abstract InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_);
     
     @Shadow protected abstract String getOrCreateDescriptionId();
@@ -57,14 +58,14 @@ public abstract class MixinItem implements Tooltip {
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     public void onAppendHoverText(ItemStack itemStack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag, CallbackInfo callbackInfo) {
         Component description = Component.translatable(getOrCreateDescriptionId() + ".description");
-        Component descriptionView = Component.literal(Component.translatable("item.mana_mod.description_view").getString().replace("{key}", MMClientEvents.MMClientModBusEvents.KEY_DESCRIPTION_ITEM.getKey().getDisplayName().getString()));
-        Component usageView = Component.literal(Component.translatable("item.mana_mod.usage_view").getString().replace("{key}", MMClientEvents.MMClientModBusEvents.KEY_USAGE_ITEM.getKey().getDisplayName().getString()));
+        Component descriptionView = Component.literal(Component.translatable("item.mana_mod.description_view").getString().replace("{key}", KeyMappings.KEY_DESCRIPTION_ITEM.getKey().getDisplayName().getString()));
+        Component usageView = Component.literal(Component.translatable("item.mana_mod.usage_view").getString().replace("{key}", KeyMappings.KEY_USAGE_ITEM.getKey().getDisplayName().getString()));
         
-        boolean keyDescriptionPressed = MMClientEvents.MMClientModBusEvents.KEY_DESCRIPTION_ITEM.isDown();
-        boolean keyUsageItemPressed = MMClientEvents.MMClientModBusEvents.KEY_USAGE_ITEM.isDown();
+        boolean keyDescriptionPressed = KeyMappings.KEY_DESCRIPTION_ITEM.isDown();
+        boolean keyUsageItemPressed = KeyMappings.KEY_USAGE_ITEM.isDown();
         LocalPlayer player = Minecraft.getInstance().player;
         assert player != null;
-        boolean canUseItem = manaMod$tooltipProperties.UsageItem && !player.getCooldowns().isOnCooldown(itemStack.getItem()) && !MMClientEvents.MMClientModBusEvents.KEY_DESCRIPTION_ITEM.isDown();
+        boolean canUseItem = manaMod$tooltipProperties.UsageItem && !player.getCooldowns().isOnCooldown(itemStack.getItem()) && !KeyMappings.KEY_DESCRIPTION_ITEM.isDown();
         
         if (keyDescriptionPressed && manaMod$feedback == null && manaMod$tooltipProperties.descriptionItem) {
             tooltip.add(description);
