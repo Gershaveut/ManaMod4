@@ -68,8 +68,8 @@ public class MMLanguageProvider extends LanguageProvider {
 
         add("key.categories." + ManaMod.MODID, "Mana Mod");
 
-        add(KeyMappings.KEY_DESCRIPTION_ITEM, "Item description");
-        add(KeyMappings.KEY_USAGE_ITEM, "Using the item");
+        add(KeyMappings.KEY_DESCRIPTION_ITEM, "View item descriptions");
+        add(KeyMappings.KEY_USAGE_ITEM, "Item use");
     }
 
     private void add(CreativeModeTab creativeModeTab, String name) {

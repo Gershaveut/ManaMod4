@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-19T14:58:22.8597864	Item Models: mana_mod
+// 1.20.1	2023-08-20T20:47:41.4233608	Item Models: mana_mod
 7f7a5b2ff735a3658a19f6802381cb816480afe1 assets/mana_mod/models/item/chiseled_mana_bricks.json
 65a48d748d33fee6818c9fd9344889d380fdec6d assets/mana_mod/models/item/flint_and_mana.json
 60a20e5709544bebbda43adc38c4fc7726f0f2a9 assets/mana_mod/models/item/magic_lighter.json
@@ -10,7 +10,7 @@ c8f3feed51bf8d037a9bca7f5b5faa7a31568730 assets/mana_mod/models/item/mana_block.
 a3351f76c5476cfbd5add3c1c1e0ce012d1773c9 assets/mana_mod/models/item/mana_bricks.json
 e650637685291a84321ecdd1565b06305ee2ee06 assets/mana_mod/models/item/mana_brick_slab.json
 3c3615e11b1bb61cfe0dbf5eee92c2e04c86bd6e assets/mana_mod/models/item/mana_brick_stairs.json
-1bd3a9df2ed2105b65555184d2df705dddac2fb2 assets/mana_mod/models/item/mana_brick_wall.json
+5f3ff4c78755d8eba8287cf6b7d0ea8dd11ce5d8 assets/mana_mod/models/item/mana_brick_wall.json
 410d53571eddd85dc1f946812ffe5eadd4d1788b assets/mana_mod/models/item/mana_cake.json
 15df4b621e58eca824b6858a4fb2535b71a577c4 assets/mana_mod/models/item/mana_fried.json
 628e6cebc15b94b667744277eabfe775d0b4ff27 assets/mana_mod/models/item/mana_fuel.json

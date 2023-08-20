@@ -5,7 +5,6 @@ import com.gershaveut.manamod.world.item.MMItems;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -29,7 +28,7 @@ public class MMItemModelProvider extends ItemModelProvider {
         basicItem(MMItems.MANA_HEAT.get());
         basicItem(MMItems.MANA_INGOT.get());
         basicItem(MMItems.MANA_PIECE.get());
-        getBuilder(itemPrefix(MMItems.MANA_POTION.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_0")).override().predicate(new ResourceLocation("damage"), 0.3F).model(withExistingParent(MMItems.MANA_POTION.get() + "_1", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_1"))).end().override().predicate(new ResourceLocation("damage"), 0.6F).model(withExistingParent(MMItems.MANA_POTION.get() + "_2", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_2"))).end();
+        manaPotion();
         basicItem(MMItems.MANA_SHARDS.get());
         basicItem(MMItems.MANA_STAFF.get());
         basicItem(MMItems.MANA_STICK.get());
@@ -43,7 +42,7 @@ public class MMItemModelProvider extends ItemModelProvider {
         blockItem(MMItems.MANA_BRICKS.get());
         blockItem(MMItems.CHISELED_MANA_BRICKS.get());
         blockItem(MMItems.MANA_BRICK_STAIRS.get());
-        blockItem(MMItems.MANA_BRICK_WALL.get());
+        wallItem(MMItems.MANA_BRICK_WALL.get());
         blockItem(MMItems.MANA_BRICK_SLAB.get());
         basicItem(MMItems.MANA_CAKE.get());
         blockItem(MMItems.MANA_ORE.get());
@@ -65,6 +64,14 @@ public class MMItemModelProvider extends ItemModelProvider {
 
     private void handheldItem(Item item) {
         getBuilder(itemPrefix(item).toString()).parent(new ModelFile.UncheckedModelFile("item/handheld")).texture("layer0", texturePrefix(item));
+    }
+    
+    private void wallItem(Item item) {
+        getBuilder(item.toString()).parent(new ModelFile.UncheckedModelFile(ManaMod.MODID + ":block/" + item + "_inventory"));
+    }
+    
+    private void manaPotion() {
+        getBuilder(itemPrefix(MMItems.MANA_POTION.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_0")).override().predicate(new ResourceLocation("damage"), 0.3F).model(withExistingParent(MMItems.MANA_POTION.get() + "_1", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_1"))).end().override().predicate(new ResourceLocation("damage"), 0.6F).model(withExistingParent(MMItems.MANA_POTION.get() + "_2", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_2"))).end();
     }
 
     private ResourceLocation itemPrefix(Item item) {

@@ -3,11 +3,15 @@ package com.gershaveut.manamod.data.models.blockstates;
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.world.level.block.MMBlocks;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.*;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Objects;
 
 public class MMBlockStateProvider extends BlockStateProvider {
     public MMBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
@@ -29,25 +33,24 @@ public class MMBlockStateProvider extends BlockStateProvider {
     }
 
     public void cakeBlock(Block block) {
+        String nameBlock = blockPrefix(block).getPath();
         getVariantBuilder(block).forAllStates(blockState -> {
             ModelFile modelFile = switch (blockState.getValue(CakeBlock.BITES)) {
-                case 0 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId()));
-                case 1 ->
-                        new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId() + "_slice1"));
-                case 2 ->
-                        new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId() + "_slice2"));
-                case 3 ->
-                        new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId() + "_slice3"));
-                case 4 ->
-                        new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId() + "_slice4"));
-                case 5 ->
-                        new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId() + "_slice5"));
-                case 6 ->
-                        new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + block.getDescriptionId() + "_slice6"));
+                case 0 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock));
+                case 1 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 1));
+                case 2 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 2));
+                case 3 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 3));
+                case 4 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 4));
+                case 5 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 5));
+                case 6 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 6));
                 default -> throw new IllegalStateException("Unexpected value: " + blockState.getValue(CakeBlock.BITES));
             };
 
             return ConfiguredModel.builder().modelFile(modelFile).build();
         });
+    }
+    
+    private ResourceLocation blockPrefix(Block block) {
+        return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block));
     }
 }
