@@ -16,7 +16,7 @@ public class MMConfig {
     public static boolean itemCooldown;
     
     @SubscribeEvent
-    private static void onLoad(final ModConfigEvent event) {
+    public static void onLoad(final ModConfigEvent event) {
         itemCooldown = ITEM_COOLDOWN.get();
     }
 }
