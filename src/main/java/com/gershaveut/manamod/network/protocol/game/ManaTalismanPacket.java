@@ -44,15 +44,15 @@ public class ManaTalismanPacket implements MMPacket {
             Component weather = switch (message.weather) {
                 default -> {
                     level.setWeatherParameters(0, 6000, true, false);
-                    yield Component.translatable("item.mana_mod.mana_talisman.rain");
+                    yield Component.translatable("item.mana_mod.mana_talisman.feedback.rain");
                 }
                 case THUNDER -> {
                     level.setWeatherParameters(0, 6000, true, true);
-                    yield Component.translatable("item.mana_mod.mana_talisman.thunder");
+                    yield Component.translatable("item.mana_mod.mana_talisman.feedback.thunder");
                 }
                 case CLEAR -> {
                     level.setWeatherParameters(6000, 0, false, false);
-                    yield Component.translatable("item.mana_mod.mana_talisman.clear");
+                    yield Component.translatable("item.mana_mod.mana_talisman.feedback.clear");
                 }
             };
             

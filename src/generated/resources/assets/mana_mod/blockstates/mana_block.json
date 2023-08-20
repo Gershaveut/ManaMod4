@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mana_mod:block/mana_block"
+    }
+  }
+}

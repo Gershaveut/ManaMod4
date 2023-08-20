@@ -2,6 +2,7 @@ package com.gershaveut.manamod.data;
 
 import com.gershaveut.manamod.data.models.MMBlockModelProvider;
 import com.gershaveut.manamod.data.models.MMItemModelProvider;
+import com.gershaveut.manamod.data.models.blockstates.MMBlockStateProvider;
 import com.gershaveut.manamod.data.recipes.packs.MMRecipeProvider;
 import com.gershaveut.manamod.data.worldgen.MMWorldGenProvider;
 import net.minecraft.core.HolderLookup;
@@ -34,6 +35,8 @@ public class MMDataGenerator {
         addProvider(new MMWorldGenProvider(packOutput, lookupProvider));
         addProvider(new MMItemModelProvider(packOutput, fileHelper));
         addProvider(new MMBlockModelProvider(packOutput, fileHelper));
+        addProvider(new MMLanguageProvider(packOutput));
+        addProvider(new MMBlockStateProvider(packOutput, fileHelper));
     }
     
     private static <T extends DataProvider> void addProvider(T provider) {

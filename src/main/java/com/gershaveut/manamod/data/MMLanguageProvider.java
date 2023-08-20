@@ -1,6 +1,7 @@
 package com.gershaveut.manamod.data;
 
 import com.gershaveut.manamod.ManaMod;
+import com.gershaveut.manamod.client.KeyMappings;
 import com.gershaveut.manamod.world.effect.MMMobEffects;
 import com.gershaveut.manamod.world.item.MMCreativeModeTabs;
 import com.gershaveut.manamod.world.item.MMItems;
@@ -11,8 +12,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
-
-import java.lang.reflect.Field;
 
 public class MMLanguageProvider extends LanguageProvider {
     public MMLanguageProvider(PackOutput output) {
@@ -66,6 +65,11 @@ public class MMLanguageProvider extends LanguageProvider {
 
         add(MMMobEffects.MANA_FLIGHT.get(), "Mana Flight");
         add(MMMobEffects.MANAIFICATION.get(), "Manaification");
+
+        add("key.categories." + ManaMod.MODID, "Mana Mod");
+
+        add(KeyMappings.KEY_DESCRIPTION_ITEM, "Item description");
+        add(KeyMappings.KEY_USAGE_ITEM, "Using the item");
     }
 
     private void add(CreativeModeTab creativeModeTab, String name) {
