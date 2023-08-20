@@ -35,10 +35,10 @@ public class UnstableManaTalismanPacket implements MMPacket {
             
             if (level.isDay()) {
                 level.setDayTime(13000);
-                time = Component.translatable("item.mana_mod.unstable_mana_talisman.night");
+                time = Component.translatable("item.mana_mod.unstable_mana_talisman.feedback.night");
             } else {
                 level.setDayTime(6000);
-                time = Component.translatable("item.mana_mod.unstable_mana_talisman.day");
+                time = Component.translatable("item.mana_mod.unstable_mana_talisman.feedback.day");
             }
             
             ((Tooltip) message.itemStack.getItem()).manaMod$setFeedback(time);
