@@ -1,11 +1,11 @@
-// 1.20.1	2023-08-20T18:08:00.0841517	Block States: mana_mod
+// 1.20.1	2023-08-20T20:58:52.3055608	Block States: mana_mod
 3bd068d887d969afb6ae988b2dd31e70f9213d43 assets/mana_mod/blockstates/chiseled_mana_bricks.json
 4ae885ce66fb88299774674390cb79225401867a assets/mana_mod/blockstates/mana_block.json
 5c7893a4d0c6c8cf6f98bdc86f9b16236df538e6 assets/mana_mod/blockstates/mana_bricks.json
 5ce7e9d496e766dbae78ca110f7ad469f42b51ae assets/mana_mod/blockstates/mana_brick_slab.json
 53f71ae8ccce18e984fc76549baf91693a4bb608 assets/mana_mod/blockstates/mana_brick_stairs.json
 c9e741df9023ca62e0237d976b756958a88aa2f4 assets/mana_mod/blockstates/mana_brick_wall.json
-8ee2bced84b12b19d28a6688ade389cc42ed632f assets/mana_mod/blockstates/mana_cake.json
+3402a9c872b470b4ed2871990717130bc3053dd5 assets/mana_mod/blockstates/mana_cake.json
 4d4e4fc9db63381f87d69cbed609532b93a1881d assets/mana_mod/blockstates/mana_ore.json
 c8163ef598887df211db9913236faa8d95b590e3 assets/mana_mod/blockstates/mana_shield.json
 de75c65050631d682c9fba90586f4bffad7456f5 assets/mana_mod/blockstates/unstable_mana_block.json

@@ -55,6 +55,6 @@
   "item.mana_mod.usage_view": "§7Hold§f {key} §7for a usage",
   "item_group.mana_mod.general": "Mana Mod",
   "key.categories.mana_mod": "Mana Mod",
-  "key.mana_mod.key_description_item": "Item description",
-  "key.mana_mod.key_usage_item": "Using the item"
+  "key.mana_mod.key_description_item": "View item descriptions",
+  "key.mana_mod.key_usage_item": "Item use"
 }

@@ -1,25 +1,25 @@
 {
   "variants": {
     "bites=0": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake"
+      "model": "mana_mod:block/mana_cake"
     },
     "bites=1": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake_slice1"
+      "model": "mana_mod:block/mana_cake1"
     },
     "bites=2": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake_slice2"
+      "model": "mana_mod:block/mana_cake2"
     },
     "bites=3": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake_slice3"
+      "model": "mana_mod:block/mana_cake3"
     },
     "bites=4": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake_slice4"
+      "model": "mana_mod:block/mana_cake4"
     },
     "bites=5": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake_slice5"
+      "model": "mana_mod:block/mana_cake5"
     },
     "bites=6": {
-      "model": "mana_mod:block/block.mana_mod.mana_cake_slice6"
+      "model": "mana_mod:block/mana_cake6"
     }
   }
 }
