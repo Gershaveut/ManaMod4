@@ -18,5 +18,4 @@ public class TooltipProperties {
         WIP = true;
         return this;
     }
-
 }

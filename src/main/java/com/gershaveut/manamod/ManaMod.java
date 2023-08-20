@@ -17,7 +17,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 import org.slf4j.event.Level;
 
 import java.util.Locale;
@@ -25,7 +24,6 @@ import java.util.Locale;
 @Mod(ManaMod.MODID)
 public class ManaMod {
     public static final String MODID = "mana_mod";
-    private static final Logger LOGGER = LogUtils.getLogger();
     
     public ManaMod() {
         Log(Level.INFO, "Initializing");
@@ -53,6 +51,6 @@ public class ManaMod {
     }
     
     public static void Log(Level level, String message) {
-        LOGGER.atLevel(level).log("[" + MODID + "] " + message);
+        LogUtils.getLogger().atLevel(level).log("[" + MODID + "] " + message);
     }
 }
