@@ -29,9 +29,7 @@ public class MMItemModelProvider extends ItemModelProvider {
         basicItem(MMItems.MANA_HEAT.get());
         basicItem(MMItems.MANA_INGOT.get());
         basicItem(MMItems.MANA_PIECE.get());
-        getBuilder(itemPrefix(MMItems.MANA_POTION.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_0"))
-                .override().predicate(new ResourceLocation("damage"), 0.3F).model(withExistingParent(MMItems.MANA_POTION.get() + "_1", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_1"))).end()
-                .override().predicate(new ResourceLocation("damage"), 0.6F).model(withExistingParent(MMItems.MANA_POTION.get() + "_2", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_2"))).end();
+        getBuilder(itemPrefix(MMItems.MANA_POTION.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_0")).override().predicate(new ResourceLocation("damage"), 0.3F).model(withExistingParent(MMItems.MANA_POTION.get() + "_1", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_1"))).end().override().predicate(new ResourceLocation("damage"), 0.6F).model(withExistingParent(MMItems.MANA_POTION.get() + "_2", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_2"))).end();
         basicItem(MMItems.MANA_SHARDS.get());
         basicItem(MMItems.MANA_STAFF.get());
         basicItem(MMItems.MANA_STICK.get());
@@ -60,13 +58,13 @@ public class MMItemModelProvider extends ItemModelProvider {
         basicItem(MMItems.MANA_AMULET.get());
     }
 
-    private ItemModelBuilder blockItem(Item item) {
+    private void blockItem(Item item) {
         ResourceLocation resourceLocation = itemPrefix(item);
-        return getBuilder(resourceLocation.toString()).parent(new ModelFile.UncheckedModelFile(ManaMod.MODID + ":block/" + resourceLocation.getPath()));
+        getBuilder(resourceLocation.toString()).parent(new ModelFile.UncheckedModelFile(ManaMod.MODID + ":block/" + resourceLocation.getPath()));
     }
 
-    private ItemModelBuilder handheldItem(Item item) {
-        return getBuilder(itemPrefix(item).toString()).parent(new ModelFile.UncheckedModelFile("item/handheld")).texture("layer0", texturePrefix(item));
+    private void handheldItem(Item item) {
+        getBuilder(itemPrefix(item).toString()).parent(new ModelFile.UncheckedModelFile("item/handheld")).texture("layer0", texturePrefix(item));
     }
 
     private ResourceLocation itemPrefix(Item item) {
