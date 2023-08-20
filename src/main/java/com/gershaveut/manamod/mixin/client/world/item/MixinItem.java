@@ -50,7 +50,6 @@ public abstract class MixinItem implements Tooltip {
         return manaMod$feedback;
     }
     
-    @SuppressWarnings("UnusedReturnValue")
     @Shadow public abstract InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_);
     
     @Shadow protected abstract String getOrCreateDescriptionId();
