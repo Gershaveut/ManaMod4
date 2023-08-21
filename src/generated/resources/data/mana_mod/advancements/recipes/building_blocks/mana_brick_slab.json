@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "mana_mod:mana_shield"
+              "mana_mod:mana_brick_slab"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "mana_mod:mana_shield"
+        "recipe": "mana_mod:mana_brick_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "mana_mod:mana_shield"
+      "mana_mod:mana_brick_slab"
     ]
   },
   "sends_telemetry_event": false

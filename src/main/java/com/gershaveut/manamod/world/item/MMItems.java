@@ -40,7 +40,7 @@ public class MMItems {
     public static final RegistryObject<Item> MANA_BRICK_SLAB = ITEMS.register("mana_brick_slab", () -> registerItem(new BlockItem(MMBlocks.MANA_BRICK_SLAB.get(), new Item.Properties())));
     public static final RegistryObject<Item> MANA_CAKE = ITEMS.register("mana_cake", () -> registerItem(new BlockItem(MMBlocks.MANA_CAKE.get(), new Item.Properties().stacksTo(1)), new TooltipProperties().descriptionItem().WIP()));
     public static final RegistryObject<Item> MANA_ORE = ITEMS.register("mana_ore", () -> registerItem(new BlockItem(MMBlocks.MANA_ORE.get(), new Item.Properties()), new TooltipProperties().WIP()));
-    public static final RegistryObject<Item> MANA_SHIELD = ITEMS.register("mana_shield", () -> registerItem(new BlockItem(MMBlocks.MANA_BRICK_SLAB.get(), new Item.Properties())));
+    public static final RegistryObject<Item> MANA_SHIELD = ITEMS.register("mana_shield", () -> registerItem(new BlockItem(MMBlocks.MANA_SHIELD.get(), new Item.Properties())));
     public static final RegistryObject<Item> MANA_SYNTHESIZER = ITEMS.register("mana_synthesizer", () -> registerItem(new BlockItem(MMBlocks.MANA_SYNTHESIZER.get(), new Item.Properties()), new TooltipProperties().WIP()));
     public static final RegistryObject<Item> UNSTABLE_MANA_BLOCK = ITEMS.register("unstable_mana_block", () -> registerItem(new BlockItem(MMBlocks.UNSTABLE_MANA_BLOCK.get(), new Item.Properties())));
     public static final RegistryObject<Item> MANA_SHOVEL = ITEMS.register("mana_shovel", () -> registerItem(new ShovelItem(MMTiers.MANA, 0.5F, 0F, new Item.Properties()), new TooltipProperties().WIP()));

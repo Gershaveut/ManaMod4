@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "mana_mod:mana_shield"
+          "name": "mana_mod:mana_brick_slab"
         }
       ],
       "rolls": 1.0
