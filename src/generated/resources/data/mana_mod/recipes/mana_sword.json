@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "mana_mod:mana_ingot"
+    },
+    "S": {
+      "item": "mana_mod:mana_stick"
+    }
+  },
+  "pattern": [
+    "I",
+    "I",
+    "S"
+  ],
+  "result": {
+    "item": "mana_mod:mana_sword"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "mana_mod:block/mana_bricks",
+    "side": "mana_mod:block/mana_bricks",
+    "top": "mana_mod:block/mana_bricks"
+  }
+}

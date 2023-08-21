@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "mana_mod:mana_bricks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "result": {
+    "count": 6,
+    "item": "mana_mod:mana_brick_wall"
+  },
+  "show_notification": true
+}

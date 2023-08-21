@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smoking",
+  "category": "food",
+  "cookingtime": 113,
+  "experience": 0.5,
+  "ingredient": {
+    "item": "mana_mod:mana"
+  },
+  "result": "mana_mod:mana_fried"
+}

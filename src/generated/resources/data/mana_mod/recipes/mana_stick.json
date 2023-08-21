@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "M": {
+      "item": "mana_mod:mana"
+    }
+  },
+  "pattern": [
+    "  M",
+    " M ",
+    "M  "
+  ],
+  "result": {
+    "item": "mana_mod:mana_stick"
+  },
+  "show_notification": true
+}

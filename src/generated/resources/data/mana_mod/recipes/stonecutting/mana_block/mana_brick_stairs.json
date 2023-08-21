@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "mana_mod:mana_block"
+  },
+  "result": "mana_mod:mana_brick_stairs"
+}

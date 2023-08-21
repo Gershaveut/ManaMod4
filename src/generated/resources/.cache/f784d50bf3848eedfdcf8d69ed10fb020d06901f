@@ -1,0 +1,6 @@
+// 1.20.1	2023-08-21T15:58:27.9044045	Tags for minecraft:block mod id mana_mod
+1246445769824ebcfc76c4704af566493523c851 data/minecraft/tags/blocks/mineable/pickaxe.json
+6f24c205caebd36a11a352b5b244aa9d1f6ecd71 data/minecraft/tags/blocks/needs_iron_tool.json
+d34e5dfa9c8fc84e191669b0241ff41f5133724d data/minecraft/tags/blocks/slabs.json
+e7322d26b2f9ebdeec60b563a3e2fb083bad887a data/minecraft/tags/blocks/stairs.json
+737bd163cee8462457748faeeab0cb2657ddb987 data/minecraft/tags/blocks/walls.json
