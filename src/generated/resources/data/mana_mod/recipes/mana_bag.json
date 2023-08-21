@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "mana_mod:mana"
+    },
+    "P": {
+      "item": "mana_mod:mana_piece"
+    }
+  },
+  "pattern": [
+    "M M",
+    "MPM",
+    "MMM"
+  ],
+  "result": {
+    "item": "mana_mod:mana_bag"
+  },
+  "show_notification": true
+}

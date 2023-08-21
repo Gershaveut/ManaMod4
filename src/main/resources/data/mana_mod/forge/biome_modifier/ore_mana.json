@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#is_overworld",
+  "features": "mana_mod:ore_mana",
+  "step": "underground_ores"
+}
