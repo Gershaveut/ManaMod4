@@ -1,0 +1,44 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.mana_staff.levitation": {
+			"loop": true,
+			"animation_length": 5,
+			"bones": {
+				"mana_crystal": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"5.0": {
+							"vector": [360, 360, 360],
+							"easing": "linear"
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [0.75, 0.75, 0.75]
+						},
+						"1.0": {
+							"vector": [0.6, 0.6, 0.6]
+						},
+						"2.0": {
+							"vector": [0.7, 0.7, 0.7]
+						},
+						"3.0": {
+							"vector": [0.6, 0.6, 0.6]
+						},
+						"4.0": {
+							"vector": [0.75, 0.75, 0.75]
+						},
+						"5.0": {
+							"vector": [0.75, 0.75, 0.75]
+						}
+					}
+				}
+			},
+			"timeline": {}
+		}
+	},
+	"geckolib_format_version": 2
+}

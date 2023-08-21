@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-20T20:58:52.3055608	Block States: mana_mod
+// 1.20.1	2023-08-21T15:58:27.9034066	Block States: mana_mod
 3bd068d887d969afb6ae988b2dd31e70f9213d43 assets/mana_mod/blockstates/chiseled_mana_bricks.json
 4ae885ce66fb88299774674390cb79225401867a assets/mana_mod/blockstates/mana_block.json
 5c7893a4d0c6c8cf6f98bdc86f9b16236df538e6 assets/mana_mod/blockstates/mana_bricks.json
@@ -8,6 +8,7 @@ c9e741df9023ca62e0237d976b756958a88aa2f4 assets/mana_mod/blockstates/mana_brick_
 3402a9c872b470b4ed2871990717130bc3053dd5 assets/mana_mod/blockstates/mana_cake.json
 4d4e4fc9db63381f87d69cbed609532b93a1881d assets/mana_mod/blockstates/mana_ore.json
 c8163ef598887df211db9913236faa8d95b590e3 assets/mana_mod/blockstates/mana_shield.json
+86221264ccdf991b670cf471d1e204a75092f998 assets/mana_mod/blockstates/mana_synthesizer.json
 de75c65050631d682c9fba90586f4bffad7456f5 assets/mana_mod/blockstates/unstable_mana_block.json
 8474d91c16f4ab5f6868dbd45c9dc7bcc1a86cb8 assets/mana_mod/models/block/chiseled_mana_bricks.json
 380aa2ee52b2e5fc80253455c54a8efa082201f3 assets/mana_mod/models/block/mana_block.json
@@ -22,4 +23,5 @@ ea26fdf778650383a50db7b8f65f21cc5ae62754 assets/mana_mod/models/block/mana_brick
 4a0a77cb92f12d96a1aa46ebb5be1dd2d1d2b044 assets/mana_mod/models/block/mana_brick_wall_side_tall.json
 0c182d7c3b2cac9121d893b8efde64701a0520d5 assets/mana_mod/models/block/mana_ore.json
 f9a81d3eb907a208d328e836249c63a46b764f64 assets/mana_mod/models/block/mana_shield.json
+4b8f7f0bf3779f5c88041865bf04e1ca60868dd7 assets/mana_mod/models/block/mana_synthesizer.json
 b86ec5790409a47e082ea399f556d333f6c61273 assets/mana_mod/models/block/unstable_mana_block.json

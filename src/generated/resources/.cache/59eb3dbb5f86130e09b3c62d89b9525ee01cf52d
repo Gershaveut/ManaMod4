@@ -1,0 +1,12 @@
+// 1.20.1	2023-08-21T15:58:27.8993051	Loot Tables
+b46bf6881ea0d52df4af868c8590bf81d29a1568 data/mana_mod/loot_tables/blocks/chiseled_mana_bricks.json
+3c5b48534b0fa7475390d9a1162cd4e8b2514194 data/mana_mod/loot_tables/blocks/mana_block.json
+fe05829b4913929c0170825d3924e52b94d7e36b data/mana_mod/loot_tables/blocks/mana_bricks.json
+bdf88bfe7ac083a17c5f15bf3461b4bb9800534a data/mana_mod/loot_tables/blocks/mana_brick_slab.json
+24a5450fb63e7376a42b91ace6ca665a7ceaa3ac data/mana_mod/loot_tables/blocks/mana_brick_stairs.json
+b851be63b327094a8910b1ee7ba47cb80dfaf0e2 data/mana_mod/loot_tables/blocks/mana_brick_wall.json
+ef1816549980074629d3db56b39dc06bd4e6ab9d data/mana_mod/loot_tables/blocks/mana_cake.json
+b362d8b129ff4e76c1680d2f366c6c4676f0e9da data/mana_mod/loot_tables/blocks/mana_ore.json
+e9d5c7a15caaa94e422a46cd0e9c736b6b13a130 data/mana_mod/loot_tables/blocks/mana_shield.json
+f8fd916b1685f5894219764bfb982a0669867dbe data/mana_mod/loot_tables/blocks/mana_synthesizer.json
+023ad0eb75deb5466bd7eb45ad8ef2e22de14038 data/mana_mod/loot_tables/blocks/unstable_mana_block.json
