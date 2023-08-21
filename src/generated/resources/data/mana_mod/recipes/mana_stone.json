@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": {
+      "item": "mana_mod:mana_ingot"
+    },
+    "P": {
+      "item": "mana_mod:mana_piece"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PIP",
+    " P "
+  ],
+  "result": {
+    "item": "mana_mod:mana_stone"
+  },
+  "show_notification": true
+}

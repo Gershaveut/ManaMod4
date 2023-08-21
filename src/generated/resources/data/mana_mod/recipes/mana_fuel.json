@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:coal_block"
+    },
+    "M": {
+      "item": "mana_mod:mana"
+    }
+  },
+  "pattern": [
+    "M",
+    "C",
+    "M"
+  ],
+  "result": {
+    "item": "mana_mod:mana_fuel"
+  },
+  "show_notification": true
+}

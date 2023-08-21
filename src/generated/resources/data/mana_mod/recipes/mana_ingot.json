@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 250,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "mana_mod:mana_ore"
+  },
+  "result": "mana_mod:mana_ingot"
+}
