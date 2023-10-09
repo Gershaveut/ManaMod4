@@ -22,7 +22,7 @@ public class MMCreativeModeTabs {
                 output.accept(MMItems.MANA_BAG.get());
                 output.accept(MMItems.MANA_FRIED.get());
                 output.accept(MMItems.MANA_FUEL.get());
-                output.accept(MMItems.MANA_HEAT.get());
+                output.accept(MMItems.MANA_HEART.get());
                 output.accept(MMItems.MANA_INGOT.get());
                 output.accept(MMItems.MANA_PIECE.get());
                 output.accept(MMItems.MANA_POTION.get());

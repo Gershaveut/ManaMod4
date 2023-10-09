@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public enum MMArmorMaterials implements ArmorMaterial {
     MANA_AMULET("mana_amulet",  21, Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.CHESTPLATE, 7);
-    }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 0.5F, 0F, () -> Ingredient.of(MMItems.MANA_HEAT.get()));
+    }), 15, SoundEvents.ARMOR_EQUIP_GENERIC, 0.5F, 0F, () -> Ingredient.of(MMItems.MANA_HEART.get()));
 
     private static final EnumMap<ArmorItem.Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
         map.put(ArmorItem.Type.BOOTS, 13);

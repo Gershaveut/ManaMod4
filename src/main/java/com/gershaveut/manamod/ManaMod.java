@@ -45,7 +45,7 @@ public class ManaMod {
     private void initialize(FMLCommonSetupEvent event) {
         MMPacketHandler.registerMessages();
         
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.POTION), Ingredient.of(MMItems.MANA_HEAT.get()), MMItems.MANA_POTION.get().getDefaultInstance()));
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.POTION), Ingredient.of(MMItems.MANA_HEART.get()), MMItems.MANA_POTION.get().getDefaultInstance()));
     }
     
     public static ResourceLocation prefix(String name) {

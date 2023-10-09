@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-21T16:13:42.5643765	Recipes
+// 1.20.1	2023-10-09T17:02:59.1265687	Recipes
 791566422b9049c686ea19ba01a8e19748f41d06 data/mana_mod/advancements/recipes/brewing/mana_fuel.json
 522b5317c1a1c81aafd97cfd536a6b8777187a07 data/mana_mod/advancements/recipes/brewing/mana_ingot.json
 ff6a553ba06b4563c83ff28eb7f81e60f6ac61d6 data/mana_mod/advancements/recipes/brewing/mana_ingot_from_blasting_deepslate.json
@@ -27,7 +27,7 @@ a29199e22bd01af6cd187bd7e8f10f3da7fbfcd0 data/mana_mod/advancements/recipes/tool
 ca22aa242fc196e3711046e02cb6058b0d649dd6 data/mana_mod/recipes/chiseled_mana_bricks.json
 6bf4320974813d318fc50b99c56616590b66473d data/mana_mod/recipes/flint_and_mana.json
 9a2c22902bfc2339a69aaa1ec47eae93704a691f data/mana_mod/recipes/magic_lighter.json
-1a575e15f928fa691086ba1499ce0ebc8c51e381 data/mana_mod/recipes/mana_amulet.json
+262b433e944f2e0a8419337383765e9aa7f241f2 data/mana_mod/recipes/mana_amulet.json
 54855fee54a4590437dec8d3c4d8c39adcf49531 data/mana_mod/recipes/mana_axe.json
 bd58fb1101ca4267a1f9e6e59bc7dd1f012dfc09 data/mana_mod/recipes/mana_bag.json
 ccff4742e451ea4162d2320ad31a9a31e6194410 data/mana_mod/recipes/mana_bricks.json

@@ -25,7 +25,7 @@ public class MMItemModelProvider extends ItemModelProvider {
         basicItem(MMItems.MANA_BAG.get());
         basicItem(MMItems.MANA_FRIED.get());
         basicItem(MMItems.MANA_FUEL.get());
-        basicItem(MMItems.MANA_HEAT.get());
+        basicItem(MMItems.MANA_HEART.get());
         basicItem(MMItems.MANA_INGOT.get());
         basicItem(MMItems.MANA_PIECE.get());
         manaPotion();

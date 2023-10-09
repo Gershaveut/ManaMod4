@@ -45,7 +45,7 @@ public class MMRecipeProvider extends RecipeProvider {
                 .pattern("GGG")
                 .define('G', Items.GOLD_INGOT)
                 .define('S', Items.STRING)
-                .define('H', MMItems.MANA_HEAT.get())
+                .define('H', MMItems.MANA_HEART.get())
                 .unlockedBy("has_item", has(MMItems.MANA_AMULET.get()))
                 .save(finishedRecipe);
         ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, MMItems.MANA_AXE.get())

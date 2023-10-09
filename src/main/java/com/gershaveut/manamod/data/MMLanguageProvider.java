@@ -32,7 +32,7 @@ public class MMLanguageProvider extends LanguageProvider {
         add(MMItems.MANA_BAG.get(), "Mana Bag");
         add(MMItems.MANA_FRIED.get(), "Mana Fried");
         add(MMItems.MANA_FUEL.get(), "Mana Fuel", "Fuel time: §f32000");
-        add(MMItems.MANA_HEAT.get(), "Mana Heat");
+        add(MMItems.MANA_HEART.get(), "Mana Heart");
         add(MMItems.MANA_INGOT.get(), "Mana Ingot");
         add(MMItems.MANA_PIECE.get(), "Mana Piece");
         add(MMItems.MANA_POTION.get(), "Mana Potion", "Allows you to fly");

@@ -19,7 +19,7 @@ public class MMItems {
     public static final RegistryObject<Item> MANA_BAG = ITEMS.register("mana_bag", () -> registerItem(new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)), new TooltipProperties().descriptionItem().WIP()));
     public static final RegistryObject<Item> MANA_FRIED = ITEMS.register("mana_fried", () -> registerItem(new ManaFried(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().nutrition(4).saturationMod(1.2F).build())), new TooltipProperties().descriptionItem()));
     public static final RegistryObject<Item> MANA_FUEL = ITEMS.register("mana_fuel", () -> registerItem(new FuelItem(new Item.Properties(), 32000), new TooltipProperties().descriptionItem()));
-    public static final RegistryObject<Item> MANA_HEAT = ITEMS.register("mana_heat", () -> registerItem(new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)), new TooltipProperties().WIP()));
+    public static final RegistryObject<Item> MANA_HEART = ITEMS.register("mana_heart", () -> registerItem(new Item(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)), new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_INGOT = ITEMS.register("mana_ingot", () -> registerItem(new Item(new Item.Properties())));
     public static final RegistryObject<Item> MANA_PIECE = ITEMS.register("mana_piece", () -> registerItem(new Item(new Item.Properties())));
     public static final RegistryObject<Item> MANA_POTION = ITEMS.register("mana_potion", () -> registerItem(new ManaPotion(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).durability(3).food(new FoodProperties.Builder().alwaysEat().build())), new TooltipProperties().descriptionItem()));
