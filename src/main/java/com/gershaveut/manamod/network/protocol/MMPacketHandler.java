@@ -19,6 +19,7 @@ public class MMPacketHandler {
         INSTANCE.registerMessage(id++, ManaTalismanPacket.class, ManaTalismanPacket::encode, ManaTalismanPacket::new, ManaTalismanPacket::handle);
         INSTANCE.registerMessage(id++, ManaStonePacket.class, ManaStonePacket::encode, ManaStonePacket::new, ManaStonePacket::handle);
         INSTANCE.registerMessage(id++, SendSystemMessagePacket.class, SendSystemMessagePacket::encode, SendSystemMessagePacket::new, SendSystemMessagePacket::handle);
+        INSTANCE.registerMessage(id++, ManaBagPacket.class, ManaBagPacket::encode, ManaBagPacket::new, ManaBagPacket::handle);
         INSTANCE.registerMessage(id, ManaFriedPacket.class, ManaFriedPacket::encode, ManaFriedPacket::new, ManaFriedPacket::handle);
     }
 }

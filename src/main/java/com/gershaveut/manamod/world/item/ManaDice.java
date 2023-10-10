@@ -37,11 +37,10 @@ public class ManaDice extends Item {
         }
 
         MMPacketHandler.INSTANCE.sendToServer(new SendSystemMessagePacket(Component.translatable("item.mana_mod.mana_dice.feedback.use")));
-
+        player.getItemInHand(interactionHand).hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+        
         if (MMConfig.itemCooldown)
             player.getCooldowns().addCooldown(this, 100);
-
-        player.getItemInHand(interactionHand).hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(EquipmentSlot.MAINHAND));
 
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
