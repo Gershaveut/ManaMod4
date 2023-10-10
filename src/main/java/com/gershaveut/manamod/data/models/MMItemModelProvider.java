@@ -55,6 +55,7 @@ public class MMItemModelProvider extends ItemModelProvider {
         handheldItem(MMItems.MANA_AXE.get());
         handheldItem(MMItems.MANA_HOE.get());
         basicItem(MMItems.MANA_AMULET.get());
+        basicItem(MMItems.MANA_DICE.get());
     }
 
     private void blockItem(Item item) {

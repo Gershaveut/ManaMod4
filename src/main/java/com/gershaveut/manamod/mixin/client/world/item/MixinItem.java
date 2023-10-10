@@ -3,6 +3,7 @@ package com.gershaveut.manamod.mixin.client.world.item;
 import com.gershaveut.manamod.client.KeyMappings;
 import com.gershaveut.manamod.world.item.Tooltip;
 import com.gershaveut.manamod.world.item.TooltipProperties;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
@@ -103,7 +104,7 @@ public abstract class MixinItem implements Tooltip {
         }
         
         if (manaMod$tooltipProperties.WIP) {
-            tooltip.add(Component.literal("§cWIP"));
+            tooltip.add(Component.literal("WIP").withStyle(ChatFormatting.YELLOW));
         }
     }
 }

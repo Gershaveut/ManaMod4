@@ -1,10 +1,7 @@
 package com.gershaveut.manamod.network.protocol;
 
 import com.gershaveut.manamod.ManaMod;
-import com.gershaveut.manamod.network.protocol.game.ManaFriedPacket;
-import com.gershaveut.manamod.network.protocol.game.ManaStonePacket;
-import com.gershaveut.manamod.network.protocol.game.ManaTalismanPacket;
-import com.gershaveut.manamod.network.protocol.game.UnstableManaTalismanPacket;
+import com.gershaveut.manamod.network.protocol.game.*;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -21,6 +18,7 @@ public class MMPacketHandler {
         INSTANCE.registerMessage(id++, UnstableManaTalismanPacket.class, UnstableManaTalismanPacket::encode, UnstableManaTalismanPacket::new, UnstableManaTalismanPacket::handle);
         INSTANCE.registerMessage(id++, ManaTalismanPacket.class, ManaTalismanPacket::encode, ManaTalismanPacket::new, ManaTalismanPacket::handle);
         INSTANCE.registerMessage(id++, ManaStonePacket.class, ManaStonePacket::encode, ManaStonePacket::new, ManaStonePacket::handle);
+        INSTANCE.registerMessage(id++, SendSystemMessagePacket.class, SendSystemMessagePacket::encode, SendSystemMessagePacket::new, SendSystemMessagePacket::handle);
         INSTANCE.registerMessage(id, ManaFriedPacket.class, ManaFriedPacket::encode, ManaFriedPacket::new, ManaFriedPacket::handle);
     }
 }
