@@ -31,6 +31,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
         simpleBlock(MMBlocks.MANA_SHIELD.get());
         simpleBlock(MMBlocks.MANA_SYNTHESIZER.get());
         simpleBlock(MMBlocks.UNSTABLE_MANA_BLOCK.get());
+        simpleBlock(MMBlocks.TERMINAL.get());
     }
 
     public void cakeBlock(Block block) {

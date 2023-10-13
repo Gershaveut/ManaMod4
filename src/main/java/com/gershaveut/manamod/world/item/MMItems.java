@@ -50,6 +50,7 @@ public class MMItems {
     public static final RegistryObject<Item> MANA_HOE = ITEMS.register("mana_hoe", () -> registerItem(new HoeItem(MMTiers.MANA, -2, 0.5F, new Item.Properties()), new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_AMULET = ITEMS.register("mana_amulet", () -> registerItem(new ArmorItem(MMArmorMaterials.MANA_AMULET, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(Rarity.RARE)), new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_DICE = ITEMS.register("mana_dice", () -> registerItem(new ManaDice(new Item.Properties().stacksTo(1).durability(1).rarity(MMRarity.MANA)), new TooltipProperties().descriptionItem()));
+    public static final RegistryObject<Item> TERMINAL = ITEMS.register("terminal", () -> registerItem(new BlockItem(MMBlocks.TERMINAL.get(), new Item.Properties()), new TooltipProperties().WIP()));
 
     public static Item registerItem(Item item, TooltipProperties tooltipProperties) {
         if (FMLEnvironment.dist.isClient())

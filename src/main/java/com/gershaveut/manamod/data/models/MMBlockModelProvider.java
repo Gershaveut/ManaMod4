@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,6 +30,7 @@ public class MMBlockModelProvider extends BlockModelProvider {
         basicBlock(MMBlocks.MANA_SHIELD.get());
         basicBlock(MMBlocks.MANA_SYNTHESIZER.get());
         basicBlock(MMBlocks.UNSTABLE_MANA_BLOCK.get());
+        basicBlock(MMBlocks.TERMINAL.get());
     }
 
     private void basicBlock(Block block) {

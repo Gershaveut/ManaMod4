@@ -56,6 +56,7 @@ public class MMLanguageProvider extends LanguageProvider {
         add(MMBlocks.MANA_SHIELD.get(), "Mana Shield");
         add(MMBlocks.MANA_SYNTHESIZER.get(), "Mana Synthesizer");
         add(MMBlocks.UNSTABLE_MANA_BLOCK.get(), "Unstable Mana Block");
+        add(MMBlocks.TERMINAL.get(), "Terminal");
         add(MMItems.MANA_SHOVEL.get(), "Mana Shovel");
         add(MMItems.MANA_SWORD.get(), "Mana Sword");
         add(MMItems.MANA_PICKAXE.get(), "Mana Pickaxe");
@@ -63,6 +64,7 @@ public class MMLanguageProvider extends LanguageProvider {
         add(MMItems.MANA_HOE.get(), "Mana Hoe");
         add(MMItems.MANA_AMULET.get(), "Mana Amulet");
         add(MMItems.MANA_DICE.get(), "Mana Dice", "Gives two random vanilla effects", new Feedback("use", "§kused!!!"));
+        add(MMItems.TERMINAL.get(), "Terminal");
 
         add(MMMobEffects.MANA_FLIGHT.get(), "Mana Flight");
         add(MMMobEffects.MANAIFICATION.get(), "Manaification");

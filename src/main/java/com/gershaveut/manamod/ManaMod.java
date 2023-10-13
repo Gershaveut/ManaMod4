@@ -21,8 +21,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.event.Level;
 
-import java.util.Locale;
-
 @Mod(ManaMod.MODID)
 public class ManaMod {
     public static final String MODID = "mana_mod";
@@ -51,7 +49,11 @@ public class ManaMod {
     }
     
     public static ResourceLocation prefix(String name) {
-        return new ResourceLocation(MODID, name.toLowerCase(Locale.ROOT));
+        return new ResourceLocation(MODID, name);
+    }
+    
+    public static ResourceLocation prefixGui(String name) {
+        return new ResourceLocation(MODID, "textures/gui/" + name + ".png");
     }
     
     public static void Log(Level level, String message) {

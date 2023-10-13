@@ -29,6 +29,7 @@ public class MMBlockLootSubProvider extends BlockLootSubProvider {
         dropSelf(MMBlocks.MANA_SHIELD.get());
         dropSelf(MMBlocks.MANA_SYNTHESIZER.get());
         dropSelf(MMBlocks.UNSTABLE_MANA_BLOCK.get());
+        dropSelf(MMBlocks.TERMINAL.get());
     }
     
     @Override

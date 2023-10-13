@@ -1,14 +1,18 @@
 package com.gershaveut.manamod.client;
 
+import com.gershaveut.manamod.client.gui.screens.terminal.TerminalScreen;
 import com.gershaveut.manamod.client.particle.ManaParticle;
 import com.gershaveut.manamod.core.particles.MMParticleType;
+import com.gershaveut.manamod.world.inventory.MMMenuType;
 import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import static com.gershaveut.manamod.ManaMod.MODID;
 
@@ -45,6 +49,13 @@ public class MMClientEvents {
         @SubscribeEvent
         public static void registerParticles(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(MMParticleType.MANA_PARTICLE.get(), ManaParticle.Provider::new);
+        }
+        
+        @SubscribeEvent
+        public static void clientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(
+                    () -> MenuScreens.register(MMMenuType.TERMINAL_MENU.get(), TerminalScreen::new)
+            );
         }
     }
 }

@@ -52,5 +52,6 @@ public class MMCreativeModeTabs {
                 output.accept(MMItems.MANA_HOE.get());
                 output.accept(MMItems.MANA_AMULET.get());
                 output.accept(MMItems.MANA_DICE.get());
+                output.accept(MMItems.TERMINAL.get());
             }).build());
 }

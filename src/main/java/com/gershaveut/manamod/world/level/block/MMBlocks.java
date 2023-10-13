@@ -24,4 +24,5 @@ public class MMBlocks {
     public static final RegistryObject<Block> MANA_SHIELD = BLOCKS.register("mana_shield", () -> new HalfTransparentBlock(BlockBehaviour.Properties.of().strength(-1.0f, 3600000.0F).mapColor(MapColor.COLOR_CYAN).sound(SoundType.GLASS).pushReaction(PushReaction.IGNORE)));
     public static final RegistryObject<Block> MANA_SYNTHESIZER = BLOCKS.register("mana_synthesizer", () -> new Block(BlockBehaviour.Properties.of().strength(3F).mapColor(MapColor.COLOR_MAGENTA).sound(SoundType.ANVIL)));
     public static final RegistryObject<Block> UNSTABLE_MANA_BLOCK = BLOCKS.register("unstable_mana_block", () -> new Block(BlockBehaviour.Properties.of().strength(1.5F).mapColor(MapColor.COLOR_CYAN).sound(SoundType.WOOL)));
+    public static final RegistryObject<Block> TERMINAL = BLOCKS.register("terminal", () -> new Terminal(BlockBehaviour.Properties.of().strength(10F).mapColor(MapColor.COLOR_BLACK).sound(SoundType.STONE)));
 }
