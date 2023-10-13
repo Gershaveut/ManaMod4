@@ -1,7 +1,9 @@
 package com.gershaveut.manamod.world.item;
 
 import com.gershaveut.manamod.MMConfig;
+import com.gershaveut.manamod.client.gui.screens.MTScreen;
 import com.gershaveut.manamod.world.inventory.ManaBagMenu;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -24,7 +26,9 @@ public class ManaBag extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         //MMPacketHandler.INSTANCE.sendToServer(new ManaBagPacket());
-        
+
+        Minecraft.getInstance().setScreen(new MTScreen(Component.literal("TEST")));
+
         if (player instanceof ServerPlayer serverPlayer)
             NetworkHooks.openScreen(serverPlayer, new SimpleMenuProvider(
                     (containerId, playerInventory, playerEntity) -> new ManaBagMenu(containerId, playerInventory),
