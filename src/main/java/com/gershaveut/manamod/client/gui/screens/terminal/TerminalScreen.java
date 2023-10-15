@@ -3,7 +3,6 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.world.inventory.TerminalMenu;
 import com.gershaveut.manamod.world.item.MMItems;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -24,19 +23,25 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
         super(terminalMenu, inventory, component);
+        
+        this.inventoryLabelX = -1000;
     }
     
     @Override
     protected void init() {
         FileWidget mana = registerTerminalWidget(new FileWidget(0, 0, new FileWidget.Properties().display(MMItems.MANA.get().getDefaultInstance())));
-        FileWidget mana_bag = registerTerminalWidget(new FileWidget(50, 0, new FileWidget.Properties().parent(mana).display(MMItems.MANA_BAG.get().getDefaultInstance())));
-
+        FileWidget mana_bag = registerTerminalWidget(new FileWidget(50, 50, new FileWidget.Properties().parent(mana).display(MMItems.MANA_BAG.get().getDefaultInstance())));
+        FileWidget mana_dice = registerTerminalWidget(new FileWidget(100, 75, new FileWidget.Properties().parent(mana_bag).display(MMItems.MANA_DICE.get().getDefaultInstance())));
+        FileWidget mana_heart = registerTerminalWidget(new FileWidget(150, 50, new FileWidget.Properties().parent(mana_dice).display(MMItems.MANA_HEART.get().getDefaultInstance())));
+        
         for (FileWidget fileWidget : FILE_WIDGETS) {
             this.addRenderableWidget(fileWidget);
         }
-
+        
         this.addRenderableWidget(new FocusWidget(10, 10));
-
+        
+        //this.addRenderableWidget();
+        
         super.init();
     }
     
@@ -58,13 +63,29 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         for (FileWidget fileWidget : FILE_WIDGETS) {
             fileWidget.setPosition(Mth.floor(scrollX + MAX_X / 2D + fileWidget.getOffsetX()), Mth.floor(scrollY + MAX_Y / 2D + fileWidget.getOffsetY()));
         }
-
+        
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, 200);
+        
+        if (FocusWidget.followFocus != null) {
+            FileWidget selectedFile = FocusWidget.followFocus;
+            
+            //Inspector
+            graphics.fill(width, 0, Mth.floor(this.width / 1.35D), this.height, -16777216);
+            graphics.vLine(Mth.floor(this.width / 1.35D), Mth.floor(this.width / 1.35D), -1, -1);
+            
+            graphics.renderFakeItem(selectedFile.getItem(), Mth.floor(this.width / 1.3D), 10);
+            graphics.drawString(this.font, selectedFile.getMessage(), Mth.floor(this.width / 1.2D), 15, 0);
+            
+            graphics.pose().popPose();
+        }
+        
         super.render(graphics, mouseX, mouseY, partialTick);
     }
     
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, Mth.floor(MAX_X * 2.5), Mth.floor(MAX_Y * 2.5));
+        graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, Mth.floor(MAX_X * 5), Mth.floor(MAX_Y * 2.5));
     }
     
     @Override

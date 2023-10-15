@@ -36,7 +36,7 @@ public class FocusWidget extends AbstractWidget {
                 this.setX(followFocusX);
                 this.setY(followFocusY);
             }
-
+            
             graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
         }
     }

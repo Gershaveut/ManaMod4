@@ -45,16 +45,26 @@ public class FileWidget extends AbstractButton {
 
         graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
 
-        if (item != null)
-            graphics.renderItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.width / 2, this.height / 2);
-        else if (texture != null)
+        if (item != null) {
+            graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
+        } else if (texture != null) {
             graphics.blitInscribed(this.texture.texture, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
-        else
+        } else {
             graphics.renderItem(MMItems.MANA.get().getDefaultInstance(), getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.width / 2, this.height / 2);
+        }
     }
 
     public void renderConnectivity(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.vLine(getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), getCenter(this.parent.getX(), this.parent.width), getCenter(this.parent.getY(), this.parent.height));
+        int i = this.parent.getX() + 13;
+        int j = this.parent.getX() + 26 + 4;
+        int k = this.parent.getY() + 13;
+        int l = this.getX() + 13;
+        int i1 = this.getY() + 13;
+        int j1 = -1;
+        
+        graphics.hLine(j, i, k, j1);
+        graphics.hLine(l, j, i1, j1);
+        graphics.vLine(j, i1, k, j1);
     }
 
     @Override
@@ -71,7 +81,6 @@ public class FileWidget extends AbstractButton {
 
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-
     }
 
     public int getCenter(int coordinate, int direction) {
@@ -121,6 +130,18 @@ public class FileWidget extends AbstractButton {
     public void setFocusing(boolean focusing) {
         this.focusing = focusing;
     }
+    
+    public ItemStack getItem() {
+        return this.item;
+    }
+    
+    public Texture getTexture() {
+        return this.texture;
+    }
+    
+    public FileWidget getParent() {
+        return this.parent;
+    }
 
     public record Texture(ResourceLocation texture, int boundsWidth, int boundsHeight) {
     }
@@ -143,6 +164,7 @@ public class FileWidget extends AbstractButton {
 
         public Properties display(ItemStack itemTexture) {
             this.item = itemTexture;
+            this.message = itemTexture.getDisplayName();
             return this;
         }
 
