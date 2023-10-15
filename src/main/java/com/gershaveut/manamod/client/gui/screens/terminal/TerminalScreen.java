@@ -15,17 +15,12 @@ import java.util.HashSet;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
-    private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
     
     private final int MAX_X = 550;
     private final int MAX_Y = 750;
-    private final int FOCUS_SPEED = 5;
     private static final HashSet<FileWidget> FILE_WIDGETS = new HashSet<>();
     private double scrollX = -MAX_X / 2.5D;
     private double scrollY = -MAX_Y / 2.5D;
-    private static FileWidget followFocus;
-    private double focusX;
-    private double focusY;
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
         super(terminalMenu, inventory, component);
@@ -39,6 +34,8 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         for (FileWidget fileWidget : FILE_WIDGETS) {
             this.addRenderableWidget(fileWidget);
         }
+
+        this.addRenderableWidget(new FocusWidget(10, 10));
 
         super.init();
     }
@@ -58,26 +55,6 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         this.renderBackground(graphics);
 
-        if (followFocus != null) {
-            double followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
-            double followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
-
-            if (followFocus.getFocusing()) {
-                for (int i = 0; i < FOCUS_SPEED; i++) {
-                    focusX += Math.signum(followFocusX - focusX);
-                    focusY += Math.signum(followFocusY - focusY);
-                }
-
-                if (focusX == followFocusX && focusY == followFocusY)
-                    followFocus.setFocusing(false);
-            } else {
-                focusX = followFocusX;
-                focusY = followFocusY;
-            }
-
-            graphics.blitInscribed(FOCUS, Mth.floor(focusX), Mth.floor(focusY), 28, 28, followFocus.getWidth(), followFocus.getHeight());
-        }
-
         for (FileWidget fileWidget : FILE_WIDGETS) {
             fileWidget.setPosition(Mth.floor(scrollX + MAX_X / 2D + fileWidget.getOffsetX()), Mth.floor(scrollY + MAX_Y / 2D + fileWidget.getOffsetY()));
         }
@@ -92,10 +69,6 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     @Override
     public void renderBackground(GuiGraphics graphics) {
-    }
-
-    public static void setFollowFocus(FileWidget fileWidget) {
-        followFocus = fileWidget;
     }
 
     public static FileWidget registerTerminalWidget(FileWidget fileWidget) {

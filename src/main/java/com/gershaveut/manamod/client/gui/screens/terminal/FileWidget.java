@@ -46,28 +46,27 @@ public class FileWidget extends AbstractButton {
         graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
 
         if (item != null)
-            graphics.renderItem(item, getCentre(this.getX(), this.width), getCentre(this.getY(), this.height), this.width / 2, this.height / 2);
+            graphics.renderItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.width / 2, this.height / 2);
         else if (texture != null)
-            graphics.blitInscribed(this.texture.texture, getCentre(this.getX(), this.width), getCentre(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
+            graphics.blitInscribed(this.texture.texture, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
         else
-            graphics.renderItem(MMItems.MANA.get().getDefaultInstance(), getCentre(this.getX(), this.width), getCentre(this.getY(), this.height), this.width / 2, this.height / 2);
+            graphics.renderItem(MMItems.MANA.get().getDefaultInstance(), getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.width / 2, this.height / 2);
     }
 
     public void renderConnectivity(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.vLine(getCentre(this.getX(), this.width), getCentre(this.getY(), this.height), getCentre(this.parent.getX(), this.parent.width), getCentre(this.parent.getY(), this.parent.height));
+        graphics.vLine(getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), getCenter(this.parent.getX(), this.parent.width), getCenter(this.parent.getY(), this.parent.height));
     }
 
     @Override
     public void onPress() {
-        TerminalScreen.setFollowFocus(this);
+        FocusWidget.followFocus = this;
         focusing = true;
     }
 
     @Override
-    public boolean isFocused() {
+    public boolean isHovered() {
         onPress();
-
-        return true;
+        return super.isHovered();
     }
 
     @Override
@@ -75,7 +74,7 @@ public class FileWidget extends AbstractButton {
 
     }
 
-    public int getCentre(int coordinate, int direction) {
+    public int getCenter(int coordinate, int direction) {
         return Mth.floor(coordinate + direction / 2D - direction / 2D * 0.1);
     }
 
