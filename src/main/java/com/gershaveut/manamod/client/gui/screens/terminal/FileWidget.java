@@ -2,6 +2,7 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.world.item.MMItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -16,13 +17,14 @@ public class FileWidget extends AbstractButton {
     private final ItemStack item;
     private final Texture texture;
     private final FileWidget parent;
+    private final FocusWidget focusWidget;
     private int offsetX;
     private int offsetY;
     private int width;
     private int height;
     private boolean focusing;
 
-    public FileWidget(int offsetX, int offsetY, int width, int height, FileWidget.Properties properties) {
+    public FileWidget(FocusWidget focusWidget, int offsetX, int offsetY, int width, int height, FileWidget.Properties properties) {
         super(0, 0, (int) (width * 2.5), (int) (height * 2.5), properties.message);
 
         this.width = width;
@@ -32,16 +34,17 @@ public class FileWidget extends AbstractButton {
         this.item = properties.item;
         this.texture = properties.texture;
         this.parent = properties.parent;
-    }
-
-    public FileWidget(int offsetX, int offsetY, FileWidget.Properties properties) {
-        this(offsetX, offsetY, 10, 10, properties);
+        this.focusWidget = focusWidget;
     }
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (parent != null)
             this.renderConnectivity(graphics, mouseX, mouseY, partialTick);
+
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, 1);
+
 
         graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
 
@@ -52,6 +55,8 @@ public class FileWidget extends AbstractButton {
         } else {
             graphics.renderItem(MMItems.MANA.get().getDefaultInstance(), getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.width / 2, this.height / 2);
         }
+
+        graphics.pose().popPose();
     }
 
     public void renderConnectivity(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
@@ -61,7 +66,7 @@ public class FileWidget extends AbstractButton {
         int l = this.getX() + 13;
         int i1 = this.getY() + 13;
         int j1 = -1;
-        
+
         graphics.hLine(j, i, k, j1);
         graphics.hLine(l, j, i1, j1);
         graphics.vLine(j, i1, k, j1);
@@ -69,14 +74,14 @@ public class FileWidget extends AbstractButton {
 
     @Override
     public void onPress() {
-        FocusWidget.followFocus = this;
+        this.focusWidget.setFollowFocus(this);
         focusing = true;
     }
 
     @Override
-    public boolean isHovered() {
-        onPress();
-        return super.isHovered();
+    public boolean isFocused() {
+        //this.onPress();
+        return super.isFocused();
     }
 
     @Override
@@ -164,7 +169,7 @@ public class FileWidget extends AbstractButton {
 
         public Properties display(ItemStack itemTexture) {
             this.item = itemTexture;
-            this.message = itemTexture.getDisplayName();
+            this.message = Component.translatable(itemTexture.getDescriptionId()).withStyle(ChatFormatting.WHITE);
             return this;
         }
 
