@@ -1,8 +1,6 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
-import com.gershaveut.manamod.world.item.MMItems;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -10,9 +8,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGET = ManaMod.prefixGui("terminal/terminal_widget");
@@ -21,12 +17,16 @@ public class FileWidget extends AbstractButton {
     private final Texture texture;
     private final FileWidget parent;
     private final FocusWidget focusWidget;
+    private static final float[] flash = new float[4];
     private int offsetX;
     private int offsetY;
     private int width;
     private int height;
     private boolean focusing;
-
+    private static final int flashSpeed = 20;
+    private final boolean flashing = false;
+    private boolean shading = flashing;
+    
     private FileWidget(ItemStack item, Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, (int) (properties.width * 2.5), (int) (properties.height * 2.5), component);
 
@@ -37,9 +37,13 @@ public class FileWidget extends AbstractButton {
         this.item = item;
         this.texture = texture;
         this.parent = properties.parent;
-        this.focusWidget = TerminalScreen.focusWidget;
+        this.focusWidget = TerminalScreen.FOCUS_WIDGET;
+        
+        for (int i = 0; i < flash.length ; i++) {
+            flash[i] = TerminalScreen.COLOR[i] * flashSpeed;
+        }
     }
-
+    
     public FileWidget(ItemStack item, int offsetX, int offsetY, FileWidget.Properties properties) {
         this(item, null, Component.translatable(item.getDescriptionId()).withStyle(ChatFormatting.WHITE), offsetX, offsetY, properties);
     }
@@ -54,21 +58,23 @@ public class FileWidget extends AbstractButton {
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        graphics.setColor(TerminalScreen.COLOR[0], TerminalScreen.COLOR[1], TerminalScreen.COLOR[2], TerminalScreen.COLOR[3]);
+        
         if (parent != null)
             this.renderConnectivity(graphics, mouseX, mouseY, partialTick);
 
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 1);
-
-
+        
+        graphics.setColor(flash[0] / flashSpeed, flash[1] / flashSpeed, flash[2] / flashSpeed, flash[3]);
         graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
-
-        RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+        graphics.setColor(1F, 1F, 1F, 1F);
+        
         if (item != null)
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
         else
             graphics.blitInscribed(this.texture.texture, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
-
+        
         graphics.pose().popPose();
     }
 
@@ -83,6 +89,19 @@ public class FileWidget extends AbstractButton {
         graphics.hLine(j, i, k, j1);
         graphics.hLine(l, j, i1, j1);
         graphics.vLine(j, i1, k, j1);
+    }
+    
+    public void tick() {
+        if (flashing) {
+            if (TerminalScreen.COLOR[0] * flashSpeed <= flash[0])
+                shading = true;
+            else if (TerminalScreen.COLOR[0] / 2 * flashSpeed >= flash[0])
+                shading = false;
+            
+            for (int i = 0; i < 3; i++) {
+                flash[i] += Math.signum((shading ? TerminalScreen.COLOR[i] / 2 * flashSpeed : TerminalScreen.COLOR[i] * flashSpeed) - flash[i]);
+            }
+        }
     }
 
     @Override

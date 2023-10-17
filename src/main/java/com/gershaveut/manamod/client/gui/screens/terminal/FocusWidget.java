@@ -11,7 +11,7 @@ import net.minecraft.util.Mth;
 public class FocusWidget extends AbstractWidget {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
 
-    private final int FOCUS_SPEED = 5;
+    private final int FOCUS_SPEED = 20;
     private FileWidget followFocus;
     public FileWidget lastFollowFocus;
 
@@ -22,9 +22,28 @@ public class FocusWidget extends AbstractWidget {
     @Override
     protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (followFocus != null) {
+            
+            if (!followFocus.getFocusing()) {
+                this.setX(followFocus.getX() - (double) (followFocus.getWidth() / 4));
+                this.setY(followFocus.getY() - (double) (followFocus.getHeight() / 4));
+                this.setWidth(followFocus.getWidth());
+                this.setHeight(followFocus.getHeight());
+            }
+            
+            graphics.setColor(TerminalScreen.COLOR[0], TerminalScreen.COLOR[1], TerminalScreen.COLOR[2], TerminalScreen.COLOR[3]);
+            graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
+        }
+    }
+
+    @Override
+    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+    }
+    
+    public void tick() {
+        if (followFocus != null) {
             double followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
             double followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
-
+            
             if (followFocus.getFocusing()) {
                 for (int i = 0; i < FOCUS_SPEED; i++) {
                     this.setX(this.getX() + Math.signum(followFocusX - this.getX()));
@@ -32,22 +51,11 @@ public class FocusWidget extends AbstractWidget {
                     this.setWidth(this.getWidth() + Math.signum(followFocus.getWidth() - this.getWidth()));
                     this.setHeight(this.getHeight() + Math.signum(followFocus.getHeight() - this.getHeight()));
                 }
-
+                
                 if (this.getX() == followFocusX && this.getY() == followFocusY)
                     followFocus.setFocusing(false);
-            } else {
-                this.setX(followFocusX);
-                this.setY(followFocusY);
-                this.setWidth(followFocus.getWidth());
-                this.setHeight(followFocus.getHeight());
             }
-            
-            graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
         }
-    }
-
-    @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
 
     public void setX(double x) {
