@@ -2,6 +2,7 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.world.item.MMItems;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -9,7 +10,9 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGET = ManaMod.prefixGui("terminal/terminal_widget");
@@ -24,17 +27,29 @@ public class FileWidget extends AbstractButton {
     private int height;
     private boolean focusing;
 
-    public FileWidget(FocusWidget focusWidget, int offsetX, int offsetY, int width, int height, FileWidget.Properties properties) {
-        super(0, 0, (int) (width * 2.5), (int) (height * 2.5), properties.message);
+    private FileWidget(ItemStack item, Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
+        super(0, 0, (int) (properties.width * 2.5), (int) (properties.height * 2.5), component);
 
-        this.width = width;
-        this.height = height;
+        this.width = properties.width;
+        this.height = properties.height;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        this.item = properties.item;
-        this.texture = properties.texture;
+        this.item = item;
+        this.texture = texture;
         this.parent = properties.parent;
-        this.focusWidget = focusWidget;
+        this.focusWidget = TerminalScreen.focusWidget;
+    }
+
+    public FileWidget(ItemStack item, int offsetX, int offsetY, FileWidget.Properties properties) {
+        this(item, null, Component.translatable(item.getDescriptionId()).withStyle(ChatFormatting.WHITE), offsetX, offsetY, properties);
+    }
+
+    public FileWidget(ItemStack item, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
+        this(item, null, component, offsetX, offsetY, properties);
+    }
+
+    public FileWidget(Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
+        this(null, texture, component, offsetX, offsetY, properties);
     }
 
     @Override
@@ -48,13 +63,11 @@ public class FileWidget extends AbstractButton {
 
         graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
 
-        if (item != null) {
+        RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
+        if (item != null)
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
-        } else if (texture != null) {
+        else
             graphics.blitInscribed(this.texture.texture, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
-        } else {
-            graphics.renderItem(MMItems.MANA.get().getDefaultInstance(), getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.width / 2, this.height / 2);
-        }
 
         graphics.pose().popPose();
     }
@@ -152,29 +165,22 @@ public class FileWidget extends AbstractButton {
     }
 
     public static class Properties {
-        Component message = Component.empty();
-        ItemStack item;
-        Texture texture;
         FileWidget parent;
-
-        public Properties message(Component message) {
-            this.message = message;
-            return this;
-        }
+        int width = 10;
+        int height = 10;
 
         public Properties parent(FileWidget parent) {
             this.parent = parent;
             return this;
         }
 
-        public Properties display(ItemStack itemTexture) {
-            this.item = itemTexture;
-            this.message = Component.translatable(itemTexture.getDescriptionId()).withStyle(ChatFormatting.WHITE);
+        public Properties width(int width) {
+            this.width = width;
             return this;
         }
 
-        public Properties display(Texture texture) {
-            this.texture = texture;
+        public Properties height(int height) {
+            this.height = height;
             return this;
         }
     }
