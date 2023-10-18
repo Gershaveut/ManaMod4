@@ -10,8 +10,8 @@ import net.minecraft.util.Mth;
 
 public class FocusWidget extends AbstractWidget {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
-
-    private final int FOCUS_SPEED = 20;
+    private static final int FOCUS_SPEED = 20;
+    
     private FileWidget followFocus;
     public FileWidget lastFollowFocus;
 
@@ -23,9 +23,9 @@ public class FocusWidget extends AbstractWidget {
     protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (followFocus != null) {
             
-            if (!followFocus.getFocusing()) {
-                this.setX(followFocus.getX() - (double) (followFocus.getWidth() / 4));
-                this.setY(followFocus.getY() - (double) (followFocus.getHeight() / 4));
+            if (!followFocus.focusing) {
+                this.setX(Mth.floor(followFocus.getX() - (double) (followFocus.getWidth() / 4)));
+                this.setY(Mth.floor(followFocus.getY() - (double) (followFocus.getHeight() / 4)));
                 this.setWidth(followFocus.getWidth());
                 this.setHeight(followFocus.getHeight());
             }
@@ -44,36 +44,20 @@ public class FocusWidget extends AbstractWidget {
             double followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
             double followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
             
-            if (followFocus.getFocusing()) {
+            if (followFocus.focusing) {
                 for (int i = 0; i < FOCUS_SPEED; i++) {
-                    this.setX(this.getX() + Math.signum(followFocusX - this.getX()));
-                    this.setY(this.getY() + Math.signum(followFocusY - this.getY()));
-                    this.setWidth(this.getWidth() + Math.signum(followFocus.getWidth() - this.getWidth()));
-                    this.setHeight(this.getHeight() + Math.signum(followFocus.getHeight() - this.getHeight()));
+                    this.setX(Mth.floor(this.getX() + Math.signum(followFocusX - this.getX())));
+                    this.setY(Mth.floor(this.getY() + Math.signum(followFocusY - this.getY())));
+                    this.setWidth(Mth.floor(this.getWidth() + Math.signum(followFocus.getWidth() - this.getWidth())));
+                    this.setHeight(Mth.floor(this.getHeight() + Math.signum(followFocus.getHeight() - this.getHeight())));
                 }
                 
                 if (this.getX() == followFocusX && this.getY() == followFocusY)
-                    followFocus.setFocusing(false);
+                    followFocus.focusing = false;
             }
         }
     }
-
-    public void setX(double x) {
-        this.setX(Mth.floor(x));
-    }
-
-    public void setY(double y) {
-        this.setY(Mth.floor(y));
-    }
-
-    public void setWidth(double x) {
-        this.setWidth(Mth.floor(x));
-    }
-
-    public void setHeight(double y) {
-        this.setHeight(Mth.floor(y));
-    }
-
+    
     public void setFollowFocus(FileWidget followFocus) {
         this.lastFollowFocus = this.followFocus;
         this.followFocus = followFocus;

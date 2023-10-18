@@ -12,20 +12,20 @@ import net.minecraft.world.item.ItemStack;
 
 public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGET = ManaMod.prefixGui("terminal/terminal_widget");
-
-    private final ItemStack item;
-    private final Texture texture;
-    private final FileWidget parent;
-    private final FocusWidget focusWidget;
-    private static final float[] flash = new float[4];
-    private int offsetX;
-    private int offsetY;
-    private int width;
-    private int height;
-    private boolean focusing;
-    private static final int flashSpeed = 20;
-    private final boolean flashing = false;
-    private boolean shading = flashing;
+    private static final float[] FLASH = new float[4];
+    private static final int FLASH_SPEED = 20;
+    
+    public final ItemStack item;
+    public final Texture texture;
+    public final FileWidget parent;
+    public final FocusWidget focusWidget;
+    public int offsetX;
+    public int offsetY;
+    public boolean focusing;
+    public boolean flashing;
+    private final int width;
+    private final int height;
+    private boolean shading;
     
     private FileWidget(ItemStack item, Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, (int) (properties.width * 2.5), (int) (properties.height * 2.5), component);
@@ -38,10 +38,14 @@ public class FileWidget extends AbstractButton {
         this.texture = texture;
         this.parent = properties.parent;
         this.focusWidget = TerminalScreen.FOCUS_WIDGET;
+        this.flashing = properties.parent != null;
+        this.shading = this.flashing;
         
-        for (int i = 0; i < flash.length ; i++) {
-            flash[i] = TerminalScreen.COLOR[i] * flashSpeed;
+        for (int i = 0; i < FLASH.length; i++) {
+            FLASH[i] = TerminalScreen.COLOR[i] * FLASH_SPEED;
         }
+        
+        update();
     }
     
     public FileWidget(ItemStack item, int offsetX, int offsetY, FileWidget.Properties properties) {
@@ -66,14 +70,15 @@ public class FileWidget extends AbstractButton {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 1);
         
-        graphics.setColor(flash[0] / flashSpeed, flash[1] / flashSpeed, flash[2] / flashSpeed, flash[3]);
+        if (flashing)
+            graphics.setColor(FLASH[0] / FLASH_SPEED, FLASH[1] / FLASH_SPEED, FLASH[2] / FLASH_SPEED, FLASH[3]);
         graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
         graphics.setColor(1F, 1F, 1F, 1F);
         
         if (item != null)
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
         else
-            graphics.blitInscribed(this.texture.texture, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
+            graphics.blitInscribed(this.texture.resourceLocation, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
         
         graphics.pose().popPose();
     }
@@ -92,52 +97,42 @@ public class FileWidget extends AbstractButton {
     }
     
     public void tick() {
-        if (flashing) {
-            if (TerminalScreen.COLOR[0] * flashSpeed <= flash[0])
-                shading = true;
-            else if (TerminalScreen.COLOR[0] / 2 * flashSpeed >= flash[0])
-                shading = false;
+        update();
+        
+        if (TerminalScreen.COLOR[0] * FLASH_SPEED <= FLASH[0])
+            shading = true;
+        else if (TerminalScreen.COLOR[0] / 2 * FLASH_SPEED >= FLASH[0])
+            shading = false;
             
-            for (int i = 0; i < 3; i++) {
-                flash[i] += Math.signum((shading ? TerminalScreen.COLOR[i] / 2 * flashSpeed : TerminalScreen.COLOR[i] * flashSpeed) - flash[i]);
+        for (int i = 0; i < 3; i++) {
+            FLASH[i] += Math.signum((shading ? TerminalScreen.COLOR[i] / 2 * FLASH_SPEED : TerminalScreen.COLOR[i] * FLASH_SPEED) - FLASH[i]);
+        }
+    }
+    
+    private void update() {
+        if (parent != null) {
+            if (parent.visible) {
+                this.visible = !parent.flashing;
+            } else {
+                this.visible = false;
             }
         }
     }
-
+    
     @Override
     public void onPress() {
         this.focusWidget.setFollowFocus(this);
         focusing = true;
+        
+        this.flashing = false;
     }
-
-    @Override
-    public boolean isFocused() {
-        //this.onPress();
-        return super.isFocused();
-    }
-
+    
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
 
     public int getCenter(int coordinate, int direction) {
         return Mth.floor(coordinate + direction / 2D - direction / 2D * 0.1);
-    }
-
-    public int getOffsetX() {
-        return this.offsetX;
-    }
-
-    public int getOffsetY() {
-        return this.offsetY;
-    }
-
-    public void setOffsetX(int offsetX) {
-        this.offsetX = offsetX;
-    }
-
-    public void setOffsetY(int offsetY) {
-        this.offsetY = offsetY;
     }
 
     @Override
@@ -149,38 +144,8 @@ public class FileWidget extends AbstractButton {
     public int getHeight() {
         return this.height;
     }
-
-    @Override
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    @Override
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public boolean getFocusing() {
-        return this.focusing;
-    }
-
-    public void setFocusing(boolean focusing) {
-        this.focusing = focusing;
-    }
     
-    public ItemStack getItem() {
-        return this.item;
-    }
-    
-    public Texture getTexture() {
-        return this.texture;
-    }
-    
-    public FileWidget getParent() {
-        return this.parent;
-    }
-
-    public record Texture(ResourceLocation texture, int boundsWidth, int boundsHeight) {
+    public record Texture(ResourceLocation resourceLocation, int boundsWidth, int boundsHeight) {
     }
 
     public static class Properties {

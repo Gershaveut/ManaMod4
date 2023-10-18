@@ -15,15 +15,15 @@ import java.util.HashSet;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
-    public static final float[] COLOR = {1.0F, 1.0F, 1.0F ,1.0F};
+    public static final float[] COLOR = {1.0F, 1.0F, 1.0F, 1.0F};
     public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10);
+    private static final int MAX_X = 1000;
+    private static final int MAX_Y = 1000;
     
-    private final int MAX_X = 550;
-    private final int MAX_Y = 750;
     private final HashSet<FileWidget> FILE_WIDGETS = new HashSet<>();
-    private double scrollX = -MAX_X / 2.5D;
-    private double scrollY = -MAX_Y / 2.5D;
-    private int inspectorX;
+    private double scrollX = (double) -MAX_X + this.getXSize();
+    private double scrollY = (double) -MAX_Y + this.getYSize();
+    private int inspectorX = Mth.floor(this.width - this.width / 1.35D);
     private int inspectorY;
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
@@ -45,8 +45,6 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         }
         
         this.addRenderableWidget(FOCUS_WIDGET);
-        
-        this.inspectorX = Mth.floor(this.width - this.width / 1.35D);
         
         super.init();
     }
@@ -79,23 +77,23 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         this.renderBackground(graphics);
 
         for (FileWidget fileWidget : FILE_WIDGETS) {
-            fileWidget.setPosition(Mth.floor(scrollX + MAX_X / 2D + fileWidget.getOffsetX()), Mth.floor(scrollY + MAX_Y / 2D + fileWidget.getOffsetY()));
+            fileWidget.setPosition(Mth.floor(scrollX + MAX_X + fileWidget.offsetX), Mth.floor(scrollY + MAX_Y + fileWidget.offsetY));
         }
         
-        graphics.pose().pushPose();
-        graphics.pose().translate(inspectorX, inspectorY, 200);
-
         if (FOCUS_WIDGET.getFollowFocus() != null || FOCUS_WIDGET.lastFollowFocus != null) {
+            graphics.pose().pushPose();
+            graphics.pose().translate(inspectorX, inspectorY, 200);
+            
             FileWidget selectedFile = FOCUS_WIDGET.getFollowFocus() != null ? FOCUS_WIDGET.getFollowFocus() : FOCUS_WIDGET.lastFollowFocus;
             
             graphics.fill(this.width, 0, Mth.floor(this.width / 1.35D), this.height, -16777216);
             graphics.vLine(Mth.floor(this.width / 1.35D), this.height, -1, -1);
             
             graphics.setColor(1F, 1F, 1F, 1F);
-            if (selectedFile.getItem() != null)
-                graphics.renderFakeItem(selectedFile.getItem(), Mth.floor(this.width / 1.3D), 10);
+            if (selectedFile.item != null)
+                graphics.renderFakeItem(selectedFile.item, Mth.floor(this.width / 1.3D), 10);
             else
-                graphics.blitInscribed(selectedFile.getTexture().texture(), Mth.floor(this.width / 1.3D), 10, selectedFile.getTexture().boundsWidth(), selectedFile.getTexture().boundsHeight(), selectedFile.getWidth() / 2, selectedFile.getHeight() / 2);
+                graphics.blitInscribed(selectedFile.texture.resourceLocation(), Mth.floor(this.width / 1.3D), 10, selectedFile.texture.boundsWidth(), selectedFile.texture.boundsHeight(), selectedFile.getWidth() / 2, selectedFile.getHeight() / 2);
             graphics.drawString(this.font, !selectedFile.getMessage().getStyle().isEmpty() ? selectedFile.getMessage() : selectedFile.getMessage().copy().withStyle(ChatFormatting.WHITE), Mth.floor(this.width / 1.2D), 15, 0);
             graphics.setColor(COLOR[0], COLOR[1], COLOR[2], COLOR[3]);
             
@@ -107,7 +105,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, Mth.floor(MAX_X * 5), Mth.floor(MAX_Y * 2.5));
+        graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, MAX_X * this.getGuiLeft(), MAX_Y * this.getGuiTop());
     }
 
     @Override
