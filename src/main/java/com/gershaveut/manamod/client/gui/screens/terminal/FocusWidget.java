@@ -8,12 +8,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
+import javax.annotation.Nullable;
+
 public class FocusWidget extends AbstractWidget {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
     private static final int FOCUS_SPEED = 20;
     
-    private FileWidget followFocus;
-    public FileWidget lastFollowFocus;
+    private @Nullable FileWidget followFocus;
+    public @Nullable FileWidget lastFollowFocus;
 
     public FocusWidget(int width, int height) {
         super(0, 0, width, height, Component.literal("Focus"));
@@ -58,12 +60,12 @@ public class FocusWidget extends AbstractWidget {
         }
     }
     
-    public void setFollowFocus(FileWidget followFocus) {
+    public void setFollowFocus(@Nullable FileWidget followFocus) {
         this.lastFollowFocus = this.followFocus;
         this.followFocus = followFocus;
     }
 
-    public FileWidget getFollowFocus() {
+    public @Nullable FileWidget getFollowFocus() {
         return this.followFocus;
     }
 }

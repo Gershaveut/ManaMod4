@@ -90,10 +90,13 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             graphics.vLine(Mth.floor(this.width / 1.35D), this.height, -1, -1);
             
             graphics.setColor(1F, 1F, 1F, 1F);
+            assert selectedFile != null;
             if (selectedFile.item != null)
                 graphics.renderFakeItem(selectedFile.item, Mth.floor(this.width / 1.3D), 10);
-            else
+            else {
+                assert selectedFile.texture != null;
                 graphics.blitInscribed(selectedFile.texture.resourceLocation(), Mth.floor(this.width / 1.3D), 10, selectedFile.texture.boundsWidth(), selectedFile.texture.boundsHeight(), selectedFile.getWidth() / 2, selectedFile.getHeight() / 2);
+            }
             graphics.drawString(this.font, !selectedFile.getMessage().getStyle().isEmpty() ? selectedFile.getMessage() : selectedFile.getMessage().copy().withStyle(ChatFormatting.WHITE), Mth.floor(this.width / 1.2D), 15, 0);
             graphics.setColor(COLOR[0], COLOR[1], COLOR[2], COLOR[3]);
             

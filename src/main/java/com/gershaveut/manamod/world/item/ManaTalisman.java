@@ -16,7 +16,7 @@ public class ManaTalisman extends Item {
     public ManaTalisman(Item.Properties properties) {
         super(properties);
     }
-    //TODO: Make quick use
+
     @OnlyIn(Dist.CLIENT)
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {

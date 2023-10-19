@@ -10,13 +10,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGET = ManaMod.prefixGui("terminal/terminal_widget");
     private static final float[] FLASH = new float[4];
     private static final int FLASH_SPEED = 20;
     
-    public final ItemStack item;
-    public final Texture texture;
+    public final @Nullable ItemStack item;
+    public final @Nullable Texture texture;
     public final FileWidget parent;
     public final FocusWidget focusWidget;
     public int offsetX;
@@ -27,7 +29,7 @@ public class FileWidget extends AbstractButton {
     private final int height;
     private boolean shading;
     
-    private FileWidget(ItemStack item, Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
+    private FileWidget(@Nullable ItemStack item, @Nullable Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, (int) (properties.width * 2.5), (int) (properties.height * 2.5), component);
 
         this.width = properties.width;
@@ -77,8 +79,10 @@ public class FileWidget extends AbstractButton {
         
         if (item != null)
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
-        else
+        else {
+            assert this.texture != null;
             graphics.blitInscribed(this.texture.resourceLocation, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
+        }
         
         graphics.pose().popPose();
     }

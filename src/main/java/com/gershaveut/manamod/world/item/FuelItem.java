@@ -3,7 +3,8 @@ package com.gershaveut.manamod.world.item;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 public class FuelItem extends Item {
     protected final int burnTime;
