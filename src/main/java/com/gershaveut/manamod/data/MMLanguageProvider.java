@@ -63,8 +63,8 @@ public class MMLanguageProvider extends LanguageProvider {
         add(MMItems.MANA_AXE.get(), "Mana Axe");
         add(MMItems.MANA_HOE.get(), "Mana Hoe");
         add(MMItems.MANA_AMULET.get(), "Mana Amulet");
-        add(MMItems.MANA_DICE.get(), "Mana Dice", "Gives two random vanilla effects", new Feedback("use", "§kused!!!"));
-        add(MMItems.TERMINAL.get(), "Terminal");
+        add(MMItems.MANA_DICE.get(), "Mana Dice", "Gives six random vanilla effects", new Feedback("use", "§kused!!!"));
+        //add(MMItems.TERMINAL.get(), "Terminal");
 
         add(MMMobEffects.MANA_FLIGHT.get(), "Mana Flight");
         add(MMMobEffects.MANAIFICATION.get(), "Manaification");
@@ -73,6 +73,8 @@ public class MMLanguageProvider extends LanguageProvider {
 
         add(KeyMappings.KEY_DESCRIPTION_ITEM, "View item descriptions");
         add(KeyMappings.KEY_USAGE_ITEM, "Item use");
+        
+        addGui("terminal", "Terminal");
     }
 
     private void add(CreativeModeTab creativeModeTab, String name) {
@@ -109,6 +111,10 @@ public class MMLanguageProvider extends LanguageProvider {
 
     private void add(Block block, String name, String description, Feedback... feedbacks) {
         add(block.getDescriptionId(), name, description, feedbacks);
+    }
+    
+    private void addGui(String key, String value) {
+        add("gui." + ManaMod.MODID + "." + key , value);
     }
 
     private record Feedback(String name, String message) {

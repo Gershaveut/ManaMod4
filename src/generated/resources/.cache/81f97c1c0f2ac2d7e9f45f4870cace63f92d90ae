@@ -1,4 +1,4 @@
-// 1.20.1	2023-10-10T11:54:38.7745499	Item Models: mana_mod
+// 1.20.1	2023-10-19T15:14:25.2290967	Item Models: mana_mod
 7f7a5b2ff735a3658a19f6802381cb816480afe1 assets/mana_mod/models/item/chiseled_mana_bricks.json
 65a48d748d33fee6818c9fd9344889d380fdec6d assets/mana_mod/models/item/flint_and_mana.json
 60a20e5709544bebbda43adc38c4fc7726f0f2a9 assets/mana_mod/models/item/magic_lighter.json
@@ -34,6 +34,7 @@ fa9155d24e62bb6a7756999923b2f52ae5c59d5c assets/mana_mod/models/item/mana_sword.
 ad34f1083526125016d7f7bb16f48027147d0189 assets/mana_mod/models/item/mana_synthesizer.json
 12ead13797f95df20d23b1a956c568dc33926baa assets/mana_mod/models/item/mana_talisman.json
 ce1753a6774c4e415760798d0237ce51e3a1f397 assets/mana_mod/models/item/super_stone.json
+f43cb46d38816ccc0554351c9d5dd0e162176302 assets/mana_mod/models/item/terminal.json
 6926569f29ec264d35f4293281a5b56516797dda assets/mana_mod/models/item/unstable_mana_block.json
 350b2432f4ffeb8e61136bbcc5b7cffc4a0c5cf6 assets/mana_mod/models/item/unstable_mana_piece.json
 906a99d1bb5afe4be7bc76b48c5e4f2a39276758 assets/mana_mod/models/item/unstable_mana_stick.json

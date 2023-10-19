@@ -30,6 +30,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         super(terminalMenu, inventory, component);
         
         this.inventoryLabelX = -1000;
+        this.titleLabelX = -1000;
     }
     
     @Override

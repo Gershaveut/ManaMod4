@@ -22,7 +22,7 @@ public class Terminal extends Block {
     
     @Override
     public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
-        return new SimpleMenuProvider((containerId, playerInventory, player) -> new TerminalMenu(containerId, playerInventory), Component.empty());
+        return new SimpleMenuProvider((containerId, playerInventory, player) -> new TerminalMenu(containerId, playerInventory), Component.translatable("gui.mana_mod.terminal"));
     }
     
     @Override

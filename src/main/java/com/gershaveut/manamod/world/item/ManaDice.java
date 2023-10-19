@@ -31,7 +31,9 @@ public class ManaDice extends Item {
         Random random = new Random();
 
         try {
-            player.addEffect(new MobEffectInstance((MobEffect) MobEffects.class.getFields()[random.nextInt(1, MobEffects.class.getFields().length)].get(MobEffect.class), random.nextInt(6000) + 1, random.nextInt(6) + 1, true, true));
+            for (int i = 0; i < random.nextInt(1, 3); i++) {
+                player.addEffect(new MobEffectInstance((MobEffect) MobEffects.class.getFields()[random.nextInt(1, MobEffects.class.getFields().length)].get(MobEffect.class), random.nextInt(6000) + 1, random.nextInt(6) + 1, true, true));
+            }
         } catch (IllegalAccessException exception) {
             ManaMod.Log(org.slf4j.event.Level.ERROR, exception.getLocalizedMessage());
         }

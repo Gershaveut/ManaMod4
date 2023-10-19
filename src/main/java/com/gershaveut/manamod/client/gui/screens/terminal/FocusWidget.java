@@ -26,6 +26,8 @@ public class FocusWidget extends AbstractWidget {
     @Override
     protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (followFocus != null) {
+            followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
+            followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
             
             if (!followFocus.focusing) {
                 this.setX(Mth.floor(followFocusX));
@@ -58,9 +60,6 @@ public class FocusWidget extends AbstractWidget {
     public void setFollowFocus(@Nullable FileWidget followFocus) {
         this.lastFollowFocus = this.followFocus;
         this.followFocus = followFocus;
-
-        followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
-        followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
     }
 
     public @Nullable FileWidget getFollowFocus() {
