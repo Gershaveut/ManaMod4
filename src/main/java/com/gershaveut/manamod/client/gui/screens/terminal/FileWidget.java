@@ -13,10 +13,11 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 public class FileWidget extends AbstractButton {
-    private static final ResourceLocation TERMINAL_WIDGET = ManaMod.prefixGui("terminal/terminal_widget");
+    private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/terminal_widgets");
     private static final float[] FLASH = new float[4];
     private static final int FLASH_SPEED = 20;
-    
+
+    public final FileWidgetType fileWidgetType;
     public final @Nullable ItemStack item;
     public final @Nullable Texture texture;
     public final FileWidget parent;
@@ -24,30 +25,31 @@ public class FileWidget extends AbstractButton {
     public int offsetX;
     public int offsetY;
     public boolean focusing;
-    public boolean flashing;
+    public boolean obtained;
     private final int width;
     private final int height;
-    private boolean shading;
+    private boolean flashing;
     
     private FileWidget(@Nullable ItemStack item, @Nullable Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
-        super(0, 0, (int) (properties.width * 2.5), (int) (properties.height * 2.5), component);
+        super(0, 0, Mth.floor(10 * 2.5D), Mth.floor(10 * 2.5), component);
 
-        this.width = properties.width;
-        this.height = properties.height;
+        this.width = 10;
+        this.height = 10;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.item = item;
         this.texture = texture;
         this.parent = properties.parent;
         this.focusWidget = TerminalScreen.FOCUS_WIDGET;
-        this.flashing = properties.parent != null;
-        this.shading = this.flashing;
+        this.obtained = properties.parent != null;
+        this.flashing = this.obtained;
+        this.fileWidgetType = properties.parent == null ? FileWidgetType.ROOT : properties.fileWidgetType;
         
         for (int i = 0; i < FLASH.length; i++) {
             FLASH[i] = TerminalScreen.COLOR[i] * FLASH_SPEED;
         }
         
-        update();
+        this.update();
     }
     
     public FileWidget(ItemStack item, int offsetX, int offsetY, FileWidget.Properties properties) {
@@ -72,16 +74,16 @@ public class FileWidget extends AbstractButton {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 1);
         
-        if (flashing)
+        if (obtained)
             graphics.setColor(FLASH[0] / FLASH_SPEED, FLASH[1] / FLASH_SPEED, FLASH[2] / FLASH_SPEED, FLASH[3]);
-        graphics.blitInscribed(TERMINAL_WIDGET, this.getX(), this.getY(), 24, 24, this.width, this.height);
+        graphics.blit(TERMINAL_WIDGETS, this.getX(), this.getY(), this.fileWidgetType.x, this.fileWidgetType.y, 24, 24);
         graphics.setColor(1F, 1F, 1F, 1F);
         
         if (item != null)
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
         else {
             assert this.texture != null;
-            graphics.blitInscribed(this.texture.resourceLocation, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width / 2, this.height / 2);
+            graphics.blitInscribed(this.texture.resourceLocation, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width, this.height);
         }
         
         graphics.pose().popPose();
@@ -101,22 +103,22 @@ public class FileWidget extends AbstractButton {
     }
     
     public void tick() {
-        update();
+        this.update();
         
         if (TerminalScreen.COLOR[0] * FLASH_SPEED <= FLASH[0])
-            shading = true;
+            flashing = true;
         else if (TerminalScreen.COLOR[0] / 2 * FLASH_SPEED >= FLASH[0])
-            shading = false;
+            flashing = false;
             
         for (int i = 0; i < 3; i++) {
-            FLASH[i] += Math.signum((shading ? TerminalScreen.COLOR[i] / 2 * FLASH_SPEED : TerminalScreen.COLOR[i] * FLASH_SPEED) - FLASH[i]);
+            FLASH[i] += Math.signum((flashing ? TerminalScreen.COLOR[i] / 2 * FLASH_SPEED : TerminalScreen.COLOR[i] * FLASH_SPEED) - FLASH[i]);
         }
     }
     
     private void update() {
         if (parent != null) {
             if (parent.visible) {
-                this.visible = !parent.flashing;
+                this.visible = !parent.obtained;
             } else {
                 this.visible = false;
             }
@@ -128,11 +130,12 @@ public class FileWidget extends AbstractButton {
         this.focusWidget.setFollowFocus(this);
         focusing = true;
         
-        this.flashing = false;
+        this.obtained = false;
     }
     
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+        this.defaultButtonNarrationText(narrationElementOutput);
     }
 
     public int getCenter(int coordinate, int direction) {
@@ -153,22 +156,16 @@ public class FileWidget extends AbstractButton {
     }
 
     public static class Properties {
-        FileWidget parent;
-        int width = 10;
-        int height = 10;
+        private FileWidget parent;
+        private FileWidgetType fileWidgetType = FileWidgetType.COMMON;
 
         public Properties parent(FileWidget parent) {
             this.parent = parent;
             return this;
         }
 
-        public Properties width(int width) {
-            this.width = width;
-            return this;
-        }
-
-        public Properties height(int height) {
-            this.height = height;
+        public Properties fileWidgetType(FileWidgetType fileWidgetType) {
+            this.fileWidgetType = fileWidgetType;
             return this;
         }
     }

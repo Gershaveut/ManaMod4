@@ -15,6 +15,8 @@ public class FocusWidget extends AbstractWidget {
     private static final int FOCUS_SPEED = 20;
     
     private @Nullable FileWidget followFocus;
+    private double followFocusX;
+    private double followFocusY;
     public @Nullable FileWidget lastFollowFocus;
 
     public FocusWidget(int width, int height) {
@@ -26,10 +28,8 @@ public class FocusWidget extends AbstractWidget {
         if (followFocus != null) {
             
             if (!followFocus.focusing) {
-                this.setX(Mth.floor(followFocus.getX() - (double) (followFocus.getWidth() / 4)));
-                this.setY(Mth.floor(followFocus.getY() - (double) (followFocus.getHeight() / 4)));
-                this.setWidth(followFocus.getWidth());
-                this.setHeight(followFocus.getHeight());
+                this.setX(Mth.floor(followFocusX));
+                this.setY(Mth.floor(followFocusY));
             }
             
             graphics.setColor(TerminalScreen.COLOR[0], TerminalScreen.COLOR[1], TerminalScreen.COLOR[2], TerminalScreen.COLOR[3]);
@@ -43,15 +43,10 @@ public class FocusWidget extends AbstractWidget {
     
     public void tick() {
         if (followFocus != null) {
-            double followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
-            double followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
-            
             if (followFocus.focusing) {
                 for (int i = 0; i < FOCUS_SPEED; i++) {
                     this.setX(Mth.floor(this.getX() + Math.signum(followFocusX - this.getX())));
                     this.setY(Mth.floor(this.getY() + Math.signum(followFocusY - this.getY())));
-                    this.setWidth(Mth.floor(this.getWidth() + Math.signum(followFocus.getWidth() - this.getWidth())));
-                    this.setHeight(Mth.floor(this.getHeight() + Math.signum(followFocus.getHeight() - this.getHeight())));
                 }
                 
                 if (this.getX() == followFocusX && this.getY() == followFocusY)
@@ -63,6 +58,9 @@ public class FocusWidget extends AbstractWidget {
     public void setFollowFocus(@Nullable FileWidget followFocus) {
         this.lastFollowFocus = this.followFocus;
         this.followFocus = followFocus;
+
+        followFocusX = followFocus.getX() - (double) (followFocus.getWidth() / 4);
+        followFocusY = followFocus.getY() - (double) (followFocus.getHeight() / 4);
     }
 
     public @Nullable FileWidget getFollowFocus() {

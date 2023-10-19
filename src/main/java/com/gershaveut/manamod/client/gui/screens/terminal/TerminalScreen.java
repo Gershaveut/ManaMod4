@@ -23,7 +23,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private final HashSet<FileWidget> FILE_WIDGETS = new HashSet<>();
     private double scrollX = (double) -MAX_X + this.getXSize();
     private double scrollY = (double) -MAX_Y + this.getYSize();
-    private int inspectorX = Mth.floor(this.width - this.width / 1.35D);
+    private int inspectorX;
     private int inspectorY;
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
@@ -36,8 +36,8 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     protected void init() {
         FileWidget mana = registerTerminalWidget(new FileWidget(MMItems.MANA.get().getDefaultInstance(), 0, 0, new FileWidget.Properties()));
         FileWidget mana_bag = registerTerminalWidget(new FileWidget(MMItems.MANA_BAG.get().getDefaultInstance(), 50, 50, new FileWidget.Properties().parent(mana)));
-        FileWidget mana_dice = registerTerminalWidget(new FileWidget(MMItems.MANA_DICE.get().getDefaultInstance(), 100, 75, new FileWidget.Properties().parent(mana_bag)));
-        FileWidget mana_heart = registerTerminalWidget(new FileWidget(MMItems.MANA_HEART.get().getDefaultInstance(), 150, 50, new FileWidget.Properties().parent(mana_dice)));
+        FileWidget mana_dice = registerTerminalWidget(new FileWidget(MMItems.MANA_DICE.get().getDefaultInstance(), 100, 75, new FileWidget.Properties().parent(mana_bag).fileWidgetType(FileWidgetType.UNCOMMON)));
+        FileWidget mana_heart = registerTerminalWidget(new FileWidget(MMItems.MANA_HEART.get().getDefaultInstance(), 150, 50, new FileWidget.Properties().parent(mana_dice).fileWidgetType(FileWidgetType.RARE)));
         FileWidget texture = registerTerminalWidget(new FileWidget(new FileWidget.Texture(ManaMod.prefix("textures/item/mana_cake.png"), 16, 16), Component.literal("Test"), -50, -50, new FileWidget.Properties().parent(mana)));
 
         for (FileWidget fileWidget : FILE_WIDGETS) {
@@ -45,7 +45,9 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         }
         
         this.addRenderableWidget(FOCUS_WIDGET);
-        
+
+        this.inspectorX = Mth.floor(this.width - this.width / 1.35D) - 1;
+
         super.init();
     }
 
@@ -114,7 +116,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     @Override
     public void renderBackground(GuiGraphics graphics) {
     }
-    
+
     @Override
     protected void containerTick() {
         super.containerTick();
