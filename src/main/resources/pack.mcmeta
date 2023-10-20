@@ -1,6 +1,8 @@
 {
   "pack": {
-    "description": "mana_mod resources",
-    "pack_format": 12
+    "description": {
+      "text": "${mod_id} resources"
+    },
+    "pack_format": 15
   }
 }
