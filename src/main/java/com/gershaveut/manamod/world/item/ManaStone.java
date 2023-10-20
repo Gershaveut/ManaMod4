@@ -21,7 +21,7 @@ public class ManaStone extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         MMPacketHandler.INSTANCE.sendToServer(new ManaStonePacket());
-        if (MMConfig.itemCooldown)
+        if (MMConfig.SERVER.ITEM_COOLDOWN.get())
             player.getCooldowns().addCooldown(this, 1000);
         
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

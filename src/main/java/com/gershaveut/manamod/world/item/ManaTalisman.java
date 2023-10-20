@@ -30,7 +30,7 @@ public class ManaTalisman extends Item {
             MMPacketHandler.INSTANCE.sendToServer(new ManaTalismanPacket(ManaTalismanPacket.Weather.THUNDER, itemStack));
         }
         
-        if (MMConfig.itemCooldown)
+        if (MMConfig.SERVER.ITEM_COOLDOWN.get())
             player.getCooldowns().addCooldown(this, 100);
         
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

@@ -34,7 +34,7 @@ public class FocusWidget extends AbstractWidget {
                 this.setY(Mth.floor(followFocusY));
             }
             
-            graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
+            TerminalScreen.setTerminalColor(graphics);
             graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
         }
     }

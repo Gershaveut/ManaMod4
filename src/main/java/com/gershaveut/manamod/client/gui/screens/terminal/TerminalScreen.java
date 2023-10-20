@@ -13,9 +13,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10);
+    public static final List<Float> COLOR = MMConfig.CLIENT.TERMINAL_COLOR.get().stream().map(Number::floatValue).collect(Collectors.toList());
     private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
     private static final int MAX_X = 1000;
     private static final int MAX_Y = 1000;
@@ -75,7 +78,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
+        setTerminalColor(graphics);
         
         this.renderBackground(graphics);
         
@@ -101,7 +104,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
                 graphics.blitInscribed(selectedFile.texture.resourceLocation(), Mth.floor(this.width / 1.3D), 10, selectedFile.texture.boundsWidth(), selectedFile.texture.boundsHeight(), selectedFile.getWidth() / 2, selectedFile.getHeight() / 2);
             }
             graphics.drawString(this.font, !selectedFile.getMessage().getStyle().isEmpty() ? selectedFile.getMessage() : selectedFile.getMessage().copy().withStyle(ChatFormatting.WHITE), Mth.floor(this.width / 1.2D), 15, 0);
-            graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
+            setTerminalColor(graphics);
             
             graphics.pose().popPose();
         }
@@ -139,6 +142,10 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         FOCUS_WIDGET.setFollowFocus(null);
         
         super.onClose();
+    }
+    
+    public static void setTerminalColor(GuiGraphics graphics) {
+        graphics.setColor(COLOR.get(0), COLOR.get(1), COLOR.get(2), COLOR.get(3));
     }
     
     public FileWidget registerTerminalWidget(FileWidget fileWidget) {

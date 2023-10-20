@@ -22,7 +22,7 @@ public class UnstableManaTalisman extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         MMPacketHandler.INSTANCE.sendToServer(new UnstableManaTalismanPacket(this.getDefaultInstance()));
         
-        if (MMConfig.itemCooldown)
+        if (MMConfig.SERVER.ITEM_COOLDOWN.get())
             player.getCooldowns().addCooldown(this, 100);
         
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

@@ -29,7 +29,7 @@ public class ManaBag extends Item {
                     Component.translatable("item.mana_mod.mana_bag")
             ));
         
-        if (MMConfig.itemCooldown)
+        if (MMConfig.SERVER.ITEM_COOLDOWN.get())
             player.getCooldowns().addCooldown(this, 100);
         
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));

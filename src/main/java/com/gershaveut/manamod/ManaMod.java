@@ -39,8 +39,8 @@ public class ManaMod {
         
         modEventBus.addListener(this::initialize);
         
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MMConfig.MMConfigClient.SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.MMConfigServer.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MMConfig.CLIENT.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.SERVER.SPEC);
     }
     
     public static ResourceLocation prefix(String name) {
