@@ -34,7 +34,7 @@ public class MMClientEvents {
                 KeyMappings.KEY_DESCRIPTION_ITEM.setDown(false);
 
             if (KeyMappings.KEY_USAGE_ITEM.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())))
-                KeyMappings.KEY_USAGE_ITEM.setDown(true);
+                KeyMappings.KEY_USAGE_ITEM.setDown(false);
         }
     }
 
