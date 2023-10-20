@@ -39,7 +39,8 @@ public class ManaMod {
         
         modEventBus.addListener(this::initialize);
         
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, MMConfig.MMConfigClient.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.MMConfigServer.SPEC);
     }
     
     private void initialize(FMLCommonSetupEvent event) {

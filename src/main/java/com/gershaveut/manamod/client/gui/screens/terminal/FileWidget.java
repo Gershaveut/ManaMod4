@@ -1,5 +1,6 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
+import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -52,7 +53,7 @@ public class FileWidget extends AbstractButton {
         this.timer = properties.timer;
         
         for (int i = 0; i < FLASH.length; i++) {
-            FLASH[i] = TerminalScreen.COLOR[i] * FLASH_SPEED;
+            FLASH[i] = MMConfig.terminalColor.get(i) * FLASH_SPEED;
         }
         
         this.update();
@@ -72,7 +73,7 @@ public class FileWidget extends AbstractButton {
 
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.setColor(TerminalScreen.COLOR[0], TerminalScreen.COLOR[1], TerminalScreen.COLOR[2], TerminalScreen.COLOR[3]);
+        graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
         
         if (parent != null)
             this.renderConnectivity(graphics, mouseX, mouseY, partialTick);
@@ -110,13 +111,13 @@ public class FileWidget extends AbstractButton {
     public void tick() {
         this.update();
         
-        if (TerminalScreen.COLOR[0] * FLASH_SPEED <= FLASH[0])
+        if (MMConfig.terminalColor.get(0) * FLASH_SPEED <= FLASH[0])
             flashing = true;
-        else if (TerminalScreen.COLOR[0] / 2 * FLASH_SPEED >= FLASH[0])
+        else if (MMConfig.terminalColor.get(0) / 2 * FLASH_SPEED >= FLASH[0])
             flashing = false;
             
         for (int i = 0; i < 3; i++) {
-            FLASH[i] += Math.signum((flashing ? TerminalScreen.COLOR[i] / 2 * FLASH_SPEED : TerminalScreen.COLOR[i] * FLASH_SPEED) - FLASH[i]);
+            FLASH[i] += Math.signum((flashing ? MMConfig.terminalColor.get(i) / 2 * FLASH_SPEED : MMConfig.terminalColor.get(i) * FLASH_SPEED) - FLASH[i]);
         }
     }
     

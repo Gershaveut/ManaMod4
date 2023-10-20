@@ -1,5 +1,6 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
+import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.world.inventory.TerminalMenu;
 import com.gershaveut.manamod.world.item.MMItems;
@@ -15,7 +16,6 @@ import java.util.HashSet;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
-    public static final float[] COLOR = {1.0F, 1.0F, 1.0F, 1.0F};
     public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10);
     private static final int MAX_X = 1000;
     private static final int MAX_Y = 1000;
@@ -75,7 +75,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        graphics.setColor(COLOR[0], COLOR[1], COLOR[2], COLOR[3]);
+        graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
 
         this.renderBackground(graphics);
 
@@ -101,7 +101,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
                 graphics.blitInscribed(selectedFile.texture.resourceLocation(), Mth.floor(this.width / 1.3D), 10, selectedFile.texture.boundsWidth(), selectedFile.texture.boundsHeight(), selectedFile.getWidth() / 2, selectedFile.getHeight() / 2);
             }
             graphics.drawString(this.font, !selectedFile.getMessage().getStyle().isEmpty() ? selectedFile.getMessage() : selectedFile.getMessage().copy().withStyle(ChatFormatting.WHITE), Mth.floor(this.width / 1.2D), 15, 0);
-            graphics.setColor(COLOR[0], COLOR[1], COLOR[2], COLOR[3]);
+            graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
             
             graphics.pose().popPose();
         }

@@ -1,5 +1,6 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
+import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -34,7 +35,7 @@ public class FocusWidget extends AbstractWidget {
                 this.setY(Mth.floor(followFocusY));
             }
             
-            graphics.setColor(TerminalScreen.COLOR[0], TerminalScreen.COLOR[1], TerminalScreen.COLOR[2], TerminalScreen.COLOR[3]);
+            graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
             graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
         }
     }
