@@ -51,10 +51,11 @@ public abstract class MixinItem implements Tooltip {
         return manaMod$feedback;
     }
     
-    @SuppressWarnings("UnusedReturnValue")
-    @Shadow public abstract InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_);
+    @Shadow
+    public abstract InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_);
     
-    @Shadow protected abstract String getOrCreateDescriptionId();
+    @Shadow
+    protected abstract String getOrCreateDescriptionId();
     
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     public void onAppendHoverText(ItemStack itemStack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag, CallbackInfo callbackInfo) {

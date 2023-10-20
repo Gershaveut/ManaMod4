@@ -43,12 +43,6 @@ public class ManaMod {
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, MMConfig.MMConfigServer.SPEC);
     }
     
-    private void initialize(FMLCommonSetupEvent event) {
-        MMPacketHandler.registerMessages();
-        
-        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.POTION), Ingredient.of(MMItems.MANA_HEART.get()), MMItems.MANA_POTION.get().getDefaultInstance()));
-    }
-    
     public static ResourceLocation prefix(String name) {
         return new ResourceLocation(MODID, name);
     }
@@ -59,5 +53,11 @@ public class ManaMod {
     
     public static void Log(Level level, String message) {
         LogUtils.getLogger().atLevel(level).log("[" + MODID + "] " + message);
+    }
+    
+    private void initialize(FMLCommonSetupEvent event) {
+        MMPacketHandler.registerMessages();
+        
+        BrewingRecipeRegistry.addRecipe(new BrewingRecipe(Ingredient.of(Items.POTION), Ingredient.of(MMItems.MANA_HEART.get()), MMItems.MANA_POTION.get().getDefaultInstance()));
     }
 }

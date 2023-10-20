@@ -10,7 +10,7 @@ import static com.gershaveut.manamod.ManaMod.MODID;
 
 public class MMCreativeModeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
-
+    
     public static final RegistryObject<CreativeModeTab> GENERAL = CREATIVE_MODE_TABS.register("general", () -> CreativeModeTab.builder()
             .withTabsBefore(net.minecraft.world.item.CreativeModeTabs.COMBAT)
             .title(Component.translatable("item_group.mana_mod.general"))

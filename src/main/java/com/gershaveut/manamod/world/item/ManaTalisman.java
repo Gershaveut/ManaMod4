@@ -16,7 +16,7 @@ public class ManaTalisman extends Item {
     public ManaTalisman(Item.Properties properties) {
         super(properties);
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
@@ -32,7 +32,7 @@ public class ManaTalisman extends Item {
         
         if (MMConfig.itemCooldown)
             player.getCooldowns().addCooldown(this, 100);
-
+        
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
 }

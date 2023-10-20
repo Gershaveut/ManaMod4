@@ -12,7 +12,7 @@ public class MMPacketHandler {
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
-
+    
     public static void registerMessages() {
         int id = 0;
         INSTANCE.registerMessage(id++, UnstableManaTalismanPacket.class, UnstableManaTalismanPacket::encode, UnstableManaTalismanPacket::new, UnstableManaTalismanPacket::handle);

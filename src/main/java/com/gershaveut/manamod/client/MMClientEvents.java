@@ -23,21 +23,21 @@ public class MMClientEvents {
         public static void onKeyPressed(ScreenEvent.KeyPressed event) {
             if (KeyMappings.KEY_DESCRIPTION_ITEM.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())))
                 KeyMappings.KEY_DESCRIPTION_ITEM.setDown(true);
-
+            
             if (KeyMappings.KEY_USAGE_ITEM.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())))
                 KeyMappings.KEY_USAGE_ITEM.setDown(true);
         }
-
+        
         @SubscribeEvent
         public static void onKeyReleased(ScreenEvent.KeyReleased event) {
             if (KeyMappings.KEY_DESCRIPTION_ITEM.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())))
                 KeyMappings.KEY_DESCRIPTION_ITEM.setDown(false);
-
+            
             if (KeyMappings.KEY_USAGE_ITEM.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode())))
                 KeyMappings.KEY_USAGE_ITEM.setDown(false);
         }
     }
-
+    
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class MMClientModBusEvents {
         @SubscribeEvent
@@ -45,7 +45,7 @@ public class MMClientEvents {
             event.register(KeyMappings.KEY_DESCRIPTION_ITEM);
             event.register(KeyMappings.KEY_USAGE_ITEM);
         }
-
+        
         @SubscribeEvent
         public static void registerParticles(RegisterParticleProvidersEvent event) {
             event.registerSpriteSet(MMParticleType.MANA_PARTICLE.get(), ManaParticle.Provider::new);

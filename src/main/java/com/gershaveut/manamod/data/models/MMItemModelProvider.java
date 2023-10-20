@@ -16,7 +16,7 @@ public class MMItemModelProvider extends ItemModelProvider {
     public MMItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ManaMod.MODID, existingFileHelper);
     }
-
+    
     @Override
     protected void registerModels() {
         basicItem(MMItems.MANA.get());
@@ -58,12 +58,12 @@ public class MMItemModelProvider extends ItemModelProvider {
         basicItem(MMItems.MANA_DICE.get());
         blockItem(MMItems.TERMINAL.get());
     }
-
+    
     private void blockItem(Item item) {
         ResourceLocation resourceLocation = itemPrefix(item);
         getBuilder(resourceLocation.toString()).parent(new ModelFile.UncheckedModelFile(ManaMod.MODID + ":block/" + resourceLocation.getPath()));
     }
-
+    
     private void handheldItem(Item item) {
         getBuilder(itemPrefix(item).toString()).parent(new ModelFile.UncheckedModelFile("item/handheld")).texture("layer0", texturePrefix(item));
     }
@@ -75,15 +75,15 @@ public class MMItemModelProvider extends ItemModelProvider {
     private void manaPotion() {
         getBuilder(itemPrefix(MMItems.MANA_POTION.get()).toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_0")).override().predicate(new ResourceLocation("damage"), 0.3F).model(withExistingParent(MMItems.MANA_POTION.get() + "_1", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_1"))).end().override().predicate(new ResourceLocation("damage"), 0.6F).model(withExistingParent(MMItems.MANA_POTION.get() + "_2", ManaMod.prefix(MMItems.MANA_POTION.get().toString())).texture("layer0", texturePrefix(MMItems.MANA_POTION.get(), "_2"))).end();
     }
-
+    
     private ResourceLocation itemPrefix(Item item) {
         return Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(item));
     }
-
+    
     private ResourceLocation texturePrefix(Item item) {
         return new ResourceLocation(itemPrefix(item).getNamespace(), "item/" + itemPrefix(item).getPath());
     }
-
+    
     private ResourceLocation texturePrefix(Item item, String addition) {
         return new ResourceLocation(itemPrefix(item).getNamespace(), "item/" + itemPrefix(item).getPath() + addition);
     }

@@ -20,25 +20,25 @@ public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/terminal_widgets");
     private static final float[] FLASH = new float[4];
     private static final int FLASH_SPEED = 20;
-
+    
     public final FileWidgetType fileWidgetType;
     public final @Nullable ItemStack item;
     public final @Nullable Texture texture;
     public final FileWidget parent;
     public final FocusWidget focusWidget;
+    private final int width;
+    private final int height;
     public int offsetX;
     public int offsetY;
     public boolean focusing;
     public boolean obtained;
     public double timer;
     private double progress;
-    private final int width;
-    private final int height;
     private boolean flashing;
     
     private FileWidget(@Nullable ItemStack item, @Nullable Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, Mth.floor(10 * 2.5D), Mth.floor(10 * 2.5), component);
-
+        
         this.width = 10;
         this.height = 10;
         this.offsetX = offsetX;
@@ -62,22 +62,22 @@ public class FileWidget extends AbstractButton {
     public FileWidget(ItemStack item, int offsetX, int offsetY, FileWidget.Properties properties) {
         this(item, null, Component.translatable(item.getDescriptionId()).withStyle(ChatFormatting.WHITE), offsetX, offsetY, properties);
     }
-
+    
     public FileWidget(ItemStack item, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         this(item, null, component, offsetX, offsetY, properties);
     }
-
+    
     public FileWidget(Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         this(null, texture, component, offsetX, offsetY, properties);
     }
-
+    
     @Override
     public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
         
         if (parent != null)
             this.renderConnectivity(graphics, mouseX, mouseY, partialTick);
-
+        
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 1);
         
@@ -96,7 +96,7 @@ public class FileWidget extends AbstractButton {
         
         graphics.pose().popPose();
     }
-
+    
     public void renderConnectivity(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         int j = this.parent.getX() + 12;
         int k = this.parent.getY() + 13;
@@ -115,7 +115,7 @@ public class FileWidget extends AbstractButton {
             flashing = true;
         else if (MMConfig.terminalColor.get(0) / 2 * FLASH_SPEED >= FLASH[0])
             flashing = false;
-            
+        
         for (int i = 0; i < 3; i++) {
             FLASH[i] += Math.signum((flashing ? MMConfig.terminalColor.get(i) / 2 * FLASH_SPEED : MMConfig.terminalColor.get(i) * FLASH_SPEED) - FLASH[i]);
         }
@@ -153,16 +153,16 @@ public class FileWidget extends AbstractButton {
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
         this.defaultButtonNarrationText(narrationElementOutput);
     }
-
+    
     public int getCenter(int coordinate, int direction) {
         return Mth.floor(coordinate + direction / 2D - direction / 2D * 0.1);
     }
-
+    
     @Override
     public int getWidth() {
         return this.width;
     }
-
+    
     @Override
     public int getHeight() {
         return this.height;
@@ -178,18 +178,18 @@ public class FileWidget extends AbstractButton {
     
     public record Texture(ResourceLocation resourceLocation, int boundsWidth, int boundsHeight) {
     }
-
+    
     public static class Properties {
         private FileWidget parent;
         private FileWidgetType fileWidgetType = FileWidgetType.COMMON;
         private boolean obtained = true;
         private double timer;
-
+        
         public Properties parent(FileWidget parent) {
             this.parent = parent;
             return this;
         }
-
+        
         public Properties fileWidgetType(FileWidgetType fileWidgetType) {
             this.fileWidgetType = fileWidgetType;
             return this;

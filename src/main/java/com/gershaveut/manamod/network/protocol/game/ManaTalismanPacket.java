@@ -31,11 +31,6 @@ public class ManaTalismanPacket implements MMPacket {
         this.itemStack = buf.readItem();
     }
     
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeEnum(weather);
-        buf.writeItem(itemStack);
-    }
-    
     public static void handle(ManaTalismanPacket message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer sender = ctx.get().getSender();
@@ -60,5 +55,10 @@ public class ManaTalismanPacket implements MMPacket {
             sender.sendSystemMessage(weather, true);
         });
         ctx.get().setPacketHandled(true);
+    }
+    
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeEnum(weather);
+        buf.writeItem(itemStack);
     }
 }

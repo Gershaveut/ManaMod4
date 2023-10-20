@@ -33,10 +33,9 @@ public class MMConfig {
     @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
         if (event.getConfig().getType() == ModConfig.Type.CLIENT) {
-            if (MMConfigClient.TERMINAL_COLOR.get().get(0) instanceof Float);
-
-            else
-                throw new RuntimeException("No float");
+            if (MMConfigClient.TERMINAL_COLOR.get().get(0) instanceof Float) ;
+            
+            else throw new RuntimeException("No float");
             
         }
         

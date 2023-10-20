@@ -24,12 +24,12 @@ public class ManaDice extends Item {
     public ManaDice(Properties properties) {
         super(properties);
     }
-
+    
     @OnlyIn(Dist.CLIENT)
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         Random random = new Random();
-
+        
         try {
             for (int i = 0; i < random.nextInt(1, 3); i++) {
                 player.addEffect(new MobEffectInstance((MobEffect) MobEffects.class.getFields()[random.nextInt(1, MobEffects.class.getFields().length)].get(MobEffect.class), random.nextInt(6000) + 1, random.nextInt(6) + 1, true, true));
@@ -37,13 +37,13 @@ public class ManaDice extends Item {
         } catch (IllegalAccessException exception) {
             ManaMod.Log(org.slf4j.event.Level.ERROR, exception.getLocalizedMessage());
         }
-
+        
         MMPacketHandler.INSTANCE.sendToServer(new SendSystemMessagePacket(Component.translatable("item.mana_mod.mana_dice.feedback.use")));
         player.getItemInHand(interactionHand).hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         
         if (MMConfig.itemCooldown)
             player.getCooldowns().addCooldown(this, 100);
-
+        
         return InteractionResultHolder.pass(player.getItemInHand(interactionHand));
     }
 }

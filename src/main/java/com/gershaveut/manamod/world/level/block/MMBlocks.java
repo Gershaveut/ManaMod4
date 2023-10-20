@@ -12,7 +12,7 @@ import static com.gershaveut.manamod.ManaMod.MODID;
 
 public class MMBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-
+    
     public static final RegistryObject<Block> MANA_BLOCK = BLOCKS.register("mana_block", () -> new Block(BlockBehaviour.Properties.of().strength(0.5f).mapColor(MapColor.COLOR_CYAN).sound(SoundType.WOOL)));
     public static final RegistryObject<Block> MANA_BRICKS = BLOCKS.register("mana_bricks", () -> new Block(BlockBehaviour.Properties.of().strength(1.0f, 4.5F).mapColor(MapColor.COLOR_CYAN).sound(SoundType.WOOL).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CHISELED_MANA_BRICKS = BLOCKS.register("chiseled_mana_bricks", () -> new Block(BlockBehaviour.Properties.copy(MANA_BRICKS.get())));

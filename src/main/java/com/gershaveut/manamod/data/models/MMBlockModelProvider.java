@@ -16,7 +16,7 @@ public class MMBlockModelProvider extends BlockModelProvider {
     public MMBlockModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
         super(output, ManaMod.MODID, existingFileHelper);
     }
-
+    
     @Override
     protected void registerModels() {
         basicBlock(MMBlocks.MANA_BLOCK.get());
@@ -32,18 +32,18 @@ public class MMBlockModelProvider extends BlockModelProvider {
         basicBlock(MMBlocks.UNSTABLE_MANA_BLOCK.get());
         //basicBlock(MMBlocks.TERMINAL.get());
     }
-
+    
     private void basicBlock(Block block) {
         cubeAll(blockPrefix(block).getPath(), ManaMod.prefix("block/" + blockPrefix(block).getPath()));
     }
-
+    
     private void slabBlock(Block block, Block foreign) {
         ResourceLocation foreignPrefix = ManaMod.prefix("block/" + blockPrefix(foreign).getPath());
         String blockPath = blockPrefix(block).getPath();
         slab(blockPath, foreignPrefix, foreignPrefix, foreignPrefix);
         slabTop(blockPath + "_top", foreignPrefix, foreignPrefix, foreignPrefix);
     }
-
+    
     private void stairsBlock(Block block, Block foreign) {
         ResourceLocation foreignPrefix = ManaMod.prefix("block/" + blockPrefix(foreign).getPath());
         String blockPath = blockPrefix(block).getPath();
@@ -51,7 +51,7 @@ public class MMBlockModelProvider extends BlockModelProvider {
         stairsInner(blockPath + "_inner", foreignPrefix, foreignPrefix, foreignPrefix);
         stairsOuter(blockPath + "_outer", foreignPrefix, foreignPrefix, foreignPrefix);
     }
-
+    
     private void wallBlock(Block block, Block foreign) {
         ResourceLocation foreignPrefix = ManaMod.prefix("block/" + blockPrefix(foreign).getPath());
         String blockPath = blockPrefix(block).getPath();
@@ -60,18 +60,18 @@ public class MMBlockModelProvider extends BlockModelProvider {
         wallSide(blockPath + "_side", foreignPrefix);
         wallSideTall(blockPath + "_side_tall", foreignPrefix);
     }
-
+    
     private void cakeBlock(Block block) {
         ResourceLocation sidePrefix = ManaMod.prefix("block/" + blockPrefix(block).getPath() + "_side");
         ResourceLocation bottomPrefix = ManaMod.prefix("block/" + blockPrefix(block).getPath() + "_bottom");
         ResourceLocation topPrefix = ManaMod.prefix("block/" + blockPrefix(block).getPath() + "_top");
         ResourceLocation innerPrefix = ManaMod.prefix("block/" + blockPrefix(block).getPath() + "_inner");
         String blockPath = blockPrefix(block).getPath();
-
+        
         getBuilder(blockPath).texture("particle", sidePrefix).texture("bottom", bottomPrefix).texture("top", topPrefix).texture("side", sidePrefix).element().from(1, 0, 1).to(15, 8, 15).face(Direction.DOWN).texture("#bottom").cullface(Direction.DOWN).end().face(Direction.UP).texture("#top").end().face(Direction.NORTH).texture("#side").end().face(Direction.SOUTH).texture("#side").end().face(Direction.WEST).texture("#side").end().face(Direction.EAST).texture("#side").end();
-
+        
         int number = 1;
-
+        
         cakeSliceBuild(number++, 3, blockPath, sidePrefix, bottomPrefix, topPrefix, innerPrefix);
         cakeSliceBuild(number++, 5, blockPath, sidePrefix, bottomPrefix, topPrefix, innerPrefix);
         cakeSliceBuild(number++, 7, blockPath, sidePrefix, bottomPrefix, topPrefix, innerPrefix);
@@ -79,11 +79,11 @@ public class MMBlockModelProvider extends BlockModelProvider {
         cakeSliceBuild(number++, 11, blockPath, sidePrefix, bottomPrefix, topPrefix, innerPrefix);
         cakeSliceBuild(number, 13, blockPath, sidePrefix, bottomPrefix, topPrefix, innerPrefix);
     }
-
-    private void cakeSliceBuild(int number ,int fromX, String blockPath, ResourceLocation sidePrefix, ResourceLocation bottomPrefix, ResourceLocation topPrefix, ResourceLocation innerPrefix) {
+    
+    private void cakeSliceBuild(int number, int fromX, String blockPath, ResourceLocation sidePrefix, ResourceLocation bottomPrefix, ResourceLocation topPrefix, ResourceLocation innerPrefix) {
         getBuilder(blockPath + number).texture("particle", sidePrefix).texture("bottom", bottomPrefix).texture("top", topPrefix).texture("side", sidePrefix).texture("inside", innerPrefix).element().from(fromX, 0, 1).to(15, 8, 15).face(Direction.DOWN).texture("#bottom").cullface(Direction.DOWN).end().face(Direction.UP).texture("#top").end().face(Direction.NORTH).texture("#side").end().face(Direction.SOUTH).texture("#side").end().face(Direction.WEST).texture("#inside").end().face(Direction.EAST).texture("#side").end();
     }
-
+    
     private ResourceLocation blockPrefix(Block block) {
         return Objects.requireNonNull(ForgeRegistries.BLOCKS.getKey(block));
     }

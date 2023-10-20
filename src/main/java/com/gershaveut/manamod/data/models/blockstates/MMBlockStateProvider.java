@@ -17,7 +17,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
     public MMBlockStateProvider(PackOutput output, ExistingFileHelper exFileHelper) {
         super(output, ManaMod.MODID, exFileHelper);
     }
-
+    
     @Override
     protected void registerStatesAndModels() {
         simpleBlock(MMBlocks.MANA_BLOCK.get());
@@ -33,7 +33,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
         simpleBlock(MMBlocks.UNSTABLE_MANA_BLOCK.get());
         //simpleBlock(MMBlocks.TERMINAL.get());
     }
-
+    
     public void cakeBlock(Block block) {
         String nameBlock = blockPrefix(block).getPath();
         getVariantBuilder(block).forAllStates(blockState -> {
@@ -47,7 +47,7 @@ public class MMBlockStateProvider extends BlockStateProvider {
                 case 6 -> new ModelFile.UncheckedModelFile(ManaMod.prefix("block/" + nameBlock + 6));
                 default -> throw new IllegalStateException("Unexpected value: " + blockState.getValue(CakeBlock.BITES));
             };
-
+            
             return ConfiguredModel.builder().modelFile(modelFile).build();
         });
     }

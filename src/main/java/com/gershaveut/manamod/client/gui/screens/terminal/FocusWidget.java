@@ -14,16 +14,15 @@ import javax.annotation.Nullable;
 public class FocusWidget extends AbstractWidget {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
     private static final int FOCUS_SPEED = 20;
-    
+    public @Nullable FileWidget lastFollowFocus;
     private @Nullable FileWidget followFocus;
     private double followFocusX;
     private double followFocusY;
-    public @Nullable FileWidget lastFollowFocus;
-
+    
     public FocusWidget(int width, int height) {
         super(0, 0, width, height, Component.literal("Focus"));
     }
-
+    
     @Override
     protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (followFocus != null) {
@@ -39,7 +38,7 @@ public class FocusWidget extends AbstractWidget {
             graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
         }
     }
-
+    
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
@@ -58,12 +57,12 @@ public class FocusWidget extends AbstractWidget {
         }
     }
     
+    public @Nullable FileWidget getFollowFocus() {
+        return this.followFocus;
+    }
+    
     public void setFollowFocus(@Nullable FileWidget followFocus) {
         this.lastFollowFocus = this.followFocus;
         this.followFocus = followFocus;
-    }
-
-    public @Nullable FileWidget getFollowFocus() {
-        return this.followFocus;
     }
 }

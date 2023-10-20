@@ -12,7 +12,7 @@ import static com.gershaveut.manamod.ManaMod.MODID;
 
 public class MMItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-
+    
     public static final RegistryObject<Item> MANA = ITEMS.register("mana", () -> registerItem(new Item(new Item.Properties())));
     public static final RegistryObject<Item> FLINT_AND_MANA = ITEMS.register("flint_and_mana", () -> registerItem(new FlintAndSteelItem(new Item.Properties().durability(128))));
     public static final RegistryObject<Item> MAGIC_LIGHTER = ITEMS.register("magic_lighter", () -> registerItem(new Item(new Item.Properties().stacksTo(1)), new TooltipProperties().descriptionItem().UsageItem().WIP()));
@@ -51,7 +51,7 @@ public class MMItems {
     public static final RegistryObject<Item> MANA_AMULET = ITEMS.register("mana_amulet", () -> registerItem(new ArmorItem(MMArmorMaterials.MANA_AMULET, ArmorItem.Type.CHESTPLATE, new Item.Properties().rarity(Rarity.RARE)), new TooltipProperties().WIP()));
     public static final RegistryObject<Item> MANA_DICE = ITEMS.register("mana_dice", () -> registerItem(new ManaDice(new Item.Properties().stacksTo(1).durability(1).rarity(MMRarity.MANA)), new TooltipProperties().descriptionItem()));
     public static final RegistryObject<Item> TERMINAL = ITEMS.register("terminal", () -> registerItem(new BlockItem(MMBlocks.TERMINAL.get(), new Item.Properties()), new TooltipProperties().WIP()));
-
+    
     public static Item registerItem(Item item, TooltipProperties tooltipProperties) {
         if (FMLEnvironment.dist.isClient())
             return (Item) ((Tooltip) item).manaMod$setTooltipProperties(tooltipProperties);

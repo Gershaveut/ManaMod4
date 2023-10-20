@@ -15,8 +15,8 @@ import net.minecraft.world.entity.player.Inventory;
 import java.util.HashSet;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
-    private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
     public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10);
+    private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
     private static final int MAX_X = 1000;
     private static final int MAX_Y = 1000;
     
@@ -40,18 +40,18 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         FileWidget mana_dice = registerTerminalWidget(new FileWidget(MMItems.MANA_DICE.get().getDefaultInstance(), 100, 75, new FileWidget.Properties().parent(mana_bag).fileWidgetType(FileWidgetType.UNCOMMON)));
         FileWidget mana_heart = registerTerminalWidget(new FileWidget(MMItems.MANA_HEART.get().getDefaultInstance(), 150, 50, new FileWidget.Properties().parent(mana_dice).fileWidgetType(FileWidgetType.RARE)));
         FileWidget texture = registerTerminalWidget(new FileWidget(new FileWidget.Texture(ManaMod.prefix("textures/item/mana_cake.png"), 16, 16), Component.literal("Test"), -50, -50, new FileWidget.Properties().parent(mana)));
-
+        
         for (FileWidget fileWidget : FILE_WIDGETS) {
             this.addRenderableWidget(fileWidget);
         }
         
         this.addRenderableWidget(FOCUS_WIDGET);
-
+        
         this.inspectorX = Mth.floor(this.width - this.width / 1.35D) - 1;
-
+        
         super.init();
     }
-
+    
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int mouseButton) {
         if (mouseButton == 1) {
@@ -72,13 +72,13 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         }
         return false;
     }
-
+    
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         graphics.setColor(MMConfig.terminalColor.get(0), MMConfig.terminalColor.get(1), MMConfig.terminalColor.get(2), MMConfig.terminalColor.get(3));
-
+        
         this.renderBackground(graphics);
-
+        
         for (FileWidget fileWidget : FILE_WIDGETS) {
             fileWidget.setPosition(Mth.floor(scrollX + MAX_X + fileWidget.offsetX), Mth.floor(scrollY + MAX_Y + fileWidget.offsetY));
         }
@@ -113,11 +113,11 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
         graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, MAX_X * this.getGuiLeft(), MAX_Y * this.getGuiTop());
     }
-
+    
     @Override
     public void renderBackground(GuiGraphics graphics) {
     }
-
+    
     @Override
     protected void containerTick() {
         super.containerTick();
@@ -140,7 +140,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         
         super.onClose();
     }
-
+    
     public FileWidget registerTerminalWidget(FileWidget fileWidget) {
         FILE_WIDGETS.add(fileWidget);
         return fileWidget;

@@ -8,12 +8,12 @@ import javax.annotation.Nullable;
 
 public class FuelItem extends Item {
     protected final int burnTime;
-
+    
     public FuelItem(Properties properties, int burnTime) {
         super(properties);
         this.burnTime = burnTime;
     }
-
+    
     @Override
     public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
         return this.burnTime;
