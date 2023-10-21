@@ -27,7 +27,7 @@ public class MMBlockModelProvider extends BlockModelProvider {
         slabBlock(MMBlocks.MANA_BRICK_SLAB.get(), MMBlocks.MANA_BRICKS.get());
         cakeBlock(MMBlocks.MANA_CAKE.get());
         basicBlock(MMBlocks.MANA_ORE.get());
-        basicBlock(MMBlocks.MANA_SHIELD.get());
+        translucentBlock(MMBlocks.MANA_SHIELD.get());
         basicBlock(MMBlocks.MANA_SYNTHESIZER.get());
         basicBlock(MMBlocks.UNSTABLE_MANA_BLOCK.get());
         //basicBlock(MMBlocks.TERMINAL.get());
@@ -35,6 +35,10 @@ public class MMBlockModelProvider extends BlockModelProvider {
     
     private void basicBlock(Block block) {
         cubeAll(blockPrefix(block).getPath(), ManaMod.prefix("block/" + blockPrefix(block).getPath()));
+    }
+    
+    private void translucentBlock(Block block) {
+        cubeAll(blockPrefix(block).getPath(), ManaMod.prefix("block/" + blockPrefix(block).getPath())).renderType("translucent");
     }
     
     private void slabBlock(Block block, Block foreign) {
