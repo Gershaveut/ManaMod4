@@ -6,6 +6,8 @@ import com.gershaveut.manamod.world.inventory.TerminalMenu;
 import com.gershaveut.manamod.world.item.MMItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +25,8 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private static final int MAX_X = 1000;
     private static final int MAX_Y = 1000;
     
-    private final HashSet<FileWidget> FILE_WIDGETS = new HashSet<>();
+    private final HashSet<FileWidget> fileWidgets = new HashSet<>();
+    private final HashSet<AbstractWidget> inspectorWidgets = new HashSet<>();
     private double scrollX = (double) -MAX_X + this.getXSize();
     private double scrollY = (double) -MAX_Y + this.getYSize();
     private int inspectorX;
@@ -44,11 +47,13 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         FileWidget mana_heart = registerTerminalWidget(new FileWidget(MMItems.MANA_HEART.get().getDefaultInstance(), 150, 50, new FileWidget.Properties().parent(mana_dice).fileWidgetType(FileWidgetType.RARE)));
         FileWidget texture = registerTerminalWidget(new FileWidget(new FileWidget.Texture(ManaMod.prefix("textures/item/mana_cake.png"), 16, 16), Component.literal("Test"), -50, -50, new FileWidget.Properties().parent(mana)));
         
-        for (FileWidget fileWidget : FILE_WIDGETS) {
+        for (FileWidget fileWidget : fileWidgets) {
             this.addRenderableWidget(fileWidget);
         }
         
         this.addRenderableWidget(FOCUS_WIDGET);
+        
+        inspectorWidgets.add(this.addRenderableWidget(new InspectorWidget(Button.builder(Component.literal("test"), (pressed) -> {}).build(), 0, 0).widget));
         
         this.inspectorX = Mth.floor(this.width - this.width / 1.35D) - 1;
         
@@ -82,13 +87,17 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         
         this.renderBackground(graphics);
         
-        for (FileWidget fileWidget : FILE_WIDGETS) {
+        for (FileWidget fileWidget : fileWidgets) {
             fileWidget.setPosition(Mth.floor(scrollX + MAX_X + fileWidget.offsetX), Mth.floor(scrollY + MAX_Y + fileWidget.offsetY));
         }
         
         if (FOCUS_WIDGET.getFollowFocus() != null || FOCUS_WIDGET.lastFollowFocus != null) {
             graphics.pose().pushPose();
             graphics.pose().translate(inspectorX, inspectorY, 200);
+            
+            for (AbstractWidget abstractWidget : inspectorWidgets) {
+                abstractWidget.setPosition(inspectorX, inspectorY);
+            }
             
             FileWidget selectedFile = FOCUS_WIDGET.getFollowFocus() != null ? FOCUS_WIDGET.getFollowFocus() : FOCUS_WIDGET.lastFollowFocus;
             
@@ -109,7 +118,11 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             graphics.pose().popPose();
         }
         
+        ResourceLocation WIDGETS_LOCATION = AbstractWidget.WIDGETS_LOCATION;
+        
+        AbstractWidget.WIDGETS_LOCATION = ManaMod.prefixGui("terminal/widgets");
         super.render(graphics, mouseX, mouseY, partialTick);
+        AbstractWidget.WIDGETS_LOCATION = WIDGETS_LOCATION;
     }
     
     @Override
@@ -132,7 +145,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         }
         
         FOCUS_WIDGET.tick();
-        for (FileWidget fileWidget : FILE_WIDGETS) {
+        for (FileWidget fileWidget : fileWidgets) {
             fileWidget.tick();
         }
     }
@@ -149,7 +162,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     }
     
     public FileWidget registerTerminalWidget(FileWidget fileWidget) {
-        FILE_WIDGETS.add(fileWidget);
+        fileWidgets.add(fileWidget);
         return fileWidget;
     }
 }

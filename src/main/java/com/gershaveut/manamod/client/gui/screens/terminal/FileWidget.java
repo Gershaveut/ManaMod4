@@ -1,6 +1,5 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
-import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FileWidget extends AbstractButton {
-    private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/terminal_widgets");
+    private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/file_widget");
     private static final float[] FLASH = new float[4];
     private static final int FLASH_SPEED = 20;
     
