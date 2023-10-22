@@ -1,6 +1,7 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
+import com.gershaveut.manamod.world.item.Tooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
@@ -25,6 +26,8 @@ public class FileWidget extends AbstractButton {
     public final @Nullable Texture texture;
     public final FileWidget parent;
     public final FocusWidget focusWidget;
+    public Component description;
+    public boolean unlock;
     private final int width;
     private final int height;
     public int offsetX;
@@ -33,7 +36,8 @@ public class FileWidget extends AbstractButton {
     public boolean obtained;
     public double timer;
     private double progress;
-    private boolean flashing;
+    private boolean flash;
+    private boolean flashing = true;
     
     private FileWidget(@Nullable ItemStack item, @Nullable Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, Mth.floor(10 * 2.5D), Mth.floor(10 * 2.5), component);
@@ -47,9 +51,10 @@ public class FileWidget extends AbstractButton {
         this.parent = properties.parent;
         this.focusWidget = TerminalScreen.FOCUS_WIDGET;
         this.obtained = properties.parent == null || properties.obtained;
-        this.flashing = !this.obtained;
+        this.flash = !this.obtained;
         this.fileWidgetType = properties.parent == null ? FileWidgetType.ROOT : properties.fileWidgetType;
         this.timer = properties.timer;
+        this.description = properties.description != null ? properties.description : item != null ? ((Tooltip)item.getItem()).manaMod$getDescription().copy().withStyle(ChatFormatting.WHITE) : Component.empty();
         
         for (int i = 0; i < FLASH.length; i++) {
             FLASH[i] = TerminalScreen.COLOR.get(i) * FLASH_SPEED;
@@ -80,12 +85,15 @@ public class FileWidget extends AbstractButton {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 1);
         
-        if (!obtained)
+        if (!obtained && flash)
             graphics.setColor(FLASH[0] / FLASH_SPEED, FLASH[1] / FLASH_SPEED, FLASH[2] / FLASH_SPEED, FLASH[3]);
         graphics.blit(TERMINAL_WIDGETS, this.getX(), this.getY(), this.fileWidgetType.x, this.fileWidgetType.y, 24, 24);
-        graphics.blit(TERMINAL_WIDGETS, this.getX(), this.getY(), this.fileWidgetType.x + 48, this.fileWidgetType.y, Mth.floor(this.getProgress() * 24), 24);
+        if (this.progress < 100)
+            graphics.blit(TERMINAL_WIDGETS, this.getX(), this.getY(), this.fileWidgetType.x + 48, this.fileWidgetType.y, Mth.floor(this.getProgress() * 24), 24);
+        else
+            obtained = true;
         graphics.setColor(1F, 1F, 1F, 1F);
-        this.obtained = true;
+        
         if (item != null)
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
         else {
@@ -131,10 +139,13 @@ public class FileWidget extends AbstractButton {
     }
     
     public void unlock() {
+        this.unlock = true;
+        this.flash = false;
+        
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleWithFixedDelay(() -> {
             if (this.progress < 100) {
-                this.setProgress(this.progress + 1);
+                this.setProgress(this.progress + 25);
             } else {
                 executor.shutdown();
             }
@@ -145,7 +156,6 @@ public class FileWidget extends AbstractButton {
     public void onPress() {
         this.focusWidget.setFollowFocus(this);
         focusing = true;
-        this.unlock();
     }
     
     @Override
@@ -181,8 +191,9 @@ public class FileWidget extends AbstractButton {
     public static class Properties {
         private FileWidget parent;
         private FileWidgetType fileWidgetType = FileWidgetType.COMMON;
-        private boolean obtained = true;
+        private boolean obtained;
         private double timer;
+        private Component description;
         
         public Properties parent(FileWidget parent) {
             this.parent = parent;
@@ -197,6 +208,11 @@ public class FileWidget extends AbstractButton {
         public Properties timer(double time) {
             this.timer = time;
             this.obtained = false;
+            return this;
+        }
+        
+        public Properties description(Component description) {
+            this.description = description;
             return this;
         }
     }

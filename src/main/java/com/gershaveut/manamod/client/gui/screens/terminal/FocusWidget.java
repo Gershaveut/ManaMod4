@@ -65,4 +65,8 @@ public class FocusWidget extends AbstractWidget {
         this.lastFollowFocus = this.followFocus;
         this.followFocus = followFocus;
     }
+    
+    public @Nullable FileWidget getFocus() {
+        return this.followFocus != null ? this.followFocus : this.lastFollowFocus;
+    }
 }

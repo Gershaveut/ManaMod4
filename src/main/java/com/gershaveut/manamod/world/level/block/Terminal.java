@@ -27,10 +27,11 @@ public class Terminal extends Block {
     
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            NetworkHooks.openScreen(serverPlayer, blockState.getMenuProvider(level, blockPos));
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        } else {
+            player.openMenu(blockState.getMenuProvider(level, blockPos));
+            return InteractionResult.CONSUME;
         }
-        
-        return super.use(blockState, level, blockPos, player, interactionHand, blockHitResult);
     }
 }

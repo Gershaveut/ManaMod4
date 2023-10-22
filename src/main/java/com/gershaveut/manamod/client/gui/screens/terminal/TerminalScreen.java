@@ -4,18 +4,29 @@ import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.world.inventory.TerminalMenu;
 import com.gershaveut.manamod.world.item.MMItems;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
+import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
@@ -26,11 +37,12 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private static final int MAX_Y = 1000;
     
     private final HashSet<FileWidget> fileWidgets = new HashSet<>();
-    private final HashSet<AbstractWidget> inspectorWidgets = new HashSet<>();
+    private final HashSet<InspectorWidget> inspectorWidgets = new HashSet<>();
     private double scrollX = (double) -MAX_X + this.getXSize();
     private double scrollY = (double) -MAX_Y + this.getYSize();
     private int inspectorX;
     private int inspectorY;
+    private Button unlock = Button.builder(Component.literal("Unlock"), (pressed) -> Objects.requireNonNull(FOCUS_WIDGET.getFocus()).unlock()).width(90).build();
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
         super(terminalMenu, inventory, component);
@@ -53,7 +65,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         
         this.addRenderableWidget(FOCUS_WIDGET);
         
-        inspectorWidgets.add(this.addRenderableWidget(new InspectorWidget(Button.builder(Component.literal("test"), (pressed) -> {}).build(), 0, 0).widget));
+        this.addInspectorWidget(new InspectorWidget(Mth.floor(this.width / 1.3D), 35, unlock));
         
         this.inspectorX = Mth.floor(this.width - this.width / 1.35D) - 1;
         
@@ -83,23 +95,29 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        setTerminalColor(graphics);
+        ResourceLocation WIDGETS_LOCATION = AbstractWidget.WIDGETS_LOCATION;
         
+        setTerminalColor(graphics);
         this.renderBackground(graphics);
         
         for (FileWidget fileWidget : fileWidgets) {
             fileWidget.setPosition(Mth.floor(scrollX + MAX_X + fileWidget.offsetX), Mth.floor(scrollY + MAX_Y + fileWidget.offsetY));
         }
         
-        if (FOCUS_WIDGET.getFollowFocus() != null || FOCUS_WIDGET.lastFollowFocus != null) {
+        for (InspectorWidget inspectorWidget : inspectorWidgets) {
+            inspectorWidget.widget.setPosition(inspectorX + inspectorWidget.offsetX, inspectorY + inspectorWidget.offsetY);
+            AbstractWidget.WIDGETS_LOCATION = ManaMod.prefixGui("terminal/widgets");
+            graphics.pose().pushPose();
+            graphics.pose().translate(0, 0, 250);
+            inspectorWidget.widget.render(graphics, mouseX, mouseY, partialTick);
+            graphics.pose().popPose();
+        }
+        
+        if (FOCUS_WIDGET.getFocus() != null) {
             graphics.pose().pushPose();
             graphics.pose().translate(inspectorX, inspectorY, 200);
             
-            for (AbstractWidget abstractWidget : inspectorWidgets) {
-                abstractWidget.setPosition(inspectorX, inspectorY);
-            }
-            
-            FileWidget selectedFile = FOCUS_WIDGET.getFollowFocus() != null ? FOCUS_WIDGET.getFollowFocus() : FOCUS_WIDGET.lastFollowFocus;
+            FileWidget selectedFile = FOCUS_WIDGET.getFocus();
             
             graphics.fill(this.width, 0, Mth.floor(this.width / 1.35D), this.height, -16777216);
             graphics.vLine(Mth.floor(this.width / 1.35D), this.height, -1, -1);
@@ -115,12 +133,18 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             graphics.drawString(this.font, !selectedFile.getMessage().getStyle().isEmpty() ? selectedFile.getMessage() : selectedFile.getMessage().copy().withStyle(ChatFormatting.WHITE), Mth.floor(this.width / 1.2D), 15, 0);
             setTerminalColor(graphics);
             
+            this.unlock.active = !selectedFile.unlock;
+            this.unlock.visible = !selectedFile.obtained;
+            
+            List<FormattedCharSequence> description = this.font.split(selectedFile.description, 90);
+            
+            for(int l = 0; l < description.size(); ++l) {
+                graphics.drawString(this.font, description.get(l), Mth.floor(this.width / 1.3D), 65 + l * 9, 0, false);
+            }
+            
             graphics.pose().popPose();
         }
         
-        ResourceLocation WIDGETS_LOCATION = AbstractWidget.WIDGETS_LOCATION;
-        
-        AbstractWidget.WIDGETS_LOCATION = ManaMod.prefixGui("terminal/widgets");
         super.render(graphics, mouseX, mouseY, partialTick);
         AbstractWidget.WIDGETS_LOCATION = WIDGETS_LOCATION;
     }
@@ -138,7 +162,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     protected void containerTick() {
         super.containerTick();
         
-        if (FOCUS_WIDGET.getFollowFocus() != null || FOCUS_WIDGET.lastFollowFocus != null) {
+        if (FOCUS_WIDGET.getFocus() != null) {
             for (int i = 0; i < 12; i++) {
                 inspectorX += FOCUS_WIDGET.getFollowFocus() != null ? Mth.floor(Math.signum(-inspectorX)) : Mth.floor(Math.signum(this.width - this.width / 1.35D - inspectorX + 1));
             }
@@ -161,8 +185,32 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         graphics.setColor(COLOR.get(0), COLOR.get(1), COLOR.get(2), COLOR.get(3));
     }
     
+    public InspectorWidget addInspectorWidget(InspectorWidget inspectorWidget) {
+        this.addRenderableWidget(inspectorWidget.widget);
+        inspectorWidgets.add(inspectorWidget);
+        return inspectorWidget;
+    }
+    
     public FileWidget registerTerminalWidget(FileWidget fileWidget) {
         fileWidgets.add(fileWidget);
         return fileWidget;
+    }
+    
+    public record InspectorWidget(int offsetX, int offsetY, int width, int height, AbstractWidget widget) {
+        public InspectorWidget(int offsetX, int offsetY, int width, int height, AbstractWidget widget) {
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
+            this.width = width;
+            this.height = height;
+            this.widget = widget;
+            
+            this.widget.setPosition(offsetX, offsetY);
+            this.widget.setWidth(width);
+            this.widget.setHeight(height);
+        }
+        
+        public InspectorWidget(int offsetX, int offsetY, AbstractWidget widget) {
+            this(offsetX, offsetY, widget.getWidth(), widget.getHeight(), widget);
+        }
     }
 }
