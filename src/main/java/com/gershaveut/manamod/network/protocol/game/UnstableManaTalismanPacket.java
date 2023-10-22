@@ -32,16 +32,17 @@ public class UnstableManaTalismanPacket implements MMPacket {
             assert sender != null;
             ServerLevel level = sender.serverLevel();
             Component time;
+            Tooltip item = ((Tooltip) message.itemStack.getItem());
             
             if (level.isDay()) {
                 level.setDayTime(13000);
-                time = Component.translatable("item.mana_mod.unstable_mana_talisman.feedback.night");
+                time = item.manaMod$getFeedbackMessage("night");
             } else {
                 level.setDayTime(6000);
-                time = Component.translatable("item.mana_mod.unstable_mana_talisman.feedback.day");
+                time = item.manaMod$getFeedbackMessage("day");
             }
             
-            ((Tooltip) message.itemStack.getItem()).manaMod$setFeedback(time);
+            item.manaMod$setFeedback(time);
             sender.sendSystemMessage(time, true);
         });
         ctx.get().setPacketHandled(true);

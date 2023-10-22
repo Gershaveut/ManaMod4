@@ -10,4 +10,10 @@ public interface Tooltip {
     void manaMod$setFeedback(Component component);
     
     Component manaMod$getFeedback();
+    
+    Component manaMod$getDescription();
+    
+    String manaMod$getFeedbackId();
+    
+    Component manaMod$getFeedbackMessage(String name);
 }

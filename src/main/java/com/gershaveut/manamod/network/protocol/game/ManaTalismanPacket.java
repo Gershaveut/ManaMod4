@@ -31,34 +31,35 @@ public class ManaTalismanPacket implements MMPacket {
         this.itemStack = buf.readItem();
     }
     
+    public void encode(FriendlyByteBuf buf) {
+        buf.writeEnum(weather);
+        buf.writeItem(itemStack);
+    }
+    
     public static void handle(ManaTalismanPacket message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer sender = ctx.get().getSender();
             assert sender != null;
             ServerLevel level = sender.serverLevel();
+            Tooltip item = ((Tooltip) message.itemStack.getItem());
             Component weather = switch (message.weather) {
                 default -> {
                     level.setWeatherParameters(0, 6000, true, false);
-                    yield Component.translatable("item.mana_mod.mana_talisman.feedback.rain");
+                    yield item.manaMod$getFeedbackMessage("rain");
                 }
                 case THUNDER -> {
                     level.setWeatherParameters(0, 6000, true, true);
-                    yield Component.translatable("item.mana_mod.mana_talisman.feedback.thunder");
+                    yield item.manaMod$getFeedbackMessage("thunder");
                 }
                 case CLEAR -> {
                     level.setWeatherParameters(6000, 0, false, false);
-                    yield Component.translatable("item.mana_mod.mana_talisman.feedback.clear");
+                    yield item.manaMod$getFeedbackMessage("clear");
                 }
             };
             
-            ((Tooltip) message.itemStack.getItem()).manaMod$setFeedback(weather);
+            item.manaMod$setFeedback(weather);
             sender.sendSystemMessage(weather, true);
         });
         ctx.get().setPacketHandled(true);
-    }
-    
-    public void encode(FriendlyByteBuf buf) {
-        buf.writeEnum(weather);
-        buf.writeItem(itemStack);
     }
 }

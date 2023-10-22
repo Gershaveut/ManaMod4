@@ -30,6 +30,8 @@ public abstract class MixinItem implements Tooltip {
     @Unique
     protected Component manaMod$feedback;
     @Unique
+    private Component manaMod$description;
+    @Unique
     private TooltipProperties manaMod$tooltipProperties = new TooltipProperties();
     @Unique
     private boolean manaMod$isFeedbackNullRunning;
@@ -51,15 +53,30 @@ public abstract class MixinItem implements Tooltip {
         return manaMod$feedback;
     }
     
+    public Component manaMod$getDescription() {
+        if (manaMod$description == null) {
+            manaMod$description = Component.translatable(getDescriptionId() + ".description");
+        }
+        
+        return manaMod$description;
+    }
+    
+    public String manaMod$getFeedbackId() {
+        return getDescriptionId() + ".feedback";
+    }
+    
+    public Component manaMod$getFeedbackMessage(String name) {
+        return Component.translatable(manaMod$getFeedbackId() + "." + name);
+    }
+    
     @Shadow
     public abstract InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_);
     
     @Shadow
-    protected abstract String getOrCreateDescriptionId();
+    public abstract String getDescriptionId();
     
     @Inject(method = "appendHoverText", at = @At("HEAD"))
     public void onAppendHoverText(ItemStack itemStack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag, CallbackInfo callbackInfo) {
-        Component description = Component.translatable(getOrCreateDescriptionId() + ".description");
         Component descriptionView = Component.literal(Component.translatable("item.mana_mod.description_view").getString().replace("{key}", KeyMappings.KEY_DESCRIPTION_ITEM.getKey().getDisplayName().getString()));
         Component usageView = Component.literal(Component.translatable("item.mana_mod.usage_view").getString().replace("{key}", KeyMappings.KEY_USAGE_ITEM.getKey().getDisplayName().getString()));
         
@@ -70,7 +87,7 @@ public abstract class MixinItem implements Tooltip {
         boolean canUseItem = manaMod$tooltipProperties.UsageItem && !player.getCooldowns().isOnCooldown(itemStack.getItem()) && !KeyMappings.KEY_DESCRIPTION_ITEM.isDown();
         
         if (keyDescriptionPressed && manaMod$feedback == null && manaMod$tooltipProperties.descriptionItem) {
-            tooltip.add(description);
+            tooltip.add(manaMod$getDescription());
         } else {
             if (manaMod$feedback == null) {
                 if (manaMod$tooltipProperties.descriptionItem)
