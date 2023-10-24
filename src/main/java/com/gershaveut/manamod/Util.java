@@ -3,17 +3,18 @@ package com.gershaveut.manamod;
 import java.util.List;
 
 public class Util {
-    private static boolean blinking;
+    private static boolean blinkingColor;
     
     public static void blinkingColor(List<Float> current, List<Float> original, float to, float speed) {
+        speed /= 10;
+        
         if (original.get(0) <= current.get(0))
-            blinking = true;
+            blinkingColor = true;
         else if (original.get(0) * to >= current.get(0))
-            blinking = false;
+            blinkingColor = false;
         
         for (int i = 0; i < current.size(); i++) {
-            //current.set(i, transformingNumber(blinking ? original.get(i) * to : original.get(i), current.get(i), speed));
-            current.set(i, 1F);
+            current.set(i, transformingNumber(blinkingColor ? original.get(i) * to : original.get(i), current.get(i), speed));
         }
     }
     

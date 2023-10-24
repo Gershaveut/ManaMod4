@@ -20,8 +20,8 @@ public class FocusWidget extends AbstractWidget {
     private double followFocusX;
     private double followFocusY;
     
-    public FocusWidget(int width, int height) {
-        super(0, 0, width, height, Component.literal("Focus"));
+    public FocusWidget(int width, int height, Component message) {
+        super(0, 0, width, height, message);
     }
     
     @Override

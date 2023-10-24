@@ -31,7 +31,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
-    public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10);
+    public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10, Component.literal("Focus"));
     public static final List<Float> COLOR = MMConfig.CLIENT.TERMINAL_COLOR.get().stream().map(Number::floatValue).collect(Collectors.toList());
     private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
     private static final int INSPECTOR_SPEED = 10;

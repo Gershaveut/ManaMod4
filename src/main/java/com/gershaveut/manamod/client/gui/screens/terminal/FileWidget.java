@@ -13,6 +13,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/file_widget");
-    private static final List<Float> BLINK = TerminalScreen.COLOR;
+    private static final List<Float> BLINK = new ArrayList<>(TerminalScreen.COLOR);
     
     public final FileWidgetType fileWidgetType;
     public final @Nullable ItemStack item;
@@ -115,7 +116,7 @@ public class FileWidget extends AbstractButton {
         this.update();
         
         if (blink) {
-            Util.blinkingColor(BLINK, TerminalScreen.COLOR, 0.5F, 0.5F);
+            Util.blinkingColor(BLINK, TerminalScreen.COLOR, 0.5F, 0.25F);
         }
     }
     
