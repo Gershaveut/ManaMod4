@@ -115,7 +115,7 @@ public class FileWidget extends AbstractButton {
         this.update();
         
         if (blink) {
-            Util.blinkingColor(BLINK, TerminalScreen.COLOR, 0.5F, 1);
+            Util.blinkingColor(BLINK, TerminalScreen.COLOR, 0.5F, 0.5F);
         }
     }
     

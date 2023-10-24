@@ -34,6 +34,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     public static final FocusWidget FOCUS_WIDGET = new FocusWidget(10, 10);
     public static final List<Float> COLOR = MMConfig.CLIENT.TERMINAL_COLOR.get().stream().map(Number::floatValue).collect(Collectors.toList());
     private static final ResourceLocation BACKGROUND = ManaMod.prefixGui("terminal/background");
+    private static final int INSPECTOR_SPEED = 10;
     private static final int MAX_X = 1000;
     private static final int MAX_Y = 1000;
     
@@ -152,7 +153,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        //graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, MAX_X * this.getGuiLeft(), MAX_Y * this.getGuiTop());
+        graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, MAX_X * this.getGuiLeft(), MAX_Y * this.getGuiTop());
     }
     
     @Override
@@ -164,7 +165,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         super.containerTick();
         
         if (FOCUS_WIDGET.getFocus() != null) {
-            inspectorX = FOCUS_WIDGET.getFollowFocus() != null ? Mth.floor(Util.transformingNumber(0, inspectorX, 3)) : Mth.floor(Util.transformingNumber(this.width - this.width / 1.35D, inspectorX + 1, 3));
+            inspectorX = FOCUS_WIDGET.getFollowFocus() != null ? Mth.floor(Util.transformingNumber(0, Mth.floor(inspectorX), INSPECTOR_SPEED)) : Mth.floor(Util.transformingNumber(this.width - this.width / 1.35D, Mth.floor(inspectorX + 1), INSPECTOR_SPEED));
         }
         
         FOCUS_WIDGET.tick();

@@ -13,7 +13,8 @@ import javax.annotation.Nullable;
 
 public class FocusWidget extends AbstractWidget {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
-    private static final int FOCUS_SPEED = 3;
+    private static final int FOCUS_SPEED = 10;
+    
     public @Nullable FileWidget lastFollowFocus;
     private @Nullable FileWidget followFocus;
     private double followFocusX;
@@ -46,8 +47,8 @@ public class FocusWidget extends AbstractWidget {
     public void tick() {
         if (followFocus != null) {
             if (followFocus.focusing) {
-                this.setX(Mth.floor(this.getX() + Util.transformingNumber(followFocusX, this.getX(), FOCUS_SPEED)));
-                this.setY(Mth.floor(this.getY() + Util.transformingNumber(followFocusY, this.getY(), FOCUS_SPEED)));
+                this.setX(Mth.floor(Util.transformingNumber(followFocusX, this.getX(), FOCUS_SPEED)));
+                this.setY(Mth.floor(Util.transformingNumber(followFocusY, this.getY(), FOCUS_SPEED)));
                 
                 if (this.getX() == followFocusX && this.getY() == followFocusY)
                     followFocus.focusing = false;
