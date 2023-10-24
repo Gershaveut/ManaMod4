@@ -1,6 +1,7 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
+import com.gershaveut.manamod.Util;
 import com.gershaveut.manamod.world.item.Tooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,14 +13,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class FileWidget extends AbstractButton {
     private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/file_widget");
-    private static final float[] FLASH = new float[4];
-    private static final int FLASH_SPEED = 20;
+    private static final List<Float> BLINK = TerminalScreen.COLOR;
     
     public final FileWidgetType fileWidgetType;
     public final @Nullable ItemStack item;
@@ -36,8 +37,7 @@ public class FileWidget extends AbstractButton {
     public boolean obtained;
     public double timer;
     private double progress;
-    private boolean flash;
-    private boolean flashing = true;
+    private boolean blink;
     
     private FileWidget(@Nullable ItemStack item, @Nullable Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, Mth.floor(10 * 2.5D), Mth.floor(10 * 2.5), component);
@@ -51,14 +51,10 @@ public class FileWidget extends AbstractButton {
         this.parent = properties.parent;
         this.focusWidget = TerminalScreen.FOCUS_WIDGET;
         this.obtained = properties.parent == null || properties.obtained;
-        this.flash = !this.obtained;
+        this.blink = !this.obtained;
         this.fileWidgetType = properties.parent == null ? FileWidgetType.ROOT : properties.fileWidgetType;
         this.timer = properties.timer;
         this.description = properties.description != null ? properties.description : item != null ? ((Tooltip)item.getItem()).manaMod$getDescription().copy().withStyle(ChatFormatting.WHITE) : Component.empty();
-        
-        for (int i = 0; i < FLASH.length; i++) {
-            FLASH[i] = TerminalScreen.COLOR.get(i) * FLASH_SPEED;
-        }
         
         this.update();
     }
@@ -85,8 +81,8 @@ public class FileWidget extends AbstractButton {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 1);
         
-        if (!obtained && flash)
-            graphics.setColor(FLASH[0] / FLASH_SPEED, FLASH[1] / FLASH_SPEED, FLASH[2] / FLASH_SPEED, FLASH[3]);
+        if (!obtained && blink)
+            graphics.setColor(BLINK.get(0), BLINK.get(1), BLINK.get(2), TerminalScreen.COLOR.get(3));
         graphics.blit(TERMINAL_WIDGETS, this.getX(), this.getY(), this.fileWidgetType.x, this.fileWidgetType.y, 24, 24);
         if (this.progress < 100)
             graphics.blit(TERMINAL_WIDGETS, this.getX(), this.getY(), this.fileWidgetType.x + 48, this.fileWidgetType.y, Mth.floor(this.getProgress() * 24), 24);
@@ -118,13 +114,8 @@ public class FileWidget extends AbstractButton {
     public void tick() {
         this.update();
         
-        if (TerminalScreen.COLOR.get(0) * FLASH_SPEED <= FLASH[0])
-            flashing = true;
-        else if (TerminalScreen.COLOR.get(0) / 2 * FLASH_SPEED >= FLASH[0])
-            flashing = false;
-        
-        for (int i = 0; i < 3; i++) {
-            FLASH[i] += Math.signum((flashing ? TerminalScreen.COLOR.get(i) / 2 * FLASH_SPEED : TerminalScreen.COLOR.get(i) * FLASH_SPEED) - FLASH[i]);
+        if (blink) {
+            Util.blinkingColor(BLINK, TerminalScreen.COLOR, 0.5F, 1);
         }
     }
     
@@ -140,7 +131,7 @@ public class FileWidget extends AbstractButton {
     
     public void unlock() {
         this.unlock = true;
-        this.flash = false;
+        this.blink = false;
         
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
         executor.scheduleWithFixedDelay(() -> {

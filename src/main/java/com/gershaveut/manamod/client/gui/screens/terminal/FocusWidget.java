@@ -1,7 +1,7 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
-import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
+import com.gershaveut.manamod.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 public class FocusWidget extends AbstractWidget {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
-    private static final int FOCUS_SPEED = 20;
+    private static final int FOCUS_SPEED = 3;
     public @Nullable FileWidget lastFollowFocus;
     private @Nullable FileWidget followFocus;
     private double followFocusX;
@@ -35,7 +35,7 @@ public class FocusWidget extends AbstractWidget {
             }
             
             TerminalScreen.setTerminalColor(graphics);
-            graphics.blitInscribed(FOCUS, Mth.floor(this.getX()), Mth.floor(this.getY()), 28, 28, followFocus.getWidth(), followFocus.getHeight());
+            graphics.blitInscribed(FOCUS, this.getX(), this.getY(), 28, 28, followFocus.getWidth(), followFocus.getHeight());
         }
     }
     
@@ -46,10 +46,8 @@ public class FocusWidget extends AbstractWidget {
     public void tick() {
         if (followFocus != null) {
             if (followFocus.focusing) {
-                for (int i = 0; i < FOCUS_SPEED; i++) {
-                    this.setX(Mth.floor(this.getX() + Math.signum(followFocusX - this.getX())));
-                    this.setY(Mth.floor(this.getY() + Math.signum(followFocusY - this.getY())));
-                }
+                this.setX(Mth.floor(this.getX() + Util.transformingNumber(followFocusX, this.getX(), FOCUS_SPEED)));
+                this.setY(Mth.floor(this.getY() + Util.transformingNumber(followFocusY, this.getY(), FOCUS_SPEED)));
                 
                 if (this.getX() == followFocusX && this.getY() == followFocusY)
                     followFocus.focusing = false;

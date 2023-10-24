@@ -2,6 +2,7 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
+import com.gershaveut.manamod.Util;
 import com.gershaveut.manamod.world.inventory.TerminalMenu;
 import com.gershaveut.manamod.world.item.MMItems;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -151,7 +152,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     
     @Override
     protected void renderBg(GuiGraphics graphics, float partialTick, int mouseX, int mouseY) {
-        graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, MAX_X * this.getGuiLeft(), MAX_Y * this.getGuiTop());
+        //graphics.blit(BACKGROUND, Mth.floor(scrollX), Mth.floor(scrollY), 512, 512, MAX_X * this.getGuiLeft(), MAX_Y * this.getGuiTop());
     }
     
     @Override
@@ -163,9 +164,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         super.containerTick();
         
         if (FOCUS_WIDGET.getFocus() != null) {
-            for (int i = 0; i < 12; i++) {
-                inspectorX += FOCUS_WIDGET.getFollowFocus() != null ? Mth.floor(Math.signum(-inspectorX)) : Mth.floor(Math.signum(this.width - this.width / 1.35D - inspectorX + 1));
-            }
+            inspectorX = FOCUS_WIDGET.getFollowFocus() != null ? Mth.floor(Util.transformingNumber(0, inspectorX, 3)) : Mth.floor(Util.transformingNumber(this.width - this.width / 1.35D, inspectorX + 1, 3));
         }
         
         FOCUS_WIDGET.tick();
