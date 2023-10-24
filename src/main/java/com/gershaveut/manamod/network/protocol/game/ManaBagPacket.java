@@ -1,6 +1,5 @@
 package com.gershaveut.manamod.network.protocol.game;
 
-import com.gershaveut.manamod.network.protocol.MMPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,11 +10,14 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-public class ManaBagPacket implements MMPacket {
+public class ManaBagPacket {
     public ManaBagPacket() {
     }
     
     public ManaBagPacket(FriendlyByteBuf buf) {
+    }
+    
+    public void encode(FriendlyByteBuf buf) {
     }
     
     public static void handle(ManaBagPacket message, Supplier<NetworkEvent.Context> ctx) {

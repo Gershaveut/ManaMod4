@@ -1,6 +1,5 @@
 package com.gershaveut.manamod.network.protocol.game;
 
-import com.gershaveut.manamod.network.protocol.MMPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -8,11 +7,14 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ManaStonePacket implements MMPacket {
+public class ManaStonePacket {
     public ManaStonePacket() {
     }
     
     public ManaStonePacket(FriendlyByteBuf buf) {
+    }
+    
+    public void encode(FriendlyByteBuf buf) {
     }
     
     public static void handle(ManaStonePacket message, Supplier<NetworkEvent.Context> ctx) {

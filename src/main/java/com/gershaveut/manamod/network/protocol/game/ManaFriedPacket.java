@@ -1,17 +1,19 @@
 package com.gershaveut.manamod.network.protocol.game;
 
-import com.gershaveut.manamod.network.protocol.MMPacket;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ManaFriedPacket implements MMPacket {
+public class ManaFriedPacket {
     public ManaFriedPacket() {
     }
     
     public ManaFriedPacket(FriendlyByteBuf buf) {
+    }
+    
+    public void encode(FriendlyByteBuf buf) {
     }
     
     public static void handle(ManaFriedPacket message, Supplier<NetworkEvent.Context> ctx) {

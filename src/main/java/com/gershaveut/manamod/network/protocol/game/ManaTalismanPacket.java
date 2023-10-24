@@ -1,6 +1,5 @@
 package com.gershaveut.manamod.network.protocol.game;
 
-import com.gershaveut.manamod.network.protocol.MMPacket;
 import com.gershaveut.manamod.world.item.Tooltip;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -11,7 +10,7 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ManaTalismanPacket implements MMPacket {
+public class ManaTalismanPacket {
     public enum Weather {
         RAIN,
         THUNDER,
