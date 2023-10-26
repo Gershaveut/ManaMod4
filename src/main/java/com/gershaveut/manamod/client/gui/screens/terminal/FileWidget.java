@@ -2,6 +2,7 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.Util;
+import com.gershaveut.manamod.util.TextureInscribed;
 import com.gershaveut.manamod.world.item.Tooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -25,10 +26,11 @@ public class FileWidget extends AbstractButton {
     
     public final FileWidgetType fileWidgetType;
     public final @Nullable ItemStack item;
-    public final @Nullable Texture texture;
+    public final @Nullable TextureInscribed texture;
     public final FileWidget parent;
     public final FocusWidget focusWidget;
     public Component description;
+    public int needScore;
     public boolean unlock;
     private final int width;
     private final int height;
@@ -40,7 +42,7 @@ public class FileWidget extends AbstractButton {
     private double progress;
     private boolean blink;
     
-    private FileWidget(@Nullable ItemStack item, @Nullable Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
+    private FileWidget(@Nullable ItemStack item, @Nullable TextureInscribed texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         super(0, 0, Mth.floor(10 * 2.5D), Mth.floor(10 * 2.5), component);
         
         this.width = 10;
@@ -56,6 +58,7 @@ public class FileWidget extends AbstractButton {
         this.fileWidgetType = properties.parent == null ? FileWidgetType.ROOT : properties.fileWidgetType;
         this.timer = properties.timer;
         this.description = properties.description != null ? properties.description : item != null ? ((Tooltip)item.getItem()).manaMod$getDescription().copy().withStyle(ChatFormatting.WHITE) : Component.empty();
+        this.needScore = properties.needScore;
         
         this.update();
     }
@@ -68,7 +71,7 @@ public class FileWidget extends AbstractButton {
         this(item, null, component, offsetX, offsetY, properties);
     }
     
-    public FileWidget(Texture texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
+    public FileWidget(TextureInscribed texture, Component component, int offsetX, int offsetY, FileWidget.Properties properties) {
         this(null, texture, component, offsetX, offsetY, properties);
     }
     
@@ -95,7 +98,7 @@ public class FileWidget extends AbstractButton {
             graphics.renderFakeItem(item, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height));
         else {
             assert this.texture != null;
-            graphics.blitInscribed(this.texture.resourceLocation, getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth, this.texture.boundsHeight, this.width, this.height);
+            graphics.blitInscribed(this.texture.resourceLocation(), getCenter(this.getX(), this.width), getCenter(this.getY(), this.height), this.texture.boundsWidth(), this.texture.boundsHeight(), this.width, this.height);
         }
         
         graphics.pose().popPose();
@@ -177,15 +180,13 @@ public class FileWidget extends AbstractButton {
         this.progress = progress < 100 ? progress : 100;
     }
     
-    public record Texture(ResourceLocation resourceLocation, int boundsWidth, int boundsHeight) {
-    }
-    
     public static class Properties {
         private FileWidget parent;
         private FileWidgetType fileWidgetType = FileWidgetType.COMMON;
         private boolean obtained;
         private double timer;
         private Component description;
+        private int needScore;
         
         public Properties parent(FileWidget parent) {
             this.parent = parent;
@@ -205,6 +206,11 @@ public class FileWidget extends AbstractButton {
         
         public Properties description(Component description) {
             this.description = description;
+            return this;
+        }
+
+        public Properties needScore(int needScore) {
+            this.needScore = needScore;
             return this;
         }
     }

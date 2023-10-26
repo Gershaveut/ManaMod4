@@ -3,28 +3,20 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 import com.gershaveut.manamod.MMConfig;
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.Util;
+import com.gershaveut.manamod.util.TextureInscribed;
 import com.gershaveut.manamod.world.inventory.TerminalMenu;
 import com.gershaveut.manamod.world.item.MMItems;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
-import org.apache.logging.log4j.core.tools.picocli.CommandLine;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -44,7 +36,8 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private double scrollY = (double) -MAX_Y + this.getYSize();
     private int inspectorX;
     private int inspectorY;
-    private Button unlock = Button.builder(Component.literal("Unlock"), (pressed) -> Objects.requireNonNull(FOCUS_WIDGET.getFocus()).unlock()).width(90).build();
+    private final Button unlock = Button.builder(Component.literal("Unlock"), (pressed) -> Objects.requireNonNull(FOCUS_WIDGET.getFocus()).unlock()).width(90).build();
+    private final BarWidget score = new BarWidget(5, 5, 15, 3, Component.literal("Score"), 100, new TextureInscribed(ManaMod.prefixGui("terminal/score"), 8, 8), this.font);
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
         super(terminalMenu, inventory, component);
@@ -59,13 +52,14 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         FileWidget mana_bag = registerTerminalWidget(new FileWidget(MMItems.MANA_BAG.get().getDefaultInstance(), 50, 50, new FileWidget.Properties().parent(mana)));
         FileWidget mana_dice = registerTerminalWidget(new FileWidget(MMItems.MANA_DICE.get().getDefaultInstance(), 100, 75, new FileWidget.Properties().parent(mana_bag).fileWidgetType(FileWidgetType.UNCOMMON)));
         FileWidget mana_heart = registerTerminalWidget(new FileWidget(MMItems.MANA_HEART.get().getDefaultInstance(), 150, 50, new FileWidget.Properties().parent(mana_dice).fileWidgetType(FileWidgetType.RARE)));
-        FileWidget texture = registerTerminalWidget(new FileWidget(new FileWidget.Texture(ManaMod.prefix("textures/item/mana_cake.png"), 16, 16), Component.literal("Test"), -50, -50, new FileWidget.Properties().parent(mana)));
+        FileWidget texture = registerTerminalWidget(new FileWidget(new TextureInscribed(ManaMod.prefix("textures/item/mana_cake.png"), 16, 16), Component.literal("Test"), -50, -50, new FileWidget.Properties().parent(mana)));
         
         for (FileWidget fileWidget : fileWidgets) {
             this.addRenderableWidget(fileWidget);
         }
         
         this.addRenderableWidget(FOCUS_WIDGET);
+        this.addRenderableWidget(score);
         
         this.addInspectorWidget(new InspectorWidget(Mth.floor(this.width / 1.3D), 35, unlock));
         
@@ -137,6 +131,11 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             
             this.unlock.active = !selectedFile.unlock;
             this.unlock.visible = !selectedFile.obtained;
+
+            if (this.unlock.isFocused())
+                this.score.setNeedValue(selectedFile.needScore);
+            else
+                this.score.setNeedValue(0);
             
             List<FormattedCharSequence> description = this.font.split(selectedFile.description, 90);
             
