@@ -8,6 +8,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -20,7 +21,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class FileWidget extends AbstractButton {
+public class FileWidget extends AbstractButton implements Tickable {
     private static final ResourceLocation TERMINAL_WIDGETS = ManaMod.prefixGui("terminal/file_widget");
     private static final List<Float> BLINK = new ArrayList<>(TerminalScreen.COLOR);
     
@@ -32,13 +33,14 @@ public class FileWidget extends AbstractButton {
     public Component description;
     public int needScore;
     public boolean unlock;
-    private final int width;
-    private final int height;
     public int offsetX;
     public int offsetY;
     public boolean focusing;
     public boolean obtained;
     public double timer;
+    
+    private final int width;
+    private final int height;
     private double progress;
     private boolean blink;
     
@@ -57,7 +59,7 @@ public class FileWidget extends AbstractButton {
         this.blink = !this.obtained;
         this.fileWidgetType = properties.parent == null ? FileWidgetType.ROOT : properties.fileWidgetType;
         this.timer = properties.timer;
-        this.description = properties.description != null ? properties.description : item != null ? ((Tooltip)item.getItem()).manaMod$getDescription().copy().withStyle(ChatFormatting.WHITE) : Component.empty();
+        this.description = properties.description != null ? properties.description : item != null ? ((Tooltip) item.getItem()).manaMod$getDescription().copy().withStyle(ChatFormatting.WHITE) : Component.empty();
         this.needScore = properties.needScore;
         
         this.update();
@@ -115,6 +117,7 @@ public class FileWidget extends AbstractButton {
         graphics.vLine(j, i1, k, j1);
     }
     
+    @Override
     public void tick() {
         this.update();
         
@@ -208,7 +211,7 @@ public class FileWidget extends AbstractButton {
             this.description = description;
             return this;
         }
-
+        
         public Properties needScore(int needScore) {
             this.needScore = needScore;
             return this;

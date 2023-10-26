@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -30,14 +31,18 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     private static final int MAX_X = 1000;
     private static final int MAX_Y = 1000;
     
+    private final HashSet<Tickable> tickableWidgets = new HashSet<>();
     private final HashSet<FileWidget> fileWidgets = new HashSet<>();
     private final HashSet<InspectorWidget> inspectorWidgets = new HashSet<>();
     private double scrollX = (double) -MAX_X + this.getXSize();
     private double scrollY = (double) -MAX_Y + this.getYSize();
     private int inspectorX;
     private int inspectorY;
-    private final Button unlock = Button.builder(Component.literal("Unlock"), (pressed) -> Objects.requireNonNull(FOCUS_WIDGET.getFocus()).unlock()).width(90).build();
-    private final BarWidget score = new BarWidget(5, 5, 15, 3, Component.literal("Score"), 100, new TextureInscribed(ManaMod.prefixGui("terminal/score"), 8, 8), this.font);
+    private BarWidget score;
+    private final Button unlock = Button.builder(Component.literal("Unlock"), (pressed) -> {
+        Objects.requireNonNull(FOCUS_WIDGET.getFocus()).unlock();
+        score.setValue(score.getValue() - FOCUS_WIDGET.getFocus().needScore);
+    }).width(Mth.floor(90)).build();
     
     public TerminalScreen(TerminalMenu terminalMenu, Inventory inventory, Component component) {
         super(terminalMenu, inventory, component);
@@ -49,7 +54,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
     @Override
     protected void init() {
         FileWidget mana = registerTerminalWidget(new FileWidget(MMItems.MANA.get().getDefaultInstance(), 0, 0, new FileWidget.Properties()));
-        FileWidget mana_bag = registerTerminalWidget(new FileWidget(MMItems.MANA_BAG.get().getDefaultInstance(), 50, 50, new FileWidget.Properties().parent(mana)));
+        FileWidget mana_bag = registerTerminalWidget(new FileWidget(MMItems.MANA_BAG.get().getDefaultInstance(), 50, 50, new FileWidget.Properties().parent(mana).needScore(25)));
         FileWidget mana_dice = registerTerminalWidget(new FileWidget(MMItems.MANA_DICE.get().getDefaultInstance(), 100, 75, new FileWidget.Properties().parent(mana_bag).fileWidgetType(FileWidgetType.UNCOMMON)));
         FileWidget mana_heart = registerTerminalWidget(new FileWidget(MMItems.MANA_HEART.get().getDefaultInstance(), 150, 50, new FileWidget.Properties().parent(mana_dice).fileWidgetType(FileWidgetType.RARE)));
         FileWidget texture = registerTerminalWidget(new FileWidget(new TextureInscribed(ManaMod.prefix("textures/item/mana_cake.png"), 16, 16), Component.literal("Test"), -50, -50, new FileWidget.Properties().parent(mana)));
@@ -58,12 +63,20 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             this.addRenderableWidget(fileWidget);
         }
         
+        this.score = new BarWidget(5, 5, 100, 10, Component.literal("Score"), 100, new TextureInscribed(ManaMod.prefixGui("terminal/score"), 8, 8), this.font);
+        
         this.addRenderableWidget(FOCUS_WIDGET);
         this.addRenderableWidget(score);
         
         this.addInspectorWidget(new InspectorWidget(Mth.floor(this.width / 1.3D), 35, unlock));
         
+        this.tickableWidgets.addAll(fileWidgets);
+        this.tickableWidgets.add(FOCUS_WIDGET);
+        this.tickableWidgets.add(score);
+        
         this.inspectorX = Mth.floor(this.width - this.width / 1.35D) - 1;
+        
+        this.renderables.remove(this.unlock);
         
         super.init();
     }
@@ -131,13 +144,10 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             
             this.unlock.active = !selectedFile.unlock;
             this.unlock.visible = !selectedFile.obtained;
-
-            if (this.unlock.isFocused())
-                this.score.setNeedValue(selectedFile.needScore);
-            else
-                this.score.setNeedValue(0);
             
-            List<FormattedCharSequence> description = this.font.split(selectedFile.description, 90);
+            this.score.setNeedValue(this.unlock.isFocused() ? selectedFile.needScore : 0);
+            
+            List<FormattedCharSequence> description = this.font.split(selectedFile.description, Mth.floor(90 * this.getGuiLeft()));
             
             for(int l = 0; l < description.size(); ++l) {
                 graphics.drawString(this.font, description.get(l), Mth.floor(this.width / 1.3D), 65 + l * 9, 0, false);
@@ -167,10 +177,7 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
             inspectorX = FOCUS_WIDGET.getFollowFocus() != null ? Mth.floor(Util.transformingNumber(0, Mth.floor(inspectorX), INSPECTOR_SPEED)) : Mth.floor(Util.transformingNumber(this.width - this.width / 1.35D, Mth.floor(inspectorX + 1), INSPECTOR_SPEED));
         }
         
-        FOCUS_WIDGET.tick();
-        for (FileWidget fileWidget : fileWidgets) {
-            fileWidget.tick();
-        }
+        tickableWidgets.forEach(Tickable::tick);
     }
     
     @Override
@@ -184,10 +191,9 @@ public class TerminalScreen extends AbstractContainerScreen<TerminalMenu> {
         graphics.setColor(COLOR.get(0), COLOR.get(1), COLOR.get(2), COLOR.get(3));
     }
     
-    public InspectorWidget addInspectorWidget(InspectorWidget inspectorWidget) {
+    public void addInspectorWidget(InspectorWidget inspectorWidget) {
         this.addRenderableWidget(inspectorWidget.widget);
         inspectorWidgets.add(inspectorWidget);
-        return inspectorWidget;
     }
     
     public FileWidget registerTerminalWidget(FileWidget fileWidget) {

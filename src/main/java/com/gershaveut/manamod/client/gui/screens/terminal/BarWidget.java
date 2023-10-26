@@ -6,18 +6,19 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarWidget extends AbstractWidget {
+public class BarWidget extends AbstractWidget implements Tickable {
     private static final List<Float> BLINK = new ArrayList<>(TerminalScreen.COLOR);
-
+    
     public TextureInscribed icon;
     public int maxValue;
     public Font font;
-
+    
     private int value;
     private int needValue;
     private int tempValue;
@@ -44,10 +45,10 @@ public class BarWidget extends AbstractWidget {
         graphics.fill(barsX, this.getY(), barsWidth, barsHeight, 8421504);
         graphics.fill(barsX, this.getY(), barsWidth * (tempValue / maxValue), barsHeight, 16753920);
         graphics.fill(barsX, this.getY(), barsWidth * (value / maxValue), barsHeight, -1);
-
+        
         graphics.setColor(BLINK.get(0), BLINK.get(1), BLINK.get(2), TerminalScreen.COLOR.get(3));
-        graphics.fill(barsWidth * (value / maxValue) - needValue, this.getY(), barsWidth * (value / maxValue), barsHeight, -1);
-        graphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+        graphics.fill(barsWidth * (value / maxValue) - needValue / this.width, this.getY(), barsWidth * (value / maxValue), barsHeight, -1);
+        TerminalScreen.setTerminalColor(graphics);
         
         graphics.drawString(this.font, Component.literal(String.valueOf(value)), barsWidth + 5, barsHeight / 2, 0);
         
@@ -55,6 +56,7 @@ public class BarWidget extends AbstractWidget {
             graphics.drawString(this.font, Component.literal(String.valueOf(value - tempValue)), barsWidth + 10, barsHeight / 2, 8421504);
     }
     
+    @Override
     public void tick() {
         if (timer > 0)
             timer -= 0.1F;
@@ -65,26 +67,26 @@ public class BarWidget extends AbstractWidget {
             else
                 timer = 100;
         }
-
+        
         Util.blinkingColor(BLINK, TerminalScreen.COLOR, 0.5F, 0.25F);
     }
     
     @Override
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
-
+    
     public int getValue() {
         return this.value;
     }
-
+    
     public void setValue(int value) {
         this.value = Math.min(value, maxValue);
     }
-
+    
     public int getNeedValue() {
         return this.value;
     }
-
+    
     public void setNeedValue(int needValue) {
         this.needValue = Math.min(needValue, value);
     }

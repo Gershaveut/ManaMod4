@@ -5,13 +5,14 @@ import com.gershaveut.manamod.Util;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.texture.Tickable;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 import javax.annotation.Nullable;
 
-public class FocusWidget extends AbstractWidget {
+public class FocusWidget extends AbstractWidget implements Tickable {
     private static final ResourceLocation FOCUS = ManaMod.prefixGui("terminal/focus");
     private static final int FOCUS_SPEED = 10;
     
@@ -44,6 +45,7 @@ public class FocusWidget extends AbstractWidget {
     protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
     }
     
+    @Override
     public void tick() {
         if (followFocus != null) {
             if (followFocus.focusing) {
