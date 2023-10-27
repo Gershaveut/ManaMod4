@@ -2,7 +2,7 @@ package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.ManaMod;
 import com.gershaveut.manamod.Util;
-import com.gershaveut.manamod.util.TextureInscribed;
+import com.gershaveut.manamod.client.gui.screens.TextureInscribed;
 import com.gershaveut.manamod.world.item.Tooltip;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;

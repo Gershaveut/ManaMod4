@@ -1,7 +1,7 @@
 package com.gershaveut.manamod.client.gui.screens.terminal;
 
 import com.gershaveut.manamod.Util;
-import com.gershaveut.manamod.util.TextureInscribed;
+import com.gershaveut.manamod.client.gui.screens.TextureInscribed;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
